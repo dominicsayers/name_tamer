@@ -2,6 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/name-tamer.png)](http://badge.fury.io/rb/name-tamer)
 ![build status](https://circleci.com/gh/Xenapto/name-tamer.png?circle-token=2293f2a1d8463a948c2a2ce4bb3bd99786958c59)
+[![Coverage Status](https://img.shields.io/coveralls/Xenapto/name-tamer.svg)](https://coveralls.io/r/Xenapto/name-tamer)
 
 NameTamer: making sense of names
 
