@@ -10,7 +10,6 @@
 # http://en.wikipedia.org/wiki/Nobiliary_particle
 # http://en.wikipedia.org/wiki/Spanish_naming_customs
 # http://linguistlist.org/pubs/tocs/JournalUnifiedStyleSheet2007.pdf [PDF]
-require 'active_support/core_ext/object'
 
 class NameTamer
   attr_reader :name, :contact_type
@@ -278,7 +277,7 @@ class NameTamer
     adfixes       = ADFIX_PATTERNS[adfix_type]
     contact_type  = contact_type_best_effort
     parts         = name_part.partition adfixes[contact_type]
-    @adfix_found  = parts[1].present?
+    @adfix_found  = !parts[1].empty?
 
     # If the contact type is indeterminate and we didn't find a diagnostic adfix
     # for a person then try again for an organization
@@ -286,7 +285,7 @@ class NameTamer
       unless @adfix_found
         contact_type  = :organization
         parts         = name_part.partition adfixes[contact_type]
-        @adfix_found  = parts[1].present?
+        @adfix_found  = !parts[1].empty?
       end
     end
 
