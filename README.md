@@ -28,10 +28,20 @@ Examples:
 NameTamer['Mr. John Q. Smith III, MD'].simple_name # => John Smith
 ```
 
+Or you can create an instance if you need several versions of the name
+
 ```ruby
-name_tamer = NameTamer['Mr. John Q. Smith III, MD']
+name_tamer = NameTamer.new 'Mr. John Q. Smith III, MD'
 name_tamer.slug # => john-smith
 name_tamer.nice_name # => John Q. Smith
+name_tamer.contact_type # => :person
+```
+
+NameTamer will make an intelligent guess at the type of the name but it's not infallible. NameTamer likes it if you tell it whether the name is a person or an organization:
+
+```ruby
+name_tamer = NameTamer.new 'Di Doo Doo d.o.o.', contact_type: :organization
+name_tamer.simple_name # => Di Doo Doo
 ```
 
 ## Contributing
