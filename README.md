@@ -1,11 +1,10 @@
 # NameTamer
 
 [![Gem Version](https://badge.fury.io/rb/name-tamer.png)](http://badge.fury.io/rb/name-tamer)
-[![Code Climate](https://codeclimate.com/github/Xenapto/name-tamer.png)](https://codeclimate.com/github/Xenapto/name-tamer)
 [![Dependency Status](https://gemnasium.com/Xenapto/name-tamer.png)](https://gemnasium.com/Xenapto/name-tamer)
-![build status](https://circleci.com/gh/Xenapto/name-tamer.png?circle-token=dd3a51864d33f6506b18a355bc901b90c0df3b3b)
+![build status](https://circleci.com/gh/Xenapto/name-tamer.png?circle-token=2293f2a1d8463a948c2a2ce4bb3bd99786958c59)
 
-NameTamer: deploying Rails projects to Ubuntu using Foreman
+NameTamer: making sense of names
 
 ## Installation
 
