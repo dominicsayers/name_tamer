@@ -1,7 +1,6 @@
 # NameTamer
 
 [![Gem Version](https://badge.fury.io/rb/name-tamer.png)](http://badge.fury.io/rb/name-tamer)
-[![Dependency Status](https://gemnasium.com/Xenapto/name-tamer.svg)](https://gemnasium.com/Xenapto/name-tamer)
 ![build status](https://circleci.com/gh/Xenapto/name-tamer.png?circle-token=2293f2a1d8463a948c2a2ce4bb3bd99786958c59)
 
 NameTamer: making sense of names
