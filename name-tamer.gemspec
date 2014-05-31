@@ -21,6 +21,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake', '~> 10'
   spec.add_development_dependency 'rspec', '~> 2'
   spec.add_development_dependency 'gem-release', '~> 0'
-  spec.add_development_dependency 'simplecov', '~> 0.7.1' # https://github.com/colszowka/simplecov/issues/281
+  spec.add_development_dependency 'simplecov', '~> 0.7', '>= 0.7.1' # https://github.com/colszowka/simplecov/issues/281
   spec.add_development_dependency 'coveralls', '~> 0'
 end
