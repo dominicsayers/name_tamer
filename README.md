@@ -1,7 +1,6 @@
 # NameTamer
 
-![Gem Version](http://img.shields.io/gem/v/name-tamer.svg?style=flat)
-[![Coverage Status](https://img.shields.io/coveralls/Xenapto/name-tamer.svg?style=flat)](https://coveralls.io/r/Xenapto/name-tamer?branch=master)
+![Gem Version](http://img.shields.io/gem/v/name-tamer.svg?style=flat)&nbsp;[![Coverage Status](https://img.shields.io/coveralls/Xenapto/name-tamer.svg?style=flat)](https://coveralls.io/r/Xenapto/name-tamer?branch=master)
 [![Developer status](http://img.shields.io/badge/developer-awesome-brightgreen.svg?style=flat)](http://xenapto.com)
 ![build status](https://circleci.com/gh/Xenapto/name-tamer.png?circle-token=2293f2a1d8463a948c2a2ce4bb3bd99786958c59)
 
