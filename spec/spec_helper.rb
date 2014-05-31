@@ -1,5 +1,7 @@
 # Initialize simplecov for coverage report.
 require 'simplecov'
+require 'coveralls'
+Coveralls.wear!
 SimpleCov.start
 
 RSpec.configure do |config|
