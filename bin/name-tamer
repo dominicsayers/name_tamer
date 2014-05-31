@@ -1,3 +1,0 @@
-#!/usr/bin/env ruby
-require 'name_tamer/cli'
-NameTamer::CLI.start

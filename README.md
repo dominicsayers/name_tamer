@@ -10,7 +10,7 @@ NameTamer: making sense of names
 
 Add this line to your application's Gemfile:
 
-    gem 'name-tamer', :require => 'name_tamer'
+    gem 'name-tamer'
 
 And then execute:
 
