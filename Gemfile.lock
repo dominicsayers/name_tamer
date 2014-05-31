@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    name-tamer (0.0.0)
+    name-tamer (0.0.2)
 
 GEM
   remote: https://rubygems.org/
@@ -46,4 +46,4 @@ DEPENDENCIES
   name-tamer!
   rake (~> 10)
   rspec (~> 2)
-  simplecov (~> 0.7.1)
+  simplecov (~> 0.7, >= 0.7.1)

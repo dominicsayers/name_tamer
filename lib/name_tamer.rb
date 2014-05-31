@@ -37,24 +37,24 @@ class NameTamer
     @nice_name
   end
 
-  def search_name
-    if @search_name.nil?
-      @search_name = nice_name.dup    # Start with nice name
+  def simple_name
+    if @simple_name.nil?
+      @simple_name = nice_name.dup    # Start with nice name
 
       remove_initials                 # "John Q. Doe" -> "John Doe"
       remove_middle_names             # "Philip Seymour Hoffman" -> "Philip Hoffman"
       remove_dots_from_abbreviations  # "J.P.R. Williams" -> "JPR Williams"
       standardize_words               # "B&Q Intl" -> "B and Q International"
 
-      @search_name = ensure_whitespace_is_ascii_space @search_name
+      @simple_name = ensure_whitespace_is_ascii_space @simple_name
     end
 
-    @search_name
+    @simple_name
   end
 
   def slug
     if @slug.nil?
-      @slug = search_name.dup         # Start with search name
+      @slug = simple_name.dup         # Start with search name
       slugify                         # "John Doe" -> "john-doe"
     end
 
@@ -79,7 +79,7 @@ class NameTamer
     {
       name:         @name,
       nice_name:    @nice_name,
-      search_name:  @search_name,
+      simple_name:  @simple_name,
       slug:         @slug,
       contact_type: @contact_type,
       last_name:    @last_name,
@@ -197,28 +197,28 @@ class NameTamer
   # i.e. only remove initials if there's also a proper name there
   def remove_initials
     if @contact_type == :person
-      name = @search_name.gsub(/\b([a-z](?:\.*\s+|\.))/i, '')
+      name = @simple_name.gsub(/\b([a-z](?:\.*\s+|\.))/i, '')
 
       # If the name still has at least one space we're OK
-      @search_name = name if name.include?(ASCII_SPACE)
+      @simple_name = name if name.include?(ASCII_SPACE)
     end
   end
 
   def remove_middle_names
     if @contact_type == :person
-      parts = @search_name.split
-      @search_name = "#{parts[0]} #{parts[-1]}" if parts.count > 2
+      parts = @simple_name.split
+      @simple_name = "#{parts[0]} #{parts[-1]}" if parts.count > 2
     end
   end
 
   def remove_dots_from_abbreviations
-    @search_name.gsub!(/\b([a-z])\./i) { |match| $1 }
+    @simple_name.gsub!(/\b([a-z])\./i) { |match| $1 }
   end
 
   def standardize_words
-    @search_name.gsub!(/ *& */, ' and ')              # replace ampersand characters with ' and '
-    @search_name.gsub!(/ *\+ */, ' plus ')            # replace plus signs with ' plus '
-    @search_name.gsub!(/\bintl\b/i, 'International')  # replace 'intl' with 'International'
+    @simple_name.gsub!(/ *& */, ' and ')              # replace ampersand characters with ' and '
+    @simple_name.gsub!(/ *\+ */, ' plus ')            # replace plus signs with ' plus '
+    @simple_name.gsub!(/\bintl\b/i, 'International')  # replace 'intl' with 'International'
   end
 
   #--------------------------------------------------------
@@ -242,7 +242,7 @@ class NameTamer
     @contact_type = args[:contact_type].to_sym unless args[:contact_type].nil?
 
     @nice_name    = nil
-    @search_name  = nil
+    @simple_name  = nil
     @slug         = nil
 
     @last_name    = nil

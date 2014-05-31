@@ -142,7 +142,7 @@ describe NameTamer do
   it "makes a searchable name from #{name}" do
     names.each do |name_data|
       name = name_data[:n]
-      NameTamer[name, contact_type:name_data[:t]].search_name.should == name_data[:sn]
+      NameTamer[name, contact_type:name_data[:t]].simple_name.should == name_data[:sn]
     end
   end
 end
