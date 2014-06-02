@@ -133,6 +133,7 @@ describe NameTamer do
       { n:'* *', t: :person, nn: '* *', sn: '* *', s:'_'},
       { n:'* Olga *', t: :person, nn: '* Olga *', sn: 'Olga', s:'olga'},
       { n:'* Olga Bedia García *', t: :person, nn: '* Olga Bedia García *', sn: 'Olga García', s:'olga-garcia'},
+      { n:'John Smith M.A. (Oxon)', t: :person, nn: 'John Smith', sn: 'John Smith', s: 'john-smith'}
     ]
   end
 
