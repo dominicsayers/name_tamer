@@ -537,9 +537,11 @@ class NameTamer
     },
     suffix: {
       person: [
-        'C.I.S.S.P.', 'T.M.I.E.T.', 'F.I.E.T.', 'M.I.E.T.', 'B.Tech.', 'D.Phil.', 'B.Eng.', 'M.Jur.', 'C.F.A.', 'D.B.E.',
+        'C.I.S.S.P.', 'T.M.I.E.T.', 'A.C.C.A.', 'F.C.C.A.', 'F.C.M.I.', 'F.I.E.T.', 'F.I.R.P.', 'M.I.E.T.', 'B.Tech.',
+        'D.Phil.', 'I.T.I.L. v3', 'B.Eng.', 'C.Eng.', 'M.Jur.', 'C.F.A.', 'D.B.E.',
         'D.D.S.', 'D.V.M.', 'Eng.D.', 'A.C.A.', 'C.T.A.', 'E.R.P.', 'F.C.A', 'M.B.A.', 'M.B.E.',
-        'M.E.P.', 'M.Eng.', 'M.S.P.', 'O.B.E.', 'P.M.C.', 'P.M.P.', 'P.S.P.', 'V.M.D.', 'B.Ed.', 'B.Sc.', 'Ed.D.', 'LL.B.',
+        'M.E.P.', 'M.Eng.', 'M.Jur.', 'M.S.P.', 'O.B.E.', 'P.M.C.', 'P.M.P.', 'P.S.P.', 'V.M.D.', 'B.Ed.', 'B.Sc.', 'Ed.D.',
+        'LL.B.',
         'LL.D.', 'LL.M.', 'M.Ed.', 'M.Sc.', 'Ph.D.', 'B.A.', 'Esq.', 'J.D.', 'K.C.', 'M.A.', 'M.D.', 'M.P.', 'O.K.',
         'P.A.', 'Q.C.', 'III', 'Jr.', 'Sr.', 'II', 'IV', 'I', 'V'
       ],
@@ -553,7 +555,8 @@ class NameTamer
         'K.G.a.A.', 'L.L.L.P.', 'Ltd. Co.', 'Ltd. Co.', 'M.E.P.E.', 'n.y.r.t.', 'O.V.E.E.', 'P.E.E.C.', 'P.L.L.C.',
         'P.L.L.C.', 'S. en C.', 'S.a.p.a.', 'S.A.R.L.', 'S.à.R.L.', 'S.A.S.U.', 'S.C.e.I.', 'S.C.O.P.', 'S.C.p.A.',
         'S.C.R.I.', 'S.C.R.L.', 'S.M.B.A.', 'S.P.R.L.', 'Е.О.О.Д.', 'and Co.', 'Comm.V.', 'Limited', 'P. Ltd.',
-        'Part.G.', 'Sh.p.k.', '&. Co.', 'C.X.A.', 'd.n.o.', 'd.o.o.', 'E.A.D.', 'e.h.f.', 'E.P.E.', 'E.S.V.', 'F.C.P.',
+        'Part.G.', 'Sh.p.k.', '&. Co.', '&. Cie.', 'C.X.A.', 'd.n.o.', 'd.o.o.', 'E.A.D.', 'e.h.f.', 'E.P.E.', 'E.S.V.',
+        'F.C.P.',
         'F.I.E.', 'G.b.R.', 'G.I.E.', 'G.M.K.', 'G.S.K.', 'H.U.F.', 'K.D.A.', 'k.f.t.', 'k.h.t.', 'k.k.t.', 'L.L.C.',
         'L.L.P.', 'o.h.f.', 'O.H.G.', 'O.O.D.', 'O.y.j.', 'p.l.c.', 'P.S.U.', 'S.A.E.', 'S.A.S.', 'S.C.A.', 'S.C.E.',
         'S.C.S.', 'S.E.M.', 'S.E.P.', 's.e.s.', 'S.G.R.', 'S.N.C.', 'S.p.A.', 'S.P.E.', 'S.R.L.', 's.r.o.', 'Unltd.',
@@ -564,7 +567,7 @@ class NameTamer
         'Ltd.', 'N.K.', 'N.L.', 'N.V.', 'O.E.', 'O.G.', 'O.Ü.', 'O.y.', 'P.C.', 'p.l.', 'Pty.', 'PUP.', 'Pvt.', 'r.t.',
         'S.A.', 'S.D.', 'S.E.', 's.f.', 'S.L.', 'S.P.', 'S.s.', 'T.K.', 'T.Ü.', 'U.Ü.', 'Y.K.', 'А.Д.', 'І.П.', 'К.Д.',
         'ПУП.', 'С.Д.', 'בע"מ', '任意組合', '匿名組合', '合同会社', '合名会社', '合資会社', '有限会社', '有限公司', '株式会社',
-        'A/S', 'G/S', 'I/S', 'K/S', 'P/S'
+        'A/S', 'G/S', 'I/S', 'K/S', 'P/S', 'S/A'
       ],
       before:ADFIX_JOINERS, after:'\\z'
     }
