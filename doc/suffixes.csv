@@ -1,0 +1,255 @@
+suffix,description,type_diagnosis,type_diagnosis_probability,jurisdiction,length
+S. de R.L. de C.V.,,organization,100,,18
+S.A.P.I. de C.V.,,organization,100,,16
+y. Cía. S. en C.,Sociedad en Comandita Simple,organization,100,Guatemala,16
+Private Limited,Limited Company,organization,100,,15
+S.M. Pte. Ltd.,Single Member Private Limited Company,organization,100,Cambodia,14
+Cía. S. C. A.,Sociedad en Comandita por Acciones,organization,100,Guatemala,13
+y. Cía. S. C.,Sociedad Colectiva,organization,100,Guatemala,13
+S.A. de C.V.,,organization,100,Mexico,12
+spol. s.r.o.,Společnost s ručením omezeným,organization,100,Czech Republic,12
+(Pty.) Ltd.,,organization,100,,11
+(Pvt.) Ltd.,Private Limited Company,organization,100,India,11
+A.D.S.I.Tz.,aktsionerno druzhestvo sus spetsialna investitsionna tsel,organization,100,Bulgaria,11
+S.p. z.o.o.,spółka z ograniczoną odpowiedzialnością,organization,100,Poland,11
+(Pvt.)Ltd.,Private Limited Company,organization,100,India,10
+akc. spol.,Akciová společnost,organization,100,Czech Republic,10
+Cía. Ltda.,Compañía Limitada,organization,100,Ecuador,10
+E.B.V.B.A.,eenpersoons besloten vennootschap met beperkte aansprakelijkheid,organization,100,Belgium,10
+P. Limited,Private Limited Company,organization,100,,10
+S. de R.L.,,organization,100,,10
+S.I.C.A.V.,Société d'investissement à capital variable,organization,100,France,10
+S.P.R.L.U.,société privée à responsabilité limitée unipersonnelle,organization,100,Belgium,10
+А.Д.С.И.Ц.,aktsionerno druzhestvo sus spetsialna investitsionna tsel,organization,100,Bulgaria,10
+(P.) Ltd.,Private Limited Company,organization,100,India,9
+C. por A.,Compañía por Acciones,organization,100,Dominican Republic,9
+Comm.V.A.,commanditaire vennootschap op aandelen,organization,100,Belgium,9
+Ltd. Şti.,,organization,100,Turkey,9
+Plc. Ltd.,Public Limited Company,organization,100,Cambodia,9
+Pte. Ltd.,Private Limited Company,organization,100,Cambodia,9
+Pty. Ltd.,Proprietary Limited Company,organization,100,Australia,9
+Pvt. Ltd.,Private Limited Company,organization,100,India,9
+Soc. Col.,Sociedad Colectiva,organization,100,Argentina,9
+A.M.B.A.,Andelsselskab med begrænset ansvar,organization,100,Denmark,8
+A.S.B.L.,association sans but lucratif,organization,100,Belgium,8
+A.V.E.E.,Anónimi Viomihanikí Emborikí Etería,organization,100,Greece,8
+B.V.B.A.,besloten vennootschap met beperkte aansprakelijkheid,organization,100,Belgium,8
+B.V.I.O.,,organization,100,,8
+C.V.B.A.,coöperatieve vennootschap met beperkte aansprakelijkheid ,organization,100,Belgium,8
+C.V.O.A.,coöperatieve vennootschap met onbeperkte aansprakelijkheid,organization,100,Belgium,8
+E.E.I.G.,European Economic Interest Grouping,organization,100,European Economic Area,8
+E.I.R.L.,Empresa Individual de Responsabilidad Limitada,organization,100,,8
+E.O.O.D.,ednolichno druzhestvo s ogranichena otgovornost,organization,100,Bulgaria,8
+E.U.R.L.,Entreprise unipersonnelle à responsabilité limitée,organization,100,France,8
+F.M.B.A.,Forening med begrænset ansvar,organization,100,Denmark,8
+G.m.b.H.,Gesellschaft mit beschränkter Haftung,organization,100,,8
+Ges.b.R.,Gesellschaft des bürgerlichen Rechts,organization,100,Austria,8
+K.G.a.A.,Kommanditgesellschaft auf Aktien,organization,100,Germany,8
+L.L.L.P.,Limited Liability Limited Partnership,organization,100,United States,8
+Ltd. Co.,Limited Company,organization,100,United States,8
+Ltd. Co.,Limited,organization,100,,8
+M.E.P.E.,Monoprósopi Etería Periorisménis Efthínis,organization,100,Greece,8
+n.y.r.t.,nyilvánosan működő részvénytársaság,organization,100,Hungary,8
+O.V.E.E.,Omórithmi Viomihanikí Emborikí Etería,organization,100,Greece,8
+P.E.E.C.,Public Establishment with Economic characteristics,organization,100,Cambodia,8
+P.L.L.C.,Sociedade simples,organization,100,Brazil,8
+P.L.L.C.,Professional Limited Liability Company,organization,100,United States,8
+S. en C.,Comandita simple,organization,100,Colombia,8
+S.a.p.a.,Società in accomandita per azioni,organization,100,Italy,8
+S.A.R.L.,Société à responsabilité limitée,organization,100,France,8
+S.à.R.L.,Société à responsabilité limitée,organization,100,France,8
+S.A.S.U.,Entreprise unipersonnelle,organization,100,France,8
+S.C.e.I.,Sociedad de Capital e Industria,organization,100,Argentina,8
+S.C.O.P.,Société coopérative de production,organization,100,France,8
+S.C.p.A.,Sociedad en Comandita por Acciones,organization,100,Argentina,8
+S.C.R.I.,société coopérative à responsabilité illimitée,organization,100,Belgium,8
+S.C.R.L.,,organization,100,,8
+S.M.B.A.,Selskab med begrænset ansvar,organization,100,Denmark,8
+S.P.R.L.,société privée à responsabilité limitée,organization,100,Belgium,8
+Е.О.О.Д.,ednolichno druzhestvo s ogranichena otgovornost,organization,100,Bulgaria,8
+and Co.,,organization,100,,7
+Comm.V.,gewone commanditaire vennootschap,organization,100,Belgium,7
+Limited,Limited,organization,100,,7
+P. Ltd.,Private Limited Company,organization,100,,7
+Part.G.,Partnerschaftsgesellschaft,organization,100,Germany,7
+Sh.p.k.,Shoqeri me pergjegjesi te kufizuar,organization,100,Albania,7
+&. Co.,,organization,100,,6
+C.X.A.,Compañía por Acciones,organization,100,Dominican Republic,6
+d.n.o.,društvo s neograničenom solidarnom odgovornošću,organization,100,Bosnia & Herzegovina,6
+d.o.o.,društvo s ograničenom odgovornošću,organization,100,Bosnia & Herzegovina,6
+E.A.D.,ednolichno aktsionerno druzhestvo,organization,100,Bulgaria,6
+e.h.f.,einkahlutafélag,organization,100,Iceland,6
+E.P.E.,Etería Periorisménis Efthínis,organization,100,Greece,6
+E.S.V.,economisch samenwerkingsverband,organization,100,Belgium,6
+F.C.P.,Fond commun de placement,organization,100,France,6
+F.I.E.,Füüsilisest isikust ettevõtja,organization,100,Estonia,6
+G.b.R.,Gesellschaft bürgerlichen Rechts,organization,100,Germany,6
+G.I.E.,groupement d'intérêt économique,organization,100,,6
+G.M.K.,gōmei-kaisha,organization,100,Japan,6
+G.S.K.,gōshi-kaisha,organization,100,Japan,6
+H.U.F.,Hindu Undivided Family,organization,100,India,6
+K.D.A.,komanditno druzhestvo s aktzii,organization,100,Bulgaria,6
+k.f.t.,korlátolt felelősségű társaság,organization,100,Hungary,6
+k.h.t.,közhasznú társaság,organization,100,Hungary,6
+k.k.t.,közkereseti társaság,organization,100,Hungary,6
+L.L.C.,Limited Liability Company,organization,100,,6
+L.L.P.,Limited Liability Partnership,organization,100,,6
+o.h.f.,opinbert hlutafélag,organization,100,Iceland,6
+O.H.G.,offene Handelsgesellschaft,organization,100,Germany,6
+O.O.D.,drujestvo s ogranichena otgovornost,organization,100,Bulgaria,6
+O.y.j.,julkinen osakeyhtiö,organization,100,Finland,6
+p.l.c.,public limited company,organization,100,United Kingdom,6
+P.S.U.,Public Sector Unit,organization,100,India,6
+S.A.E.,Sharikat al-Mossahamah,organization,100,Egypt,6
+S.A.S.,,organization,100,,6
+S.C.A.,,organization,100,,6
+S.C.E.,Societas Cooperativa Europaea,organization,100,European Economic Area,6
+S.C.S.,,organization,100,,6
+S.E.M.,Société d'économie mixte,organization,100,France,6
+S.E.P.,société en participation,organization,100,,6
+s.e.s.,sjálfseignarstofnun,organization,100,Iceland,6
+S.G.R.,Sociedad de Garantía Reciproca,organization,100,,6
+S.N.C.,,organization,100,,6
+S.p.A.,,organization,100,,6
+S.P.E.,Societas Privata Europaea,organization,100,European Economic Area,6
+S.R.L.,,organization,100,,6
+s.r.o.,Společnost s ručením omezeným,organization,100,Czech Republic,6
+Unltd.,Unlimited company,organization,100,Hong Kong,6
+V.O.F.,vennootschap onder firma,organization,100,,6
+V.o.G.,Vereinigung ohne Gewinnerzielungsabsicht,organization,100,Belgium,6
+v.o.s.,veřejná obchodní společnost,organization,100,Czech Republic,6
+V.Z.W.,vereniging zonder winstoogmerk,organization,100,Belgium,6
+z.r.t.,zártkörűen működő részvénytársaság,organization,100,Hungary,6
+А.А.Т.,Adkritae Aktsiyanernae Tavaristva,organization,100,Belarus,6
+Е.А.Д.,ednolichno aktsionerno druzhestvo,organization,100,Bulgaria,6
+З.А.Т.,Zakritae Aktsiyanernae Tavaristva,organization,100,Belarus,6
+К.Д.А.,komanditno druzhestvo s aktzii,organization,100,Bulgaria,6
+О.О.Д.,drujestvo s ogranichena otgovornost,organization,100,Bulgaria,6
+Т.А.А.,Tabaristva z Abmezabanaj Adkaznastsu,organization,100,Belarus,6
+股份有限公司,Public Limited Company,organization,100,China,6
+Ap.S.,Anpartsselskab,organization,100,Denmark,5
+Corp.,Corporation,organization,100,,5
+ltda.,,organization,100,,5
+Sh.A.,Shoqeri Aksionere,organization,100,Albania,5
+st.G.,stille Gesellschaft,organization,100,Austria,5
+Ultd.,Unlimited company,organization,100,Hong Kong,5
+a.b.,,organization,100,,4
+A.D.,,organization,100,,4
+A.E.,Anónimi Etería,organization,100,Greece,4
+A.G.,Aktiengesellschaft,organization,100,,4
+A.S.,,organization,60,,4
+A.Ş.,,organization,100,Turkey,4
+A.y.,avoin yhtiö,organization,80,Finland,4
+B.M.,Be'eravon Mugbal,organization,100,Israel,4
+b.t.,betéti társaság,organization,100,Hungary,4
+B.V.,Besloten vennootschap,organization,100,Netherlands,4
+C.A.,Compañía Anónima,organization,75,Ecuador,4
+C.V.,Commanditaire vennootschap,organization,100,Netherlands,4
+d.d.,dioničko društvo,organization,100,Bosnia & Herzegovina,4
+e.c.,egyéni cég,organization,100,Hungary,4
+E.E.,Eterórithmos Etería,organization,100,Greece,4
+e.G.,eingetragene Genossenschaft,organization,100,Germany,4
+E.I.,Entreprise individuelle,organization,100,France,4
+E.P.,Empresa Pública,organization,100,Ecuador,4
+E.T.,ednolichen turgovetz,organization,100,Bulgaria,4
+E.U.,Empresa unipersonal,organization,100,Colombia,4
+e.v.,,organization,100,,4
+G.K.,gōdō-kaisha,organization,100,Japan,4
+G.P.,General Partnership,organization,100,,4
+h.f.,hlutafélag,organization,100,Iceland,4
+Inc.,Incorporated,organization,100,,4
+K.D.,,organization,100,,4
+K.G.,Kommanditgesellschaft,organization,100,,4
+K.K.,kabushiki-kaisha,organization,100,Japan,4
+k.s.,komanditní společnost,organization,100,Czech Republic,4
+k.v.,közös vállalat,organization,100,Hungary,4
+K.y.,kommandiittiyhtiö,organization,100,Finland,4
+L.C.,Limited Company,organization,100,United States,4
+L.P.,Limited Partnership,organization,100,,4
+Ltd.,Limited Company,organization,100,,4
+N.K.,nin'i kumiai,organization,100,Japan,4
+N.L.,No Liability,organization,100,Australia,4
+N.V.,naamloze vennootschap,organization,100,,4
+O.E.,Omórithmos Etería,organization,100,Greece,4
+O.G.,offene Gesellschaft,organization,100,Austria,4
+O.Ü.,Osaühing,organization,100,Estonia,4
+O.y.,osakeyhtiö,organization,80,Finland,4
+P.C.,,organization,75,,4
+p.l.,,organization,100,,4
+Pty.,Unlimited Proprietary,organization,100,Australia,4
+PUP.,Privatnae Unitarnae Pradpriemotva,organization,100,Belarus,4
+Pvt.,,organization,100,,4
+r.t.,részvénytársaság,organization,100,Hungary,4
+S.A.,Société anonyme,organization,100,,4
+S.D.,subiratelno druzhestvo,organization,100,Bulgaria,4
+S.E.,,organization,100,,4
+s.f.,sameignarfélag,organization,100,Iceland,4
+S.L.,,organization,100,,4
+S.P.,,organization,100,,4
+S.s.,Società semplice,organization,100,Italy,4
+T.K.,tokumei kumiai,organization,100,Japan,4
+T.Ü.,Täisühing,organization,100,Estonia,4
+U.Ü.,Usaldusühing,organization,100,Estonia,4
+Y.K.,yūgen-kaisha,organization,100,Japan,4
+А.Д.,aktsionerno drujestvo,organization,100,Bulgaria,4
+І.П.,Individualni Pradprimalnik,organization,100,Belarus,4
+К.Д.,komanditno druzhestvo,organization,100,Bulgaria,4
+ПУП.,Privatnae Unitarnae Pradpriemotva,organization,100,Belarus,4
+С.Д.,subiratelno druzhestvo,organization,100,Bulgaria,4
+"בע""מ",Be'eravon Mugbal,organization,100,Israel,4
+任意組合,nin'i kumiai,organization,100,Japan,4
+匿名組合,tokumei kumiai,organization,100,Japan,4
+合同会社,gōdō-kaisha,organization,100,Japan,4
+合名会社,gōmei-kaisha,organization,100,Japan,4
+合資会社,gōshi-kaisha,organization,100,Japan,4
+有限会社,yūgen-kaisha,organization,100,Japan,4
+有限公司,Limited Company,organization,100,China,4
+株式会社,kabushiki-kaisha,organization,100,Japan,4
+A/S,Aktieselskab,organization,100,Denmark,3
+G/S,Gensidigt selskab,organization,100,Denmark,3
+I/S,Interessentskab,organization,100,Denmark,3
+K/S,Kommanditselskab,organization,100,Denmark,3
+P/S,Partnerselskab ,organization,100,Denmark,3
+C.I.S.S.P.,,person,100,,10
+B.Tech.,Bachelor of Technology,person,100,,7
+D.Phil.,Doctor of Philosophy,person,100,,7
+B.Eng.,Bachelor of Engineering,person,100,,6
+C.F.A.,,person,100,,6
+D.B.E.,Dame of the British Empire,person,100,,6
+D.D.S.,Doctor of Dental Surgery,person,100,,6
+Eng.D.,Doctor of Engineering,person,100,,6
+M.B.A.,Master of Business Administration,person,100,,6
+M.B.E.,Member of the Order of the British Empire,person,100,,6
+M.E.P.,Member of the European Parliament,person,100,,6
+M.Eng.,Master of Engineering,person,100,,6
+M.S.P.,Member of the Scottish Parliament,person,100,,6
+O.B.E.,Order of the British Empire,person,100,,6
+P.M.C.,,person,100,,6
+P.M.P.,,person,100,,6
+P.S.P.,,person,100,,6
+B.Ed.,Bachelor of Education,person,20,,5
+B.Sc.,Bachelor of Science,person,100,,5
+Ed.D.,Doctor of Education,person,100,,5
+LL.B.,Bachelor of Laws,person,100,,5
+LL.D.,Doctor of Laws,person,100,,5
+M.Ed.,Master of Education,person,100,,5
+M.Sc.,Master of Science,person,100,,5
+Ph.D.,Doctor of Philosophy,person,100,,5
+B.A.,Bachelor of Arts,person,100,,4
+Esq.,Esquire,person,100,,4
+J.D.,Juris Doctor,person,100,,4
+K.C.,King's Counsel,person,100,,4
+M.A.,Master of Arts,person,100,,4
+M.D.,Doctor of Medicine,person,100,,4
+M.P.,Member of Parliament,person,100,,4
+O.K.,"(unknown personal suffix, poss. Oklahoma-related)",person,20,,4
+P.A.,Physician Assistant,person,100,,4
+Q.C.,Queen's Counsel,person,100,,4
+III,The Third,person,100,,3
+Jr.,Junior,person,100,,3
+Sr.,Senior,person,100,,3
+II,The Second,person,100,,2
+IV,The Fourth,person,100,,2
+V,The Fifth,person,20,,1
+D.V.M.,Doctor of Veterinary Medecine,person,100,,6
+V.M.D.,Doctor of Veterinary Medecine,person,100,,6

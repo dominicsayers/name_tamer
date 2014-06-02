@@ -1,0 +1,49 @@
+prefix,canonical_prefix,type_diagnosis,type_diagnosis_probability,full_prefix
+Baron,,person,20,
+Baroness,,person,80,
+Capt.,,person,100,Captain
+Captain,Capt.,person,40,
+Col.,,person,100,Colonel
+Colonel,Col.,person,60,
+Dame,,person,80,
+Doctor,Dr.,person,20,
+Dr.,,person,80,
+Fa.,,organization,100,Firma
+Judge,,person,40,
+Justice,,person,40,
+Lady,,person,20,
+Lieut.,,person,100,Lieutenant
+Lieutenant,Lieut.,person,60,
+Lord,,person,40,
+Madame,Mme.,person,20,
+Major,,person,20,
+Master,,person,20,
+Matron,,person,40,
+Messrs.,,person,20,
+Mgr.,,person,100,Monsignor
+Miss,,person,80,
+Mister,Mr.,person,40,
+Mlle.,,person,100,Mademoiselle
+Mme.,,person,100,Madame
+Mons.,Mgr.,person,20,Monsignor
+Mr.,,person,80,
+Mr. & Mrs.,,person,100,
+Mr. and Mrs.,Mr. & Mrs.,person,100,
+Mrs.,,person,100,
+Msgr.,Mgr.,person,100,Monsignor
+Prof.,,person,100,Professor
+Professor,Prof.,person,100,
+P.T.,,organization,100,Perseroan Terbatas
+P.T. Tbk.,,organization,100,Perseroan Terbatas Terbuka
+Rev.,,person,100,Reverend
+Reverend,Rev.,person,100,
+Sir,,person,80,
+Sister,,person,20,
+The Hon.,,person,100,The Honourable
+The Lady.,,person,40,
+The Lord,,person,40,
+The Rt. Hon.,,person,100,The Right Honourable
+U.D.,,organization,100,Usaha Dagang
+Doktor,Dr.,person,80,
+Herr,,person,100,
+Frau,,person,100,

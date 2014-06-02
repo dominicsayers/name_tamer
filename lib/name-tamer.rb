@@ -467,10 +467,10 @@ class NameTamer
     },
     suffix: {
       person: [
-        'C.I.S.S.P.', 'B.Tech.', 'D.Phil.', 'B.Eng.', 'C.F.A.', 'D.B.E.', 'D.D.S.', 'Eng.D.', 'M.B.A.', 'M.B.E.',
-        'M.E.P.', 'M.Eng.', 'M.S.P.', 'O.B.E.', 'P.M.C.', 'P.M.P.', 'P.S.P.', 'B.Ed.', 'B.Sc.', 'Ed.D.', 'LL.B.',
+        'C.I.S.S.P.', 'B.Tech.', 'D.Phil.', 'B.Eng.', 'C.F.A.', 'D.B.E.', 'D.D.S.', 'D.V.M.', 'Eng.D.', 'M.B.A.', 'M.B.E.',
+        'M.E.P.', 'M.Eng.', 'M.S.P.', 'O.B.E.', 'P.M.C.', 'P.M.P.', 'P.S.P.', 'V.M.D.', 'B.Ed.', 'B.Sc.', 'Ed.D.', 'LL.B.',
         'LL.D.', 'LL.M.', 'M.Ed.', 'M.Sc.', 'Ph.D.', 'B.A.', 'Esq.', 'J.D.', 'K.C.', 'M.A.', 'M.D.', 'M.P.', 'O.K.',
-        'P.A.', 'Q.C.', 'III', 'Jr.', 'Sr.', 'II', 'IV', 'V'
+        'P.A.', 'Q.C.', 'III', 'Jr.', 'Sr.', 'II', 'IV', 'I', 'V'
       ],
       organization: [
         'S. de R.L. de C.V.', 'S.A.P.I. de C.V.', 'y. Cía. S. en C.', 'Private Limited', 'S.M. Pte. Ltd.',
