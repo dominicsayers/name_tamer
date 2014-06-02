@@ -537,6 +537,7 @@ class NameTamer
     },
     suffix: {
       person: [
+        'Chartered F.C.S.I.',
         'C.I.S.S.P.', 'T.M.I.E.T.', 'A.C.C.A.', 'F.C.C.A.', 'F.C.M.I.', 'F.I.E.T.', 'F.I.R.P.', 'M.I.E.T.', 'B.Tech.',
         'D.Phil.', 'I.T.I.L. v3', 'B.Eng.', 'C.Eng.', 'M.Jur.', 'C.F.A.', 'D.B.E.',
         'D.D.S.', 'D.V.M.', 'Eng.D.', 'A.C.A.', 'C.T.A.', 'E.R.P.', 'F.C.A', 'M.B.A.', 'M.B.E.',
