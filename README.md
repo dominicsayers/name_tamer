@@ -52,15 +52,15 @@ If there are any other common two-word family names that I've missed then please
 
 Please read all the following articles before contributing:
 
-# [Personal names around the world](http://www.w3.org/International/questions/qa-personal-names)
-# [Namae (名前)](https://github.com/berkmancenter/namae)
-# [Matts Name Parser](https://github.com/mericson/people)
-# [Types of business entity](http://en.wikipedia.org/wiki/Types_of_business_entity)
-# [List of professional designations in the United States](http://en.wikipedia.org/wiki/List_of_post-nominal_letters_(USA))
-# [List of post-nominal letters (United Kingdom)](http://en.wikipedia.org/wiki/List_of_post-nominal_letters_(United_Kingdom))
-# [Nobiliary particle](http://en.wikipedia.org/wiki/Nobiliary_particle)
-# [Spanish naming customs](http://en.wikipedia.org/wiki/Spanish_naming_customs)
-# [Unified style sheet for linguistics](http://linguistlist.org/pubs/tocs/JournalUnifiedStyleSheet2007.pdf) [PDF]
+* [Personal names around the world](http://www.w3.org/International/questions/qa-personal-names)
+* [Namae (名前)](https://github.com/berkmancenter/namae)
+* [Matts Name Parser](https://github.com/mericson/people)
+* [Types of business entity](http://en.wikipedia.org/wiki/Types_of_business_entity)
+* [List of professional designations in the United States](http://en.wikipedia.org/wiki/List_of_post-nominal_letters_(USA))
+* [List of post-nominal letters (United Kingdom)](http://en.wikipedia.org/wiki/List_of_post-nominal_letters_(United_Kingdom))
+* [Nobiliary particle](http://en.wikipedia.org/wiki/Nobiliary_particle)
+* [Spanish naming customs](http://en.wikipedia.org/wiki/Spanish_naming_customs)
+* [Unified style sheet for linguistics](http://linguistlist.org/pubs/tocs/JournalUnifiedStyleSheet2007.pdf) [PDF]
 
 ### How to contribute
 
