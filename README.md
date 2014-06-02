@@ -46,6 +46,24 @@ name_tamer.simple_name # => Di Doo Doo
 
 ## Contributing
 
+There must be lots of name suffixes and prefixes that I haven't catered for, so please get in touch if `name-tamer` doesn't recognise one that you've found.
+
+If there are any other common two-word family names that I've missed then please let me know. `name-tamer` tries to make sure Helena Bonham Carter gets slugified to `helena-bonham-carter` and not `helena-carter`, but I'm sure there are loads of two-word family names I don't know about.
+
+Please read all the following articles before contributing:
+
+# [Personal names around the world](http://www.w3.org/International/questions/qa-personal-names)
+# [Namae (名前)](https://github.com/berkmancenter/namae)
+# [Matts Name Parser](https://github.com/mericson/people)
+# [Types of business entity](http://en.wikipedia.org/wiki/Types_of_business_entity)
+# [List of professional designations in the United States](http://en.wikipedia.org/wiki/List_of_post-nominal_letters_(USA))
+# [List of post-nominal letters (United Kingdom)](http://en.wikipedia.org/wiki/List_of_post-nominal_letters_(United_Kingdom))
+# [Nobiliary particle](http://en.wikipedia.org/wiki/Nobiliary_particle)
+# [Spanish naming customs](http://en.wikipedia.org/wiki/Spanish_naming_customs)
+# [Unified style sheet for linguistics](http://linguistlist.org/pubs/tocs/JournalUnifiedStyleSheet2007.pdf) [PDF]
+
+### How to contribute
+
 1.  Fork it
 1.  Create your feature branch (`git checkout -b my-new-feature`)
 1.  Commit your changes (`git commit -am 'Add some feature'`)
