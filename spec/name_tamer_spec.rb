@@ -77,7 +77,7 @@ describe NameTamer do
       { n:'Elazer Edelman, MD , PhD', t: :person, nn:'Elazer Edelman', sn:'Elazer Edelman', s:'elazer-edelman' },
       { n:'Judith M. O\'Brien', t: :person, nn:'Judith M. O\'Brien', sn:'Judith O\'Brien', s:'judith-obrien' },
       { n:'MORRISON, Van', t: :person, nn:'Van Morrison', sn:'Van Morrison', s:'van-morrison' },
-      { n:'i/o Ventures', t: :organization, nn:'i/o Ventures', sn:'i/o Ventures', s:'io-ventures' },
+      { n:'i/o Ventures', t: :organization, nn:'i/o Ventures', sn:'i/o Ventures', s:'i-o-ventures' },
       { n:'C T Corporation System', t: :person, nn:'C.T. Corporation System', sn:'CT Corporation System', s:'ct-corporation-system'},
       { n:'C.T. Corporation System', t: :person, nn:'C.T. Corporation System', sn:'CT Corporation System', s:'ct-corporation-system'},
       { n:'CT Corporation System', t: :person, nn:'CT Corporation System', sn:'CT Corporation System', s:'ct-corporation-system'},
@@ -120,35 +120,38 @@ describe NameTamer do
       { n:'קובי ביטר', t: :organization, nn:'קובי ביטר', sn:'קובי ביטר', s:'קובי-ביטר' },
       { n:'الملاك الحارس', t: :organization, nn:'الملاك الحارس', sn:'الملاك الحارس', s:'الملاك-الحارس' },
       { n:'কবির হাসান', t: :organization, nn:'কবির হাসান', sn:'কবির হাসান', s:'কবির-হাসান' },
-      { nn: '', sn: '', s: '' },
+      { nn: '', sn: '', s: '_' },
       { n:'Union Square Ventures', t: 'Organization', nn:'Union Square Ventures', sn:'Union Square Ventures', s:'union-square-ventures' },
       { n:'John Smith', t: 'Person', nn:'John Smith', sn:'John Smith', s:'john-smith' },
       { n:'John Smith', t: :nonsense, nn:'John Smith', sn:'John Smith', s:'john-smith' },
       { n:'John Smith', t: Kernel, nn:'John Smith', sn:'John Smith', s:'john-smith' },
       { n:'Ms Jane Smith', t: :person, nn:'Jane Smith', sn:'Jane Smith', s:'jane-smith' },
       { n:'example.com', t: :organization, nn:'example.com', sn:'example.com', s:'example-com' },
-      { n:'Hermann Müller', t: :person, nn: 'Hermann Müller', sn: 'Hermann Müller', s:'hermann-muller'}
+      { n:'Hermann Müller', t: :person, nn: 'Hermann Müller', sn: 'Hermann Müller', s:'hermann-muller'},
+      { n:'b-to-v Partners AG', t: :organization, nn:'b-to-v Partners', sn:'b-to-v Partners', s:'b-to-v-partners' },
+      { n:'*', t: :person, nn: '*', sn: '*', s:'_'},
+      { n:'* *', t: :person, nn: '* *', sn: '* *', s:'_'},
+      { n:'* Olga *', t: :person, nn: '* Olga *', sn: 'Olga', s:'olga'},
+      { n:'* Olga Bedia García *', t: :person, nn: '* Olga Bedia García *', sn: 'Olga García', s:'olga-garcia'},
     ]
   end
 
-  it "makes a slug from #{name}" do
+  it "makes a slug" do
     names.each do |name_data|
       name = name_data[:n]
-#-puts NameTamer[name, contact_type:name_data[:t]].simple_name # debug
       NameTamer[name, contact_type:name_data[:t]].slug.should == name_data[:s]
     end
   end
 
-  it "makes a nice name from #{name}" do
+  it "makes a nice name" do
     names.each do |name_data|
       name      = name_data[:n]
       nice_name = NameTamer[name, contact_type:name_data[:t]].nice_name
-
       nice_name.should == name_data[:nn]
     end
   end
 
-  it "makes a searchable name from #{name}" do
+  it "makes a searchable name" do
     names.each do |name_data|
       name = name_data[:n]
       NameTamer[name, contact_type:name_data[:t]].simple_name.should == name_data[:sn]

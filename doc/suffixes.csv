@@ -253,3 +253,14 @@ IV,The Fourth,person,100,,2
 V,The Fifth,person,20,,1
 D.V.M.,Doctor of Veterinary Medecine,person,100,,6
 V.M.D.,Doctor of Veterinary Medecine,person,100,,6
+M.I.E.T.,Member of the Institution of Engineering and Technology,100,,8
+T.M.I.E.T.,Member of the Institution of Engineering and Technology,100,,10
+F.I.E.T.,Fellow of the Institution of Engineering and Technology,100,,8
+E.R.P.,Energy Risk Professional,100,,6
+A.C.A.,Associate of the Institute of Chartered Accountants in England and Wales,100,United Kingdom,6
+C.T.A.,Chartered Tax Adviser,100,,6
+F.C.A.,Fellow of the Institute of Chartered Accountants in England and Wales,100,United Kingdom,6
+M.Jur.,Master of Jurisprudence,100,United Kingdom,6
+F.C.M.I.,Fellow of the Chartered Management Institute,100,United Kingdom,8
+F.C.C.A.,Fellow of the Association of Chartered Certified Accountants,100,,8
+A.C.C.A.,Association of Chartered Certified Accountants,100,,8

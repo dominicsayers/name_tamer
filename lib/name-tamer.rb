@@ -207,8 +207,33 @@ class NameTamer
 
   def remove_middle_names
     if @contact_type == :person
-      parts = @simple_name.split
-      @simple_name = "#{parts[0]} #{parts[-1]}" if parts.count > 2
+      parts       = @simple_name.split
+      first_name  = nil
+      last_name   = nil
+
+      # Find first usable name
+      parts.each_index do |i|
+        part = parts[i]
+
+        unless part.gsub(FILTER_COMPAT, '').empty?
+          first_name  = part
+          parts       = parts.slice(i + 1, parts.length) # don't use "slice!"
+          break
+        end
+      end
+
+      # Find last usable name
+      parts.reverse_each do |part|
+        unless part.gsub(FILTER_COMPAT, '').empty?
+          last_name = part
+          break
+        end
+      end
+
+      if first_name || last_name
+        separator     = first_name && last_name ? ' ' : ''
+        @simple_name  = "#{first_name}#{separator}#{last_name}"
+      end
     end
   end
 
@@ -372,9 +397,9 @@ class NameTamer
     # Then we change any whitespace into our separator character
     new_string.gsub!(/\s+/, sep)
 
-    # Change any dots embedded in words to our separator character
+    # Change some characters embedded in words to our separator character
     # e.g. example.com -> example-com
-    new_string.gsub!(/(?<!\s)\.(?!\s)/, sep)
+    new_string.gsub!(/(?<!\s)[\.\/](?!\s)/, sep)
 
     # Then we strip any other illegal characters out completely
     new_string.gsub!(filter, '')
@@ -392,6 +417,9 @@ class NameTamer
     # transliterated into ones that are easy to type on an anglophone
     # keyboard.
     new_string.gsub!(/[^\x00-\x7f]/u) { |char| APPROXIMATIONS[char] || char }
+
+    # Have we got anything left?
+    new_string = '_' if new_string.empty?
 
     # downcase any latin characters
     new_string.downcase
@@ -478,7 +506,7 @@ class NameTamer
   FILTER_COMPAT   = /[^#{ALPHA}#{DIGIT}\-_#{UCSCHAR}]/
 
   NAME_MODIFIERS  = [
-    'Al', 'Ap', 'Ben', 'Dell[ae]', 'D[aeiou]', 'De[lr]', 'D[ao]s', 'El', 'La', 'L[eo]', 'V[ao]n', 'Of', 'St[\.]?'
+    'Al', 'Ap', 'Ben', 'Dell[ae]', 'D[aeiou]', 'De[lrn]', 'D[ao]s', 'El', 'La', 'L[eo]', 'V[ao]n', 'Of', 'St[\.]?'
   ]
 
   COMPOUND_NAMES  = [
@@ -509,7 +537,8 @@ class NameTamer
     },
     suffix: {
       person: [
-        'C.I.S.S.P.', 'B.Tech.', 'D.Phil.', 'B.Eng.', 'C.F.A.', 'D.B.E.', 'D.D.S.', 'D.V.M.', 'Eng.D.', 'M.B.A.', 'M.B.E.',
+        'C.I.S.S.P.', 'T.M.I.E.T.', 'F.I.E.T.', 'M.I.E.T.', 'B.Tech.', 'D.Phil.', 'B.Eng.', 'M.Jur.', 'C.F.A.', 'D.B.E.',
+        'D.D.S.', 'D.V.M.', 'Eng.D.', 'A.C.A.', 'C.T.A.', 'E.R.P.', 'F.C.A', 'M.B.A.', 'M.B.E.',
         'M.E.P.', 'M.Eng.', 'M.S.P.', 'O.B.E.', 'P.M.C.', 'P.M.P.', 'P.S.P.', 'V.M.D.', 'B.Ed.', 'B.Sc.', 'Ed.D.', 'LL.B.',
         'LL.D.', 'LL.M.', 'M.Ed.', 'M.Sc.', 'Ph.D.', 'B.A.', 'Esq.', 'J.D.', 'K.C.', 'M.A.', 'M.D.', 'M.P.', 'O.K.',
         'P.A.', 'Q.C.', 'III', 'Jr.', 'Sr.', 'II', 'IV', 'I', 'V'
