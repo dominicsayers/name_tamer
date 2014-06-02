@@ -372,7 +372,11 @@ class NameTamer
     # Then we change any whitespace into our separator character
     parameterized_string.gsub!(/\s+/, sep)
 
-    # Then we strip any illegal characters out completely
+    # Change any dots embedded in words to our separator character
+    # e.g. example.com -> example-com
+    parameterized_string.gsub!(/(?<!\s)\.(?!\s)/, sep)
+
+    # Then we strip any other illegal characters out completely
     parameterized_string.gsub!(filter, '')
 
     # Make sure separators are not where they shouldn't be
@@ -384,7 +388,7 @@ class NameTamer
       parameterized_string.gsub!(/^#{re_sep}|#{re_sep}$/i, '')
     end
 
-    # downcase if it's all latin
+    # downcase any latin characters
     parameterized_string.downcase
   end
 
