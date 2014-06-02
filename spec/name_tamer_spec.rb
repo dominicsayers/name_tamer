@@ -126,14 +126,15 @@ describe NameTamer do
       { n:'John Smith', t: :nonsense, nn:'John Smith', sn:'John Smith', s:'john-smith' },
       { n:'John Smith', t: Kernel, nn:'John Smith', sn:'John Smith', s:'john-smith' },
       { n:'Ms Jane Smith', t: :person, nn:'Jane Smith', sn:'Jane Smith', s:'jane-smith' },
-      { n:'example.com', t: :organization, nn:'example.com', sn:'example.com', s:'example-com' }
+      { n:'example.com', t: :organization, nn:'example.com', sn:'example.com', s:'example-com' },
+      { n:'Hermann Müller', t: :person, nn: 'Hermann Müller', sn: 'Hermann Müller', s:'hermann-muller'}
     ]
   end
 
   it "makes a slug from #{name}" do
     names.each do |name_data|
       name = name_data[:n]
-puts NameTamer[name, contact_type:name_data[:t]].simple_name # debug
+#-puts NameTamer[name, contact_type:name_data[:t]].simple_name # debug
       NameTamer[name, contact_type:name_data[:t]].slug.should == name_data[:s]
     end
   end
