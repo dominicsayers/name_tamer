@@ -119,7 +119,12 @@ describe NameTamer do
       { n:'محمود ياسر', t: :organization, nn:'محمود ياسر', sn:'محمود ياسر', s:'محمود-ياسر' },
       { n:'קובי ביטר', t: :organization, nn:'קובי ביטר', sn:'קובי ביטר', s:'קובי-ביטר' },
       { n:'الملاك الحارس', t: :organization, nn:'الملاك الحارس', sn:'الملاك الحارس', s:'الملاك-الحارس' },
-      { n:'কবির হাসান', t: :organization, nn:'কবির হাসান', sn:'কবির হাসান', s:'কবির-হাসান' }
+      { n:'কবির হাসান', t: :organization, nn:'কবির হাসান', sn:'কবির হাসান', s:'কবির-হাসান' },
+      { nn: '', sn: '', s: '' },
+      { n:'Union Square Ventures', t: 'Organization', nn:'Union Square Ventures', sn:'Union Square Ventures', s:'union-square-ventures' },
+      { n:'John Smith', t: 'Person', nn:'John Smith', sn:'John Smith', s:'john-smith' },
+      { n:'John Smith', t: :nonsense, nn:'John Smith', sn:'John Smith', s:'john-smith' },
+      { n:'John Smith', t: Kernel, nn:'John Smith', sn:'John Smith', s:'john-smith' },
     ]
   end
 

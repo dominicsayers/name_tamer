@@ -3,7 +3,7 @@
 # References:
 # http://www.w3.org/International/questions/qa-personal-names
 # https://github.com/berkmancenter/namae
-# https://github.com/mericson
+# https://github.com/mericson/people
 # http://en.wikipedia.org/wiki/Types_of_business_entity
 # http://en.wikipedia.org/wiki/List_of_post-nominal_letters_(USA)
 # http://en.wikipedia.org/wiki/List_of_post-nominal_letters_(United_Kingdom)
@@ -12,7 +12,7 @@
 # http://linguistlist.org/pubs/tocs/JournalUnifiedStyleSheet2007.pdf [PDF]
 
 class NameTamer
-  attr_reader :name, :contact_type
+  attr_reader :name
 
   class << self
     def [](name, args = {})
@@ -21,8 +21,8 @@ class NameTamer
   end
 
   def nice_name
-    if @nice_name.nil?
-      @nice_name = @name.dup          # Start with the name we've received
+    unless @nice_name
+      @nice_name = name.dup          # Start with the name we've received
 
       tidy_spacing                    # " John   Smith " -> "John Smith"
       consolidate_initials            # "I. B. M." -> "I.B.M."
@@ -38,7 +38,7 @@ class NameTamer
   end
 
   def simple_name
-    if @simple_name.nil?
+    unless @simple_name
       @simple_name = nice_name.dup    # Start with nice name
 
       remove_initials                 # "John Q. Doe" -> "John Doe"
@@ -53,7 +53,7 @@ class NameTamer
   end
 
   def slug
-    if @slug.nil?
+    unless @slug
       @slug = simple_name.dup         # Start with search name
       slugify                         # "John Doe" -> "john-doe"
     end
@@ -66,25 +66,31 @@ class NameTamer
     contact_type_best_effort
   end
 
+  def contact_type= new_contact_type
+    ct_as_sym = new_contact_type.to_sym
+
+    unless @contact_type.nil? || @contact_type == ct_as_sym
+      puts "Changing contact type of #{@name} from #{@contact_type} to #{new_contact_type}"
+    end
+
+    @contact_type = ct_as_sym
+  end
+
 =begin These lines aren't used and aren't covered by specs
   def name=(new_name)
     initialize new_name, :contact_type => @contact_type
   end
 
-  def contact_type=(new_contact_type)
-    initialize @name, :contact_type => new_contact_type
-  end
-
   def to_hash
     {
-      name:         @name,
-      nice_name:    @nice_name,
-      simple_name:  @simple_name,
-      slug:         @slug,
-      contact_type: @contact_type,
-      last_name:    @last_name,
-      remainder:    @remainder,
-      adfix_found:  @adfix_found
+      name:         name,
+      nice_name:    nice_name,
+      simple_name:  simple_name,
+      slug:         slug,
+      contact_type: contact_type,
+      last_name:    last_name,
+      remainder:    remainder,
+      adfix_found:  adfix_found
     }
   end
 =end
@@ -98,7 +104,6 @@ class NameTamer
   def tidy_spacing
     @nice_name.gsub!(/,\s*/, ', ') # Ensure commas have exactly one space after them
     @nice_name.strip!              # remove leading & trailing whitespace
-
     @nice_name = ensure_whitespace_is_ascii_space @nice_name
   end
 
@@ -176,11 +181,7 @@ class NameTamer
   # Conjoin compound names with non-breaking spaces
   def use_nonbreaking_spaces_in_compound_names
     # Fix known last names that have spaces (not hyphens!)
-    [
-      'Lane Fox', 'Bonham Carter', 'Pitt Rivers', 'Lloyd Webber', 'Sebag Montefiore',
-      'Holmes à Court', 'Holmes a Court', 'Baron Cohen',
-      'Service Company', 'Corporation Company', 'Corporation System', 'Incorporations Limited'
-    ].each do |compound_name|
+    COMPOUND_NAMES.each do |compound_name|
       @nice_name.gsub!(compound_name, compound_name.tr(ASCII_SPACE, NONBREAKING_SPACE))
     end
 
@@ -197,10 +198,10 @@ class NameTamer
   # i.e. only remove initials if there's also a proper name there
   def remove_initials
     if @contact_type == :person
-      name = @simple_name.gsub(/\b([a-z](?:\.*\s+|\.))/i, '')
+      temp_name = @simple_name.gsub(/\b([a-z](?:\.*\s+|\.))/i, '')
 
       # If the name still has at least one space we're OK
-      @simple_name = name if name.include?(ASCII_SPACE)
+      @simple_name = temp_name if temp_name.include?(ASCII_SPACE)
     end
   end
 
@@ -237,9 +238,17 @@ class NameTamer
   # Initialization and utilities
   #--------------------------------------------------------
 
-  def initialize(name, args = {})
-    @name         = name || ''
-    @contact_type = args[:contact_type].to_sym unless args[:contact_type].nil?
+  def initialize(new_name, args = {})
+    @name = new_name || ''
+
+    if args[:contact_type]
+      ct = args[:contact_type]
+      ct = ct.to_s unless [String, Symbol].include? ct.class
+      ct.downcase! if ct.class == String
+      ct = ct.to_sym
+      ct = nil unless [:person, :organization].include? ct
+      @contact_type = ct
+    end
 
     @nice_name    = nil
     @simple_name  = nil
@@ -249,12 +258,6 @@ class NameTamer
     @remainder    = nil
 
     @adfix_found  = false
-  end
-
-  def set_contact_type contact_type
-    contact_type_sym = contact_type.to_sym
-    puts "Changing contact type of #{@name} from #{@contact_type} to #{contact_type}".red unless @contact_type.nil? || @contact_type == contact_type_sym
-    @contact_type = contact_type_sym
   end
 
   # If we don't know the contact type, what's our best guess?
@@ -275,23 +278,23 @@ class NameTamer
   # We pass to this routine either prefixes or suffixes
   def remove_outermost_adfix adfix_type, name_part
     adfixes       = ADFIX_PATTERNS[adfix_type]
-    contact_type  = contact_type_best_effort
-    parts         = name_part.partition adfixes[contact_type]
+    ct            = contact_type_best_effort
+    parts         = name_part.partition adfixes[ct]
     @adfix_found  = !parts[1].empty?
 
     # If the contact type is indeterminate and we didn't find a diagnostic adfix
     # for a person then try again for an organization
     if @contact_type.nil?
       unless @adfix_found
-        contact_type  = :organization
-        parts         = name_part.partition adfixes[contact_type]
+        ct            = :organization
+        parts         = name_part.partition adfixes[ct]
         @adfix_found  = !parts[1].empty?
       end
     end
 
     if @adfix_found
       # If we've found a diagnostic adfix then set the contact type
-      set_contact_type contact_type
+      self.contact_type = ct
 
       # The remainder of the name will be in parts[0] or parts[2] depending
       # on whether this is a prefix or a suffix.
@@ -317,44 +320,44 @@ class NameTamer
   # Improved in several areas, also now adds non-breaking spaces for
   # compound names like "van der Pump"
   def name_case lowercase
-    name = lowercase # We assume the name is passed already downcased
-    name.gsub!(/\b\w/) { |first| first.upcase }
-    name.gsub!(/\'\w\b/) { |c| c.downcase } # Lowercase 's
+    n = lowercase # We assume the name is passed already downcased
+    n.gsub!(/\b\w/) { |first| first.upcase }
+    n.gsub!(/\'\w\b/) { |c| c.downcase } # Lowercase 's
 
     # Our list of terminal characters that indicate a non-celtic name used
     # to include o but we removed it because of MacMurdo.
-    if name =~ /\bMac[A-Za-z]{2,}[^acizj]\b/ or name =~ /\bMc/
-      name.gsub!(/\b(Ma?c)([A-Za-z]+)/) { |match| $1 + $2.capitalize }
+    if n =~ /\bMac[A-Za-z]{2,}[^acizj]\b/ or n =~ /\bMc/
+      n.gsub!(/\b(Ma?c)([A-Za-z]+)/) { |match| $1 + $2.capitalize }
 
       # Fix Mac exceptions
       [
         'MacEdo', 'MacEvicius', 'MacHado', 'MacHar', 'MacHin', 'MacHlin', 'MacIas', 'MacIulis', 'MacKie', 'MacKle',
         'MacKlin', 'MacKmin', 'MacKmurdo', 'MacQuarie', 'MacLise', 'MacKenzie'
-      ].each { |mac_name| name.gsub!(/\b#{mac_name}/, mac_name.capitalize) }
+      ].each { |mac_name| n.gsub!(/\b#{mac_name}/, mac_name.capitalize) }
     end
 
     # Fix ff wierdybonks
     [
       'Fforbes', 'Fforde', 'Ffinch', 'Ffrench', 'Ffoulkes'
-    ].each { |ff_name| name.gsub!(ff_name,ff_name.downcase) }
+    ].each { |ff_name| n.gsub!(ff_name,ff_name.downcase) }
 
     # Fixes for name modifiers followed by space
     # Also replaces spaces with non-breaking spaces
     NAME_MODIFIERS.each do |modifier|
-      name.gsub!(/((?:[[:space:]]|^)#{modifier})(\s+|-)/) { |match| "#{$1.rstrip.downcase}#{$2.tr(ASCII_SPACE, NONBREAKING_SPACE)}" }
+      n.gsub!(/((?:[[:space:]]|^)#{modifier})(\s+|-)/) { |match| "#{$1.rstrip.downcase}#{$2.tr(ASCII_SPACE, NONBREAKING_SPACE)}" }
     end
 
     # Fixes for name modifiers followed by an apostrophe, e.g. d'Artagnan, Commedia dell'Arte
     ['Dell', 'D'].each do |modifier|
-      name.gsub!(/(.#{modifier}')(\w)/) { |match| "#{$1.rstrip.downcase}#{$2}" }
+      n.gsub!(/(.#{modifier}')(\w)/) { |match| "#{$1.rstrip.downcase}#{$2}" }
     end
 
     # Upcase words with no vowels, e.g JPR Williams
-    name.gsub!(/\b([bcdfghjklmnpqrstvwxz]+)\b/i) { |match| $1.upcase }
+    n.gsub!(/\b([bcdfghjklmnpqrstvwxz]+)\b/i) { |match| $1.upcase }
     # Except Ng
-    name.gsub!(/\b(NG)\b/i) { |match| $1.capitalize } # http://en.wikipedia.org/wiki/Ng
+    n.gsub!(/\b(NG)\b/i) { |match| $1.capitalize } # http://en.wikipedia.org/wiki/Ng
 
-    name
+    n
   end
 
   def parameterize string, args = {}
@@ -432,9 +435,14 @@ class NameTamer
   FILTER_RFC3987  = /[^#{ISEGMENT_NZ_NC}]/
   FILTER_COMPAT   = /[^#{ALPHA}#{DIGIT}\-_#{UCSCHAR}]/
 
-  NAME_MODIFIERS    = [
-    'Al', 'Ap', 'Ben', 'Dell[ae]', 'D[aeiou]', 'De[lr]', 'D[ao]s', 'El', 'La', 'L[eo]',
-    'V[ao]n', 'Of', 'St[\.]?'
+  NAME_MODIFIERS  = [
+    'Al', 'Ap', 'Ben', 'Dell[ae]', 'D[aeiou]', 'De[lr]', 'D[ao]s', 'El', 'La', 'L[eo]', 'V[ao]n', 'Of', 'St[\.]?'
+  ]
+
+  COMPOUND_NAMES  = [
+    'Lane Fox', 'Bonham Carter', 'Pitt Rivers', 'Lloyd Webber', 'Sebag Montefiore', 'Holmes à Court', 'Holmes a Court',
+    'Baron Cohen', 'Strang Steel',
+    'Service Company', 'Corporation Company', 'Corporation System', 'Incorporations Limited'
   ]
 
   # These are the prefixes and suffixes we want to remove
@@ -497,10 +505,10 @@ class NameTamer
     patterns  = {}
     adfix     = ADFIXES[adfix_type]
 
-    [:person, :organization].each do |contact_type|
-      with_optional_spaces    = adfix[contact_type].map { |p| p.gsub(ASCII_SPACE,' *') }
+    [:person, :organization].each do |ct|
+      with_optional_spaces    = adfix[ct].map { |p| p.gsub(ASCII_SPACE,' *') }
       pattern_string          = with_optional_spaces.join('|').gsub('.', '\.*')
-      patterns[contact_type]  = /#{adfix[:before]}\(*(?:#{pattern_string})\)*#{adfix[:after]}/i
+      patterns[ct]  = /#{adfix[:before]}\(*(?:#{pattern_string})\)*#{adfix[:after]}/i
     end
 
     ADFIX_PATTERNS[adfix_type] = patterns
