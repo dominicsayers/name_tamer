@@ -456,7 +456,7 @@ class NameTamer
         'Doctor', 'Dr.', 'Judge', 'Justice', 'Lady', 'Lieut.', 'Lieutenant',
         'Lord', 'Madame', 'Major', 'Master', 'Matron', 'Messrs.', 'Mgr.',
         'Miss', 'Mister', 'Mlle.', 'Mme.', 'Mons.', 'Mr.', 'Mr. & Mrs.',
-        'Mr. and Mrs.', 'Mrs.', 'Msgr.', 'Prof.', 'Professor', 'Rev.',
+        'Mr. and Mrs.', 'Mrs.', 'Msgr.', 'Ms.', 'Prof.', 'Professor', 'Rev.',
         'Reverend', 'Sir', 'Sister', 'The Hon.', 'The Lady.', 'The Lord',
         'The Rt. Hon.'
       ],

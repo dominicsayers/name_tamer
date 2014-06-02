@@ -125,6 +125,7 @@ describe NameTamer do
       { n:'John Smith', t: 'Person', nn:'John Smith', sn:'John Smith', s:'john-smith' },
       { n:'John Smith', t: :nonsense, nn:'John Smith', sn:'John Smith', s:'john-smith' },
       { n:'John Smith', t: Kernel, nn:'John Smith', sn:'John Smith', s:'john-smith' },
+      { n:'Ms Jane Smith', t: :person, nn:'Jane Smith', sn:'Jane Smith', s:'jane-smith' },
     ]
   end
 
