@@ -1,4 +1,5 @@
 # encoding: utf-8
+require 'string-extras'
 
 # References:
 # http://www.w3.org/International/questions/qa-personal-names
@@ -66,7 +67,7 @@ class NameTamer
     contact_type_best_effort
   end
 
-  def contact_type= new_contact_type
+  def contact_type=(new_contact_type)
     ct_as_sym = new_contact_type.to_sym
 
     unless @contact_type.nil? || @contact_type == ct_as_sym
@@ -76,24 +77,23 @@ class NameTamer
     @contact_type = ct_as_sym
   end
 
-=begin These lines aren't used and aren't covered by specs
-  def name=(new_name)
-    initialize new_name, :contact_type => @contact_type
-  end
-
-  def to_hash
-    {
-      name:         name,
-      nice_name:    nice_name,
-      simple_name:  simple_name,
-      slug:         slug,
-      contact_type: contact_type,
-      last_name:    last_name,
-      remainder:    remainder,
-      adfix_found:  adfix_found
-    }
-  end
-=end
+  # These lines aren't used and aren't covered by specs
+  #   def name=(new_name)
+  #     initialize new_name, :contact_type => @contact_type
+  #   end
+  #
+  #   def to_hash
+  #     {
+  #       name:         name,
+  #       nice_name:    nice_name,
+  #       simple_name:  simple_name,
+  #       slug:         slug,
+  #       contact_type: contact_type,
+  #       last_name:    last_name,
+  #       remainder:    remainder,
+  #       adfix_found:  adfix_found
+  #     }
+  #   end
 
   private
 
@@ -109,43 +109,48 @@ class NameTamer
 
   # Remove spaces from groups of initials
   def consolidate_initials
-    @nice_name.gsub!(/\b([a-z])\.* (?=[a-z][\. ])/i) { |match| "#{$1}." }   # Remove spaces from initial groups
-    @nice_name.gsub!(/\b([a-z](?:\.[a-z])+)\.?(?= )/i) { |match| "#{$1}." } # Ensure each group ends with a dot
+    @nice_name
+      .remove_spaces_from_initials!
+      .ensure_terminal_period_for_initials!
   end
 
   # An adfix is either a prefix or a suffix
   def remove_adfixes
     if @last_name.nil?
       # Our name is still in one part, not two
-      begin
+      loop do
         @nice_name = remove_outermost_adfix(:suffix, @nice_name)
-      end while @adfix_found
+        break unless @adfix_found
+      end
 
-      begin
+      loop do
         @nice_name = remove_outermost_adfix(:prefix, @nice_name)
-      end while @adfix_found
+        break unless @adfix_found
+      end
     else
       # Our name is currently in two halves
-      begin
+      loop do
         @last_name = remove_outermost_adfix(:suffix, @last_name)
-      end while @adfix_found
+        break unless @adfix_found
+      end
 
-      begin
+      loop do
         @remainder = remove_outermost_adfix(:prefix, @remainder)
-      end while @adfix_found
+        break unless @adfix_found
+      end
     end
   end
 
   # Names in the form "Smith, John" need to be turned around to "John Smith"
   def fixup_last_name_first
-    unless @contact_type == :organization
-      parts = @nice_name.split ', '
+    return if @contact_type == :organization
 
-      if parts.count == 2
-        @last_name    = parts[0] # Sometimes the last name alone is all caps and we can name-case it
-        @remainder    = parts[1]
-      end
-    end
+    parts = @nice_name.split ', '
+
+    return unless parts.count == 2
+
+    @last_name    = parts[0] # Sometimes the last name alone is all caps and we can name-case it
+    @remainder    = parts[1]
   end
 
   # Sometimes we end up with mismatched braces after adfix stripping
@@ -168,7 +173,8 @@ class NameTamer
       uppercase = @nice_name.upcase
 
       # Some companies like to be all lowercase so don't mess with them
-      @nice_name  = name_case(lowercase) if @nice_name == uppercase || ( @nice_name == lowercase && @contact_type != :organization )
+      @nice_name  = name_case(lowercase)  if @nice_name == uppercase ||
+                                           ( @nice_name == lowercase && @contact_type != :organization)
     else
       lowercase = @last_name.downcase
       uppercase = @last_name.upcase
@@ -180,14 +186,9 @@ class NameTamer
 
   # Conjoin compound names with non-breaking spaces
   def use_nonbreaking_spaces_in_compound_names
-    # Fix known last names that have spaces (not hyphens!)
-    COMPOUND_NAMES.each do |compound_name|
-      @nice_name.gsub!(compound_name, compound_name.tr(ASCII_SPACE, NONBREAKING_SPACE))
-    end
-
-    NAME_MODIFIERS.each do |modifier|
-      @nice_name.gsub!(/([[:space:]]#{modifier})([[:space:]])/i) { |match| "#{$1}#{NONBREAKING_SPACE}" }
-    end
+    @nice_name
+      .nbsp_in_compound_name!
+      .nbsp_in_name_modifier!
   end
 
   #--------------------------------------------------------
@@ -197,48 +198,45 @@ class NameTamer
   # Remove initials from personal names unless they are the only identifier.
   # i.e. only remove initials if there's also a proper name there
   def remove_initials
-    if @contact_type == :person
-      temp_name = @simple_name.gsub(/\b([a-z](?:\.*\s+|\.))/i, '')
+    return unless @contact_type == :person
 
-      # If the name still has at least one space we're OK
-      @simple_name = temp_name if temp_name.include?(ASCII_SPACE)
-    end
+    temp_name = @simple_name.gsub(/\b([a-z](?:\.*\s+|\.))/i, '')
+
+    # If the name still has at least one space we're OK
+    @simple_name = temp_name if temp_name.include?(ASCII_SPACE)
   end
 
   def remove_middle_names
-    if @contact_type == :person
-      parts       = @simple_name.split
-      first_name  = nil
-      last_name   = nil
+    return unless @contact_type == :person
 
-      # Find first usable name
-      parts.each_index do |i|
-        part = parts[i]
+    parts       = @simple_name.split
+    first_name  = nil
+    last_name   = nil
 
-        unless part.gsub(FILTER_COMPAT, '').empty?
-          first_name  = part
-          parts       = parts.slice(i + 1, parts.length) # don't use "slice!"
-          break
-        end
-      end
-
-      # Find last usable name
-      parts.reverse_each do |part|
-        unless part.gsub(FILTER_COMPAT, '').empty?
-          last_name = part
-          break
-        end
-      end
-
-      if first_name || last_name
-        separator     = first_name && last_name ? ' ' : ''
-        @simple_name  = "#{first_name}#{separator}#{last_name}"
-      end
+    # Find first usable name
+    parts.each_index do |i|
+      part = parts[i]
+      next if part.gsub(FILTER_COMPAT, '').empty?
+      first_name  = part
+      parts       = parts.slice(i + 1, parts.length) # don't use "slice!"
+      break
     end
+
+    # Find last usable name
+    parts.reverse_each do |part|
+      next if part.gsub(FILTER_COMPAT, '').empty?
+      last_name = part
+      break
+    end
+
+    return unless first_name || last_name
+
+    separator     = first_name && last_name ? ' ' : ''
+    @simple_name  = "#{first_name}#{separator}#{last_name}"
   end
 
   def remove_dots_from_abbreviations
-    @simple_name.gsub!(/\b([a-z])\./i) { |match| $1 }
+    @simple_name.gsub!(/\b([a-z])\./i) { |_match| Regexp.last_match[1] }
   end
 
   def standardize_words
@@ -253,7 +251,7 @@ class NameTamer
 
   def slugify
     # Inflector::parameterize just gives up with non-latin characters so...
-    #@slug = @slug.parameterize # Can't use this
+    # @slug = @slug.parameterize # Can't use this
 
     # Instead we'll do it ourselves
     @slug = parameterize @slug
@@ -296,12 +294,12 @@ class NameTamer
     end
   end
 
-  def ensure_whitespace_is_ascii_space string
+  def ensure_whitespace_is_ascii_space(string)
     string.gsub(/[[:space:]]+/, ASCII_SPACE) # /\s/ doesn't match Unicode whitespace in Ruby 1.9.3
   end
 
   # We pass to this routine either prefixes or suffixes
-  def remove_outermost_adfix adfix_type, name_part
+  def remove_outermost_adfix(adfix_type, name_part)
     adfixes       = ADFIX_PATTERNS[adfix_type]
     ct            = contact_type_best_effort
     parts         = name_part.partition adfixes[ct]
@@ -344,48 +342,19 @@ class NameTamer
   # Substantially modified for Xendata
   # Improved in several areas, also now adds non-breaking spaces for
   # compound names like "van der Pump"
-  def name_case lowercase
-    n = lowercase # We assume the name is passed already downcased
-    n.gsub!(/\b\w/) { |first| first.upcase }
-    n.gsub!(/\'\w\b/) { |c| c.downcase } # Lowercase 's
-
-    # Our list of terminal characters that indicate a non-celtic name used
-    # to include o but we removed it because of MacMurdo.
-    if n =~ /\bMac[A-Za-z]{2,}[^acizj]\b/ or n =~ /\bMc/
-      n.gsub!(/\b(Ma?c)([A-Za-z]+)/) { |match| $1 + $2.capitalize }
-
-      # Fix Mac exceptions
-      [
-        'MacEdo', 'MacEvicius', 'MacHado', 'MacHar', 'MacHin', 'MacHlin', 'MacIas', 'MacIulis', 'MacKie', 'MacKle',
-        'MacKlin', 'MacKmin', 'MacKmurdo', 'MacQuarie', 'MacLise', 'MacKenzie'
-      ].each { |mac_name| n.gsub!(/\b#{mac_name}/, mac_name.capitalize) }
-    end
-
-    # Fix ff wierdybonks
-    [
-      'Fforbes', 'Fforde', 'Ffinch', 'Ffrench', 'Ffoulkes'
-    ].each { |ff_name| n.gsub!(ff_name,ff_name.downcase) }
-
-    # Fixes for name modifiers followed by space
-    # Also replaces spaces with non-breaking spaces
-    NAME_MODIFIERS.each do |modifier|
-      n.gsub!(/((?:[[:space:]]|^)#{modifier})(\s+|-)/) { |match| "#{$1.rstrip.downcase}#{$2.tr(ASCII_SPACE, NONBREAKING_SPACE)}" }
-    end
-
-    # Fixes for name modifiers followed by an apostrophe, e.g. d'Artagnan, Commedia dell'Arte
-    ['Dell', 'D'].each do |modifier|
-      n.gsub!(/(.#{modifier}')(\w)/) { |match| "#{$1.rstrip.downcase}#{$2}" }
-    end
-
-    # Upcase words with no vowels, e.g JPR Williams
-    n.gsub!(/\b([bcdfghjklmnpqrstvwxz]+)\b/i) { |match| $1.upcase }
-    # Except Ng
-    n.gsub!(/\b(NG)\b/i) { |match| $1.capitalize } # http://en.wikipedia.org/wiki/Ng
+  def name_case(lowercase)
+    n = lowercase.dup # We assume the name is passed already downcased
 
     n
+      .upcase_first_letter!
+      .downcase_after_apostrophe!
+      .fix_mac!
+      .fix_ff!
+      .fix_name_modifiers!
+      .upcase_initials!
   end
 
-  def parameterize string, args = {}
+  def parameterize(string, args = {})
     sep     = args[:sep]      || SLUG_DELIMITER
     rfc3987 = args[:rfc3987]  || false
     filter  = args[:filter]   || (rfc3987 ? FILTER_RFC3987 : FILTER_COMPAT)
@@ -394,29 +363,12 @@ class NameTamer
     # things we want to alter for the slug, like whitespace (e.g. %20)
     new_string = URI.unescape(string)
 
-    # Then we change any whitespace into our separator character
-    new_string.gsub!(/\s+/, sep)
-
-    # Change some characters embedded in words to our separator character
-    # e.g. example.com -> example-com
-    new_string.gsub!(/(?<!\s)[\.\/](?!\s)/, sep)
-
-    # Then we strip any other illegal characters out completely
-    new_string.gsub!(filter, '')
-
-    # Make sure separators are not where they shouldn't be
-    unless sep.nil? || sep.empty?
-      re_sep = Regexp.escape(sep)
-      # No more than one of the separator in a row.
-      new_string.gsub!(/#{re_sep}{2,}/, sep)
-      # Remove leading/trailing separator.
-      new_string.gsub!(/^#{re_sep}|#{re_sep}$/i, '')
-    end
-
-    # Any characters that resemble latin characters might usefully be
-    # transliterated into ones that are easy to type on an anglophone
-    # keyboard.
-    new_string.gsub!(/[^\x00-\x7f]/u) { |char| APPROXIMATIONS[char] || char }
+    new_string
+      .whitespace_to!(sep)
+      .invalid_chars_to!(sep)
+      .strip_invalid!(filter)
+      .fix_separators!(sep)
+      .approximate_latin_chars!
 
     # Have we got anything left?
     new_string = '_' if new_string.empty?
@@ -433,39 +385,6 @@ class NameTamer
   ASCII_SPACE       = "\u0020"
   ADFIX_JOINERS     = "[#{ASCII_SPACE}-]"
   SLUG_DELIMITER    =  '-'
-
-  # Transliterations (like the i18n defaults)
-  # see https://github.com/svenfuchs/i18n/blob/master/lib/i18n/backend/transliterator.rb
-  APPROXIMATIONS = {
-    "À"=>"A", "Á"=>"A", "Â"=>"A", "Ã"=>"A", "Ä"=>"A", "Å"=>"A", "Æ"=>"AE",
-    "Ç"=>"C", "È"=>"E", "É"=>"E", "Ê"=>"E", "Ë"=>"E", "Ì"=>"I", "Í"=>"I",
-    "Î"=>"I", "Ï"=>"I", "Ð"=>"D", "Ñ"=>"N", "Ò"=>"O", "Ó"=>"O", "Ô"=>"O",
-    "Õ"=>"O", "Ö"=>"O", "×"=>"x", "Ø"=>"O", "Ù"=>"U", "Ú"=>"U", "Û"=>"U",
-    "Ü"=>"U", "Ý"=>"Y", "Þ"=>"Th", "ß"=>"ss", "à"=>"a", "á"=>"a", "â"=>"a",
-    "ã"=>"a", "ä"=>"a", "å"=>"a", "æ"=>"ae", "ç"=>"c", "è"=>"e", "é"=>"e",
-    "ê"=>"e", "ë"=>"e", "ì"=>"i", "í"=>"i", "î"=>"i", "ï"=>"i", "ð"=>"d",
-    "ñ"=>"n", "ò"=>"o", "ó"=>"o", "ô"=>"o", "õ"=>"o", "ö"=>"o", "ø"=>"o",
-    "ù"=>"u", "ú"=>"u", "û"=>"u", "ü"=>"u", "ý"=>"y", "þ"=>"th", "ÿ"=>"y",
-    "Ā"=>"A", "ā"=>"a", "Ă"=>"A", "ă"=>"a", "Ą"=>"A", "ą"=>"a", "Ć"=>"C",
-    "ć"=>"c", "Ĉ"=>"C", "ĉ"=>"c", "Ċ"=>"C", "ċ"=>"c", "Č"=>"C", "č"=>"c",
-    "Ď"=>"D", "ď"=>"d", "Đ"=>"D", "đ"=>"d", "Ē"=>"E", "ē"=>"e", "Ĕ"=>"E",
-    "ĕ"=>"e", "Ė"=>"E", "ė"=>"e", "Ę"=>"E", "ę"=>"e", "Ě"=>"E", "ě"=>"e",
-    "Ĝ"=>"G", "ĝ"=>"g", "Ğ"=>"G", "ğ"=>"g", "Ġ"=>"G", "ġ"=>"g", "Ģ"=>"G",
-    "ģ"=>"g", "Ĥ"=>"H", "ĥ"=>"h", "Ħ"=>"H", "ħ"=>"h", "Ĩ"=>"I", "ĩ"=>"i",
-    "Ī"=>"I", "ī"=>"i", "Ĭ"=>"I", "ĭ"=>"i", "Į"=>"I", "į"=>"i", "İ"=>"I",
-    "ı"=>"i", "Ĳ"=>"IJ", "ĳ"=>"ij", "Ĵ"=>"J", "ĵ"=>"j", "Ķ"=>"K", "ķ"=>"k",
-    "ĸ"=>"k", "Ĺ"=>"L", "ĺ"=>"l", "Ļ"=>"L", "ļ"=>"l", "Ľ"=>"L", "ľ"=>"l",
-    "Ŀ"=>"L", "ŀ"=>"l", "Ł"=>"L", "ł"=>"l", "Ń"=>"N", "ń"=>"n", "Ņ"=>"N",
-    "ņ"=>"n", "Ň"=>"N", "ň"=>"n", "ŉ"=>"'n", "Ŋ"=>"NG", "ŋ"=>"ng",
-    "Ō"=>"O", "ō"=>"o", "Ŏ"=>"O", "ŏ"=>"o", "Ő"=>"O", "ő"=>"o", "Œ"=>"OE",
-    "œ"=>"oe", "Ŕ"=>"R", "ŕ"=>"r", "Ŗ"=>"R", "ŗ"=>"r", "Ř"=>"R", "ř"=>"r",
-    "Ś"=>"S", "ś"=>"s", "Ŝ"=>"S", "ŝ"=>"s", "Ş"=>"S", "ş"=>"s", "Š"=>"S",
-    "š"=>"s", "Ţ"=>"T", "ţ"=>"t", "Ť"=>"T", "ť"=>"t", "Ŧ"=>"T", "ŧ"=>"t",
-    "Ũ"=>"U", "ũ"=>"u", "Ū"=>"U", "ū"=>"u", "Ŭ"=>"U", "ŭ"=>"u", "Ů"=>"U",
-    "ů"=>"u", "Ű"=>"U", "ű"=>"u", "Ų"=>"U", "ų"=>"u", "Ŵ"=>"W", "ŵ"=>"w",
-    "Ŷ"=>"Y", "ŷ"=>"y", "Ÿ"=>"Y", "Ź"=>"Z", "ź"=>"z", "Ż"=>"Z", "ż"=>"z",
-    "Ž"=>"Z", "ž"=>"z"
-  }
 
   # Constants for parameterizing Unicode strings for IRIs
   #
@@ -505,21 +424,10 @@ class NameTamer
   FILTER_RFC3987  = /[^#{ISEGMENT_NZ_NC}]/
   FILTER_COMPAT   = /[^#{ALPHA}#{DIGIT}\-_#{UCSCHAR}]/
 
-  NAME_MODIFIERS  = [
-    'Al', 'Ap', 'Ben', 'Dell[ae]', 'D[aeiou]', 'De[lrn]', 'D[ao]s', 'El', 'La', 'L[eo]', 'V[ao]n', 'Of', 'San', 'St[\.]?',
-    'Zur'
-  ]
-
-  COMPOUND_NAMES  = [
-    'Lane Fox', 'Bonham Carter', 'Pitt Rivers', 'Lloyd Webber', 'Sebag Montefiore', 'Holmes à Court', 'Holmes a Court',
-    'Baron Cohen', 'Strang Steel',
-    'Service Company', 'Corporation Company', 'Corporation System', 'Incorporations Limited'
-  ]
-
   # These are the prefixes and suffixes we want to remove
   # If you add to the list, you can use spaces and dots where appropriate
   # Ensure any single letters are followed by a dot because we'll add one to the string
-  # during processing, e.g. "y Cía." should be "y. Cía."
+  # during processing, e.g. "y Cia." should be "y. Cia."
   ADFIXES = {
     prefix: {
       person: [
@@ -534,7 +442,7 @@ class NameTamer
       organization: [
         'Fa.', 'P.T.', 'P.T. Tbk.', 'U.D.'
       ],
-      before:'\\A', after:ADFIX_JOINERS
+      before: '\\A', after: ADFIX_JOINERS
     },
     suffix: {
       person: [
@@ -543,10 +451,10 @@ class NameTamer
         'M.I.E.T.', 'B.Tech.',
         'Cantab.', 'D.Phil.', 'I.T.I.L. v3', 'B.Eng.', 'C.Eng.', 'M.Jur.', 'C.F.A.', 'D.B.E.',
         'D.D.S.', 'D.V.M.', 'Eng.D.', 'A.C.A.', 'C.T.A.', 'E.R.P.', 'F.C.A', 'F.P.C.', 'F.R.M.', 'M.B.A.', 'M.B.E.',
-        'M.E.P.', 'M.Eng.', 'M.Jur.', 'M.S.P.', 'O.B.E.', 'P.M.C.', 'P.M.P.', 'P.S.P.', 'V.M.D.', 'B.Ed.', 'B.Sc.', 'Ed.D.',
-        'Hons.', 'LL.B.',
-        'LL.D.', 'LL.M.', 'M.Ed.', 'M.Sc.', 'Oxon.', 'Ph.D.', 'B.A.', 'Esq.', 'J.D.', 'K.C.', 'M.A.', 'M.D.', 'M.P.', 'O.K.',
-        'P.A.', 'Q.C.', 'III', 'Jr.', 'Sr.', 'II', 'IV', 'I', 'V'
+        'M.E.P.', 'M.Eng.', 'M.Jur.', 'M.S.P.', 'O.B.E.', 'P.M.C.', 'P.M.P.', 'P.S.P.', 'V.M.D.', 'B.Ed.', 'B.Sc.',
+        'Ed.D.', 'Hons.', 'LL.B.',
+        'LL.D.', 'LL.M.', 'M.Ed.', 'M.Sc.', 'Oxon.', 'Ph.D.', 'B.A.', 'Esq.', 'J.D.', 'K.C.', 'M.A.', 'M.D.', 'M.P.',
+        'O.K.', 'P.A.', 'Q.C.', 'III', 'Jr.', 'Sr.', 'II', 'IV', 'I', 'V'
       ],
       organization: [
         'S. de R.L. de C.V.', 'S.A.P.I. de C.V.', 'y. Cía. S. en C.', 'Private Limited', 'S.M. Pte. Ltd.',
@@ -572,7 +480,7 @@ class NameTamer
         'ПУП.', 'С.Д.', 'בע"מ', '任意組合', '匿名組合', '合同会社', '合名会社', '合資会社', '有限会社', '有限公司', '株式会社',
         'A/S', 'G/S', 'I/S', 'K/S', 'P/S', 'S/A'
       ],
-      before:ADFIX_JOINERS, after:'\\z'
+      before: ADFIX_JOINERS, after: '\\z'
     }
   }
 
@@ -583,7 +491,7 @@ class NameTamer
     adfix     = ADFIXES[adfix_type]
 
     [:person, :organization].each do |ct|
-      with_optional_spaces    = adfix[ct].map { |p| p.gsub(ASCII_SPACE,' *') }
+      with_optional_spaces    = adfix[ct].map { |p| p.gsub(ASCII_SPACE, ' *') }
       pattern_string          = with_optional_spaces.join('|').gsub('.', '\.*')
       patterns[ct]  = /#{adfix[:before]}\(*(?:#{pattern_string})\)*#{adfix[:after]}/i
     end
