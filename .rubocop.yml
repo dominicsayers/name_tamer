@@ -1,0 +1,10 @@
+inherit_from: .hound.yml
+
+CyclomaticComplexity:
+  Description: 'Avoid complex methods.'
+  Max: 8
+
+ClassLength:
+  Description: 'Avoid classes longer than 100 lines of code.'
+  CountComments: false  # count full line comments?
+  Max: 301

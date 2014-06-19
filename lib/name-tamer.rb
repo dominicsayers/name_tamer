@@ -1,5 +1,5 @@
 # encoding: utf-8
-require 'string_extras.rb'
+require 'string_extras'
 
 # References:
 # http://www.w3.org/International/questions/qa-personal-names
