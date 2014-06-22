@@ -11,7 +11,7 @@ describe NameTamer do
       { n: 'Smith, John', t: :person, nn: 'John Smith', sn: 'John Smith', s: 'john-smith' },
       { n: 'John    Smith', t: :person, nn: 'John Smith', sn: 'John Smith', s: 'john-smith' },
       { n: 'Smith, John', nn: 'John Smith', sn: 'John Smith', s: 'john-smith' },
-      { n: 'John J Smith', t: :person, nn: 'John J Smith', sn: 'John Smith', s: 'john-smith' },
+      { n: 'John J. Smith', t: :person, nn: 'John J. Smith', sn: 'John Smith', s: 'john-smith' },
       { n: 'John J. Smith', t: :person, nn: 'John J. Smith', sn: 'John Smith', s: 'john-smith' },
       { n: 'SMITH, Mr John J.R.', t: :person, nn: 'John J.R. Smith', sn: 'John Smith', s: 'john-smith' },
       { n: ' SMITH,  Mr John J. R.  ', t: :person, nn: 'John J.R. Smith', sn: 'John Smith', s: 'john-smith' },
@@ -44,10 +44,10 @@ describe NameTamer do
       { n: 'K.V.A. Instruments y Cía S. en C.', nn: 'K.V.A. Instruments', sn: 'KVA Instruments', s: 'kva-instruments' },
       { n: 'K. V. A. Instruments y Cía S. en C.', nn: 'K.V.A. Instruments', sn: 'KVA Instruments',
         s: 'kva-instruments' },
-      { n: 'J.P. Rangaswami', nn: 'J.P. Rangaswami', sn: 'JP Rangaswami', s: 'jp-rangaswami' },
-      { n: 'J. P. Rangaswami', nn: 'J.P. Rangaswami', sn: 'JP Rangaswami', s: 'jp-rangaswami' },
-      { n: 'J P Rangaswami', nn: 'J.P. Rangaswami', sn: 'JP Rangaswami', s: 'jp-rangaswami' },
-      { n: 'JP Rangaswami', nn: 'JP Rangaswami', sn: 'JP Rangaswami', s: 'jp-rangaswami' },
+      { n: 'J.P.R. Williams', nn: 'J.P.R. Williams', sn: 'JPR Williams', s: 'jpr-williams' },
+      { n: 'J. P. R. Williams', nn: 'J.P.R. Williams', sn: 'JPR Williams', s: 'jpr-williams' },
+      { n: 'J P R Williams', nn: 'JPR Williams', sn: 'JPR Williams', s: 'jpr-williams' },
+      { n: 'JPR Williams', nn: 'JPR Williams', sn: 'JPR Williams', s: 'jpr-williams' },
       { n: 'Audrey fforbes', nn: 'Audrey fforbes', sn: 'Audrey fforbes', s: 'audrey-fforbes' },
       { n: 'J. Arthur Rank', t: :person, nn: 'J. Arthur Rank', sn: 'Arthur Rank', s: 'arthur-rank' },
       { n: 'PHILIP NG', t: :person, nn: 'Philip Ng', sn: 'Philip Ng', s: 'philip-ng' },
@@ -79,7 +79,7 @@ describe NameTamer do
       { n: 'Levi Strauss & Co.', nn: 'Levi Strauss', sn: 'Levi Strauss', s: 'levi-strauss' },
       { n: 'Standard & Poor\'s', t: :organization, nn: 'Standard & Poor\'s', sn: 'Standard and Poor\'s',
         s: 'standard-and-poors' },
-      { n: 'I B M Services', t: :organization, nn: 'I.B.M. Services', sn: 'IBM Services', s: 'ibm-services' },
+      { n: 'I B M Services', t: :organization, nn: 'IBM Services', sn: 'IBM Services', s: 'ibm-services' },
       { n: 'Sean Park DDS', t: :person, nn: 'Sean Park', sn: 'Sean Park', s: 'sean-park' },
       { n: 'SEAN MACLISE PARK', t: :person, nn: 'Sean Maclise Park', sn: 'Sean Park', s: 'sean-park' },
       { n: 'AJ Hanna', t: :person, nn: 'AJ Hanna', sn: 'AJ Hanna', s: 'aj-hanna' },
@@ -97,7 +97,7 @@ describe NameTamer do
       { n: 'Judith M. O\'Brien', t: :person, nn: 'Judith M. O\'Brien', sn: 'Judith O\'Brien', s: 'judith-obrien' },
       { n: 'MORRISON, Van', t: :person, nn: 'Van Morrison', sn: 'Van Morrison', s: 'van-morrison' },
       { n: 'i/o Ventures', t: :organization, nn: 'i/o Ventures', sn: 'i/o Ventures', s: 'i-o-ventures' },
-      { n: 'C T Corporation System', t: :person, nn: 'C.T. Corporation System', sn: 'CT Corporation System',
+      { n: 'C T Corporation System', t: :person, nn: 'CT Corporation System', sn: 'CT Corporation System',
         s: 'ct-corporation-system' },
       { n: 'C.T. Corporation System', t: :person, nn: 'C.T. Corporation System', sn: 'CT Corporation System',
         s: 'ct-corporation-system' },
@@ -164,7 +164,10 @@ describe NameTamer do
       { n: '* *', t: :person, nn: '* *', sn: '* *', s: '_' },
       { n: '* Olga *', t: :person, nn: '* Olga *', sn: 'Olga', s: 'olga' },
       { n: '* Olga Bedia García *', t: :person, nn: '* Olga Bedia García *', sn: 'Olga García', s: 'olga-garcia' },
-      { n: 'John Smith M.A. (Oxon)', t: :person, nn: 'John Smith', sn: 'John Smith', s: 'john-smith' }
+      { n: 'John Smith M.A. (Oxon)', t: :person, nn: 'John Smith', sn: 'John Smith', s: 'john-smith' },
+      { n: 'I B M', t: :organization, nn: 'Ibm', sn: 'Ibm', s: 'ibm' },
+      { n: 'I-B-M', t: :organization, nn: 'I-B-M', sn: 'I-B-M', s: 'i-b-m' },
+      { n: 'I.B.M.', t: :organization, nn: 'I.B.M.', sn: 'IBM', s: 'ibm' }
     ]
   end
 
