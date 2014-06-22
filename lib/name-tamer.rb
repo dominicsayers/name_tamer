@@ -47,7 +47,7 @@ class NameTamer
       remove_dots_from_abbreviations  # "J.P.R. Williams" -> "JPR Williams"
       standardize_words               # "B&Q Intl" -> "B and Q International"
 
-      @simple_name = ensure_whitespace_is_ascii_space @simple_name
+      @simple_name.whitespace_to!(ASCII_SPACE)
     end
 
     @simple_name
@@ -102,16 +102,17 @@ class NameTamer
   #--------------------------------------------------------
 
   def tidy_spacing
-    @nice_name.gsub!(/,\s*/, ', ') # Ensure commas have exactly one space after them
-    @nice_name.strip!              # remove leading & trailing whitespace
-    @nice_name = ensure_whitespace_is_ascii_space @nice_name
+    @nice_name
+      .space_after_comma!
+      .strip_or_self!
+      .whitespace_to!(ASCII_SPACE)
   end
 
   # Remove spaces from groups of initials
   def consolidate_initials
     @nice_name
       .remove_spaces_from_initials!
-      .ensure_terminal_period_for_initials!
+      .ensure_space_after_initials!
   end
 
   # An adfix is either a prefix or a suffix
@@ -292,10 +293,6 @@ class NameTamer
       # If more then we'll assume a person
       @name.include?(ASCII_SPACE) ? :person : :organization
     end
-  end
-
-  def ensure_whitespace_is_ascii_space(string)
-    string.gsub(/[[:space:]]+/, ASCII_SPACE) # /\s/ doesn't match Unicode whitespace in Ruby 1.9.3
   end
 
   # We pass to this routine either prefixes or suffixes
