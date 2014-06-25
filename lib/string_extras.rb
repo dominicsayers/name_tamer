@@ -129,6 +129,11 @@ class String
     self # Allows chaining
   end
 
+  def remove_periods_from_initials!
+    self.gsub!(/\b([a-z])\./i) { |_| Regexp.last_match[1] }
+    self # Allows chaining
+  end
+
   def remove_spaces_from_initials!
     self.gsub!(/\b([a-z])(\.)* \b(?![a-z0-9']{2,})/i) { |_| "#{Regexp.last_match[1]}#{Regexp.last_match[2]}" }
     self # Allows chaining
