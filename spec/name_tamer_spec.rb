@@ -133,13 +133,13 @@ describe NameTamer do
       { n: 'โชติวัน วัฒนลาภ', t: :organization, nn: 'โชติวัน วัฒนลาภ', sn: 'โชติวัน วัฒนลาภ', s: 'โชติวัน-วัฒนลาภ' },
       { n: '張 續寶', t: :organization, nn: '張 續寶', sn: '張 續寶', s: '張-續寶' },
       { n: 'Юрий Гайдук', t: :organization, nn: 'Юрий Гайдук', sn: 'Юрий Гайдук', s: 'Юрий-Гайдук' },
-      { n: '☣ ©Ʀѱ∏†ʘ Σɏ§†℈Ϻ ☣', t: :organization, nn: '☣ ©Ʀѱ∏†ʘ Σɏ§†℈Ϻ ☣', sn: '☣ ©Ʀѱ∏†ʘ Σɏ§†℈Ϻ ☣',
-        s: '☣-©Ʀѱ∏†ʘ-Σɏ§†℈Ϻ-☣' },
+      { n: '☣ ©Ʀѱ∏†ʘ Σɏ§†℈Ϻ ☣', t: :organization, nn: '☣ ©Ʀѱ∏†ʘ Σɏ§†℈Ϻ ☣', sn: '☣ Ʀѱ∏†ʘ Σɏ§†℈Ϻ ☣',
+        s: '☣-Ʀѱ∏†ʘ-Σɏ§†℈Ϻ-☣' },
       { n: '♠ KlasikB0i ♠', t: :organization, nn: '♠ KlasikB0i ♠', sn: '♠ KlasikB0i ♠', s: '♠-klasikb0i-♠' },
       { n: '* Shorusan *', t: :organization, nn: '* Shorusan *', sn: '* Shorusan *', s: 'shorusan' },
       { n: '项目谷', t: :organization, nn: '项目谷', sn: '项目谷', s: '项目谷' },
       { n: 'ООО "Инновационные полимерные адгезивы"', t: :organization, nn: 'ООО "Инновационные полимерные адгезивы"',
-        sn: 'ООО "Инновационные полимерные адгезивы"', s: 'ООО-Инновационные-полимерные-адгезивы' },
+        sn: 'ООО Инновационные полимерные адгезивы', s: 'ООО-Инновационные-полимерные-адгезивы' },
       { n: 'عبدالله ...', t: :organization, nn: 'عبدالله ...', sn: 'عبدالله ...', s: 'عبدالله' },
       { n: 'กมลชนก ทิศไธสง', t: :organization, nn: 'กมลชนก ทิศไธสง', sn: 'กมลชนก ทิศไธสง', s: 'กมลชนก-ทิศไธสง' },
       { n: 'יוֹ אָב', t: :organization, nn: 'יוֹ אָב', sn: 'יוֹ אָב', s: 'יוֹ-אָב' },
@@ -164,10 +164,30 @@ describe NameTamer do
       { n: '* *', t: :person, nn: '* *', sn: '* *', s: '_' },
       { n: '* Olga *', t: :person, nn: '* Olga *', sn: 'Olga', s: 'olga' },
       { n: '* Olga Bedia García *', t: :person, nn: '* Olga Bedia García *', sn: 'Olga García', s: 'olga-garcia' },
+      { n: 'Jose “Pepe” García', t: :organization, nn: 'Jose “Pepe” García', sn: 'Jose Pepe García',
+        s: 'jose-pepe-garcia' },
       { n: 'John Smith M.A. (Oxon)', t: :person, nn: 'John Smith', sn: 'John Smith', s: 'john-smith' },
       { n: 'I B M', t: :organization, nn: 'Ibm', sn: 'Ibm', s: 'ibm' },
       { n: 'I-B-M', t: :organization, nn: 'I-B-M', sn: 'I-B-M', s: 'i-b-m' },
-      { n: 'I.B.M.', t: :organization, nn: 'I.B.M.', sn: 'IBM', s: 'ibm' }
+      { n: 'I.B.M.', t: :organization, nn: 'I.B.M.', sn: 'IBM', s: 'ibm' },
+      { n: 'Unusuals — the ad industry network', t: :organization,
+        nn: 'Unusuals — the ad industry network',
+        sn: 'Unusuals - the ad industry network',
+        s: 'unusuals-the-ad-industry-network'
+      },
+      {
+        n: 'Scout® Loyalty Optimizer',
+        t: :organization,
+        nn: 'Scout® Loyalty Optimizer',
+        sn: 'Scout Loyalty Optimizer',
+        s: 'scout-loyalty-optimizer'
+      },
+      { n: 'RenÃ© Descartes',
+        t: :person,
+        nn: 'René Descartes',
+        sn: 'René Descartes',
+        s:'rene-descartes'
+      }
     ]
   end
 

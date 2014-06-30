@@ -26,6 +26,7 @@ class NameTamer
       @nice_name = name.dup          # Start with the name we've received
 
       tidy_spacing                    # " John   Smith " -> "John Smith"
+      fix_encoding_errors             # "RenÃ© Descartes" -> "René Descartes"
       consolidate_initials            # "I. B. M." -> "I.B.M."
       remove_adfixes                  # prefixes and suffixes: "Smith, John, Jr." -> "Smith, John"
       fixup_last_name_first           # "Smith, John" -> "John Smith"
@@ -42,10 +43,10 @@ class NameTamer
     unless @simple_name
       @simple_name = nice_name.dup    # Start with nice name
 
-      remove_initials                 # "John Q. Doe" -> "John Doe"
-      remove_middle_names             # "Philip Seymour Hoffman" -> "Philip Hoffman"
-      remove_dots_from_abbreviations  # "J.P.R. Williams" -> "JPR Williams"
-      standardize_words               # "B&Q Intl" -> "B and Q International"
+      remove_initials               # "John Q. Doe" -> "John Doe"
+      remove_middle_names           # "Philip Seymour Hoffman" -> "Philip Hoffman"
+      remove_periods_from_initials  # "J.P.R. Williams" -> "JPR Williams"
+      standardize_words             # "B&Q Intl" -> "B and Q International"
 
       @simple_name.whitespace_to!(ASCII_SPACE)
     end
@@ -106,6 +107,10 @@ class NameTamer
       .space_after_comma!
       .strip_or_self!
       .whitespace_to!(ASCII_SPACE)
+  end
+
+  def fix_encoding_errors
+    @nice_name.fix_encoding_errors!
   end
 
   # Remove spaces from groups of initials
@@ -236,14 +241,16 @@ class NameTamer
     @simple_name  = "#{first_name}#{separator}#{last_name}"
   end
 
-  def remove_dots_from_abbreviations
-    @simple_name.gsub!(/\b([a-z])\./i) { |_match| Regexp.last_match[1] }
+  def remove_periods_from_initials
+    @simple_name.remove_periods_from_initials!
   end
 
   def standardize_words
-    @simple_name.gsub!(/ *& */, ' and ')              # replace ampersand characters with ' and '
-    @simple_name.gsub!(/ *\+ */, ' plus ')            # replace plus signs with ' plus '
-    @simple_name.gsub!(/\bintl\b/i, 'International')  # replace 'intl' with 'International'
+    @simple_name.gsub!(/ *& */, ' and ')                 # replace ampersand characters with ' and '
+    @simple_name.gsub!(/ *\+ */, ' plus ')               # replace plus signs with ' plus '
+    @simple_name.gsub!(/\bintl\b/i, 'International')     # replace 'intl' with 'International'
+    @simple_name.gsub!(/[־‐‑‒–—―−﹘﹣－]/, SLUG_DELIMITER) # Replace Unicode dashes with ASCII hyphen
+    @simple_name.strip_unwanted!(/["“”™℠®©℗]/)           # remove quotes and commercial decoration
   end
 
   #--------------------------------------------------------
@@ -363,7 +370,7 @@ class NameTamer
     new_string
       .whitespace_to!(sep)
       .invalid_chars_to!(sep)
-      .strip_invalid!(filter)
+      .strip_unwanted!(filter)
       .fix_separators!(sep)
       .approximate_latin_chars!
 

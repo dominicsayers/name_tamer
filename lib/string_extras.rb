@@ -1,7 +1,7 @@
 # encoding: utf-8
 class String
   # Strip illegal characters out completely
-  def strip_invalid!(filter)
+  def strip_unwanted!(filter)
     self.gsub!(filter, '')
     self # Allows chaining
   end
@@ -48,6 +48,13 @@ class String
   # keyboard.
   def approximate_latin_chars!
     self.gsub!(/[^\x00-\x7f]/u) { |char| APPROXIMATIONS[char] || char }
+    self # Allows chaining
+  end
+
+  # Strings that were wrongly encoded with single-byte encodings sometimes have
+  # tell-tale substrings that we can put back into the correct UTF-8 character
+  def fix_encoding_errors!
+    self.gsub!(BAD_ENCODING_PATTERNS) { |substring| BAD_ENCODING[substring] || substring }
     self # Allows chaining
   end
 
@@ -129,6 +136,11 @@ class String
     self # Allows chaining
   end
 
+  def remove_periods_from_initials!
+    self.gsub!(/\b([a-z])\./i) { |_| Regexp.last_match[1] }
+    self # Allows chaining
+  end
+
   def remove_spaces_from_initials!
     self.gsub!(/\b([a-z])(\.)* \b(?![a-z0-9']{2,})/i) { |_| "#{Regexp.last_match[1]}#{Regexp.last_match[2]}" }
     self # Allows chaining
@@ -185,4 +197,37 @@ class String
     'Ŷ' => 'Y', 'ŷ' => 'y', 'Ÿ' => 'Y', 'Ź' => 'Z', 'ź' => 'z', 'Ż' => 'Z', 'ż' => 'z',
     'Ž' => 'Z', 'ž' => 'z'
   }
+
+  # When strings are mistakenly encoded as single-byte character sets, instead
+  # of UTF-8, there are some distinctive character combinations that we can spot
+  # and fix
+  BAD_ENCODING = {
+    'â‚¬' => '€', 'â€š' => '‚', 'Æ’' => 'ƒ', 'â€ž' => '„', 'â€¦' => '…',
+    'â€' => '†', 'â€¡' => '‡', 'Ë†' => 'ˆ', 'â€°' => '‰', 'Å ' => 'Š',
+    'â€¹' => '‹', 'Å’' => 'Œ', 'Å½' => 'Ž', 'â€˜' => '‘', 'â€™' => '’',
+    'â€œ' => '“', 'â€' => '”', 'â€¢' => '•', 'â€“' => '–', 'â€”' => '—',
+    'Ëœ' => '˜', 'â„¢' => '™', 'Å¡' => 'š', 'â€º' => '›', 'Å“' => 'œ',
+    'Å¾' => 'ž', 'Å¸' => 'Ÿ', 'Â ' => ' ', 'Â¡' => '¡', 'Â¢' => '¢',
+    'Â£' => '£', 'Â¤' => '¤', 'Â¥' => '¥', 'Â¦' => '¦', 'Â§' => '§',
+    'Â¨' => '¨', 'Â©' => '©', 'Âª' => 'ª', 'Â«' => '«', 'Â¬' => '¬',
+    'Â­' => '­', 'Â®' => '®', 'Â¯' => '¯', 'Â°' => '°', 'Â±' => '±',
+    'Â²' => '²', 'Â³' => '³', 'Â´' => '´', 'Âµ' => 'µ', 'Â¶' => '¶',
+    'Â·' => '·', 'Â¸' => '¸', 'Â¹' => '¹', 'Âº' => 'º', 'Â»' => '»',
+    'Â¼' => '¼', 'Â½' => '½', 'Â¾' => '¾', 'Â¿' => '¿', 'Ã€' => 'À',
+    'Ã�' => 'Á', 'Ã‚' => 'Â', 'Ãƒ' => 'Ã', 'Ã„' => 'Ä', 'Ã…' => 'Å',
+    'Ã†' => 'Æ', 'Ã‡' => 'Ç', 'Ãˆ' => 'È', 'Ã‰' => 'É', 'ÃŠ' => 'Ê',
+    'Ã‹' => 'Ë', 'ÃŒ' => 'Ì', 'Ã�' => 'Í', 'ÃŽ' => 'Î', 'Ã�' => 'Ï',
+    'Ã�' => 'Ð', 'Ã‘' => 'Ñ', 'Ã’' => 'Ò', 'Ã“' => 'Ó', 'Ã”' => 'Ô',
+    'Ã•' => 'Õ', 'Ã–' => 'Ö', 'Ã—' => '×', 'Ã˜' => 'Ø', 'Ã™' => 'Ù',
+    'Ãš' => 'Ú', 'Ã›' => 'Û', 'Ãœ' => 'Ü', 'Ã�' => 'Ý', 'Ãž' => 'Þ',
+    'ÃŸ' => 'ß', 'Ã ' => 'à', 'Ã¡' => 'á', 'Ã¢' => 'â', 'Ã£' => 'ã',
+    'Ã¤' => 'ä', 'Ã¥' => 'å', 'Ã¦' => 'æ', 'Ã§' => 'ç', 'Ã¨' => 'è',
+    'Ã©' => 'é', 'Ãª' => 'ê', 'Ã«' => 'ë', 'Ã¬' => 'ì', 'Ã­' => 'í',
+    'Ã®' => 'î', 'Ã¯' => 'ï', 'Ã°' => 'ð', 'Ã±' => 'ñ', 'Ã²' => 'ò',
+    'Ã³' => 'ó', 'Ã´' => 'ô', 'Ãµ' => 'õ', 'Ã¶' => 'ö', 'Ã·' => '÷',
+    'Ã¸' => 'ø', 'Ã¹' => 'ù', 'Ãº' => 'ú', 'Ã»' => 'û', 'Ã¼' => 'ü',
+    'Ã½' => 'ý', 'Ã¾' => 'þ', 'Ã¿' => 'ÿ'
+  }
+
+  BAD_ENCODING_PATTERNS = /(#{BAD_ENCODING.keys.join('|')})/
 end
