@@ -241,10 +241,11 @@ class NameTamer
   end
 
   def standardize_words
-    @simple_name.gsub!(/ *& */, ' and ')              # replace ampersand characters with ' and '
-    @simple_name.gsub!(/ *\+ */, ' plus ')            # replace plus signs with ' plus '
-    @simple_name.gsub!(/\bintl\b/i, 'International')  # replace 'intl' with 'International'
-    @simple_name.gsub!(/["“”]/, '')                     # remove quotes
+    @simple_name.gsub!(/ *& */, ' and ')                 # replace ampersand characters with ' and '
+    @simple_name.gsub!(/ *\+ */, ' plus ')               # replace plus signs with ' plus '
+    @simple_name.gsub!(/\bintl\b/i, 'International')     # replace 'intl' with 'International'
+    @simple_name.gsub!(/[־‐‑‒–—―−﹘﹣－]/, SLUG_DELIMITER) # Replace Unicode dashes with ASCII hyphen
+    @simple_name.strip_unwanted!(/["“”™℠®©℗]/)           # remove quotes and commercial decoration
   end
 
   #--------------------------------------------------------
@@ -364,7 +365,7 @@ class NameTamer
     new_string
       .whitespace_to!(sep)
       .invalid_chars_to!(sep)
-      .strip_invalid!(filter)
+      .strip_unwanted!(filter)
       .fix_separators!(sep)
       .approximate_latin_chars!
 

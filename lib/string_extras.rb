@@ -1,7 +1,7 @@
 # encoding: utf-8
 class String
   # Strip illegal characters out completely
-  def strip_invalid!(filter)
+  def strip_unwanted!(filter)
     self.gsub!(filter, '')
     self # Allows chaining
   end

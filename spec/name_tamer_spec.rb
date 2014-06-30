@@ -133,8 +133,8 @@ describe NameTamer do
       { n: 'โชติวัน วัฒนลาภ', t: :organization, nn: 'โชติวัน วัฒนลาภ', sn: 'โชติวัน วัฒนลาภ', s: 'โชติวัน-วัฒนลาภ' },
       { n: '張 續寶', t: :organization, nn: '張 續寶', sn: '張 續寶', s: '張-續寶' },
       { n: 'Юрий Гайдук', t: :organization, nn: 'Юрий Гайдук', sn: 'Юрий Гайдук', s: 'Юрий-Гайдук' },
-      { n: '☣ ©Ʀѱ∏†ʘ Σɏ§†℈Ϻ ☣', t: :organization, nn: '☣ ©Ʀѱ∏†ʘ Σɏ§†℈Ϻ ☣', sn: '☣ ©Ʀѱ∏†ʘ Σɏ§†℈Ϻ ☣',
-        s: '☣-©Ʀѱ∏†ʘ-Σɏ§†℈Ϻ-☣' },
+      { n: '☣ ©Ʀѱ∏†ʘ Σɏ§†℈Ϻ ☣', t: :organization, nn: '☣ ©Ʀѱ∏†ʘ Σɏ§†℈Ϻ ☣', sn: '☣ Ʀѱ∏†ʘ Σɏ§†℈Ϻ ☣',
+        s: '☣-Ʀѱ∏†ʘ-Σɏ§†℈Ϻ-☣' },
       { n: '♠ KlasikB0i ♠', t: :organization, nn: '♠ KlasikB0i ♠', sn: '♠ KlasikB0i ♠', s: '♠-klasikb0i-♠' },
       { n: '* Shorusan *', t: :organization, nn: '* Shorusan *', sn: '* Shorusan *', s: 'shorusan' },
       { n: '项目谷', t: :organization, nn: '项目谷', sn: '项目谷', s: '项目谷' },
@@ -169,7 +169,19 @@ describe NameTamer do
       { n: 'John Smith M.A. (Oxon)', t: :person, nn: 'John Smith', sn: 'John Smith', s: 'john-smith' },
       { n: 'I B M', t: :organization, nn: 'Ibm', sn: 'Ibm', s: 'ibm' },
       { n: 'I-B-M', t: :organization, nn: 'I-B-M', sn: 'I-B-M', s: 'i-b-m' },
-      { n: 'I.B.M.', t: :organization, nn: 'I.B.M.', sn: 'IBM', s: 'ibm' }
+      { n: 'I.B.M.', t: :organization, nn: 'I.B.M.', sn: 'IBM', s: 'ibm' },
+      { n: 'Unusuals — the ad industry network', t: :organization,
+        nn: 'Unusuals — the ad industry network',
+        sn: 'Unusuals - the ad industry network',
+        s: 'unusuals-the-ad-industry-network'
+      },
+      {
+        n: 'Scout® Loyalty Optimizer',
+        t: :organization,
+        nn: 'Scout® Loyalty Optimizer',
+        sn: 'Scout Loyalty Optimizer',
+        s: 'scout-loyalty-optimizer'
+      }
     ]
   end
 
