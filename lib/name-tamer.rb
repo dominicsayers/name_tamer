@@ -26,7 +26,7 @@ class NameTamer
       @nice_name = name.dup          # Start with the name we've received
 
       tidy_spacing                    # " John   Smith " -> "John Smith"
-      fix_encoding_errors             # "RenÃ© Descartes" -> "René Descartes"
+      fix_encoding_errors             # "Ren\u00c3\u00a9 Descartes" -> "Ren\u00e9 Descartes"
       consolidate_initials            # "I. B. M." -> "I.B.M."
       remove_adfixes                  # prefixes and suffixes: "Smith, John, Jr." -> "Smith, John"
       fixup_last_name_first           # "Smith, John" -> "John Smith"

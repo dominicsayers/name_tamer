@@ -186,7 +186,7 @@ describe NameTamer do
         t: :person,
         nn: 'René Descartes',
         sn: 'René Descartes',
-        s:'rene-descartes'
+        s: 'rene-descartes'
       }
     ]
   end
