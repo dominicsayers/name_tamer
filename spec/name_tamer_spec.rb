@@ -181,6 +181,12 @@ describe NameTamer do
         nn: 'Scout® Loyalty Optimizer',
         sn: 'Scout Loyalty Optimizer',
         s: 'scout-loyalty-optimizer'
+      },
+      { n: 'RenÃ© Descartes',
+        t: :person,
+        nn: 'René Descartes',
+        sn: 'René Descartes',
+        s:'rene-descartes'
       }
     ]
   end

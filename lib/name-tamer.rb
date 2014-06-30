@@ -26,6 +26,7 @@ class NameTamer
       @nice_name = name.dup          # Start with the name we've received
 
       tidy_spacing                    # " John   Smith " -> "John Smith"
+      fix_encoding_errors             # "RenÃ© Descartes" -> "René Descartes"
       consolidate_initials            # "I. B. M." -> "I.B.M."
       remove_adfixes                  # prefixes and suffixes: "Smith, John, Jr." -> "Smith, John"
       fixup_last_name_first           # "Smith, John" -> "John Smith"
@@ -106,6 +107,10 @@ class NameTamer
       .space_after_comma!
       .strip_or_self!
       .whitespace_to!(ASCII_SPACE)
+  end
+
+  def fix_encoding_errors
+    @nice_name.fix_encoding_errors!
   end
 
   # Remove spaces from groups of initials
