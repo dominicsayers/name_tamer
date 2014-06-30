@@ -21,13 +21,22 @@ class NameTamer
     end
   end
 
-  def nice_name
-    unless @nice_name
-      @nice_name = name.dup          # Start with the name we've received
+  def tidy_name
+    unless @tidy_name
+      @tidy_name = name.dup          # Start with the name we've received
 
       tidy_spacing                    # " John   Smith " -> "John Smith"
       fix_encoding_errors             # "Ren\u00c3\u00a9 Descartes" -> "Ren\u00e9 Descartes"
       consolidate_initials            # "I. B. M." -> "I.B.M."
+    end
+
+    @tidy_name
+  end
+
+  def nice_name
+    unless @nice_name
+      @nice_name = tidy_name.dup      # Start with the tidied name
+
       remove_adfixes                  # prefixes and suffixes: "Smith, John, Jr." -> "Smith, John"
       fixup_last_name_first           # "Smith, John" -> "John Smith"
       fixup_mismatched_braces         # "Ceres (AZ" -> "Ceres (AZ)"
@@ -103,19 +112,19 @@ class NameTamer
   #--------------------------------------------------------
 
   def tidy_spacing
-    @nice_name
+    @tidy_name
       .space_after_comma!
       .strip_or_self!
       .whitespace_to!(ASCII_SPACE)
   end
 
   def fix_encoding_errors
-    @nice_name.fix_encoding_errors!
+    @tidy_name.fix_encoding_errors!
   end
 
   # Remove spaces from groups of initials
   def consolidate_initials
-    @nice_name
+    @tidy_name
       .remove_spaces_from_initials!
       .ensure_space_after_initials!
   end
