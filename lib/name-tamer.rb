@@ -177,15 +177,20 @@ class NameTamer
     if @last_name.nil?
       lowercase = @nice_name.downcase
       uppercase = @nice_name.upcase
+      fix_case = false
 
-      # Some companies like to be all lowercase so don't mess with them
-      @nice_name  = name_case(lowercase)  if @nice_name == uppercase ||
-                                           ( @nice_name == lowercase && @contact_type != :organization)
+      if @contact_type == :organization
+        fix_case = true if @nice_name == uppercase && @nice_name.length > 4
+      else
+        fix_case = true if [uppercase, lowercase].include?(@nice_name)
+      end
+
+      @nice_name  = name_case(lowercase) if fix_case
     else
+      # It's a person if we've split the name, so no organization logic here
       lowercase = @last_name.downcase
       uppercase = @last_name.upcase
-      @last_name  = name_case(lowercase) if @last_name == uppercase || @last_name == lowercase
-
+      @last_name  = name_case(lowercase) if [uppercase, lowercase].include?(@last_name)
       @nice_name  = "#{@remainder} #{@last_name}"
     end
   end
