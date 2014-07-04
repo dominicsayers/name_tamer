@@ -23,11 +23,12 @@ class NameTamer
 
   def tidy_name
     unless @tidy_name
-      @tidy_name = name.dup          # Start with the name we've received
+      @tidy_name = name.dup # Start with the name we've received
 
-      tidy_spacing                    # " John   Smith " -> "John Smith"
-      fix_encoding_errors             # "Ren\u00c3\u00a9 Descartes" -> "Ren\u00e9 Descartes"
-      consolidate_initials            # "I. B. M." -> "I.B.M."
+      ensure_safe           # Invalid byte sequence in UTF-8, for example
+      tidy_spacing          # " John   Smith " -> "John Smith"
+      fix_encoding_errors   # "Ren\u00c3\u00a9 Descartes" -> "Ren\u00e9 Descartes"
+      consolidate_initials  # "I. B. M." -> "I.B.M."
     end
 
     @tidy_name
@@ -110,6 +111,10 @@ class NameTamer
   #--------------------------------------------------------
   # Tidy up the name we've received
   #--------------------------------------------------------
+
+  def ensure_safe
+    @tidy_name.ensure_safe
+  end
 
   def tidy_spacing
     @tidy_name
@@ -295,6 +300,7 @@ class NameTamer
       @contact_type = ct
     end
 
+    @tidy_name    = nil
     @nice_name    = nil
     @simple_name  = nil
     @slug         = nil

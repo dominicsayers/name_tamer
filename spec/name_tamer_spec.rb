@@ -194,7 +194,8 @@ describe NameTamer do
         nn: 'Pablo MSánchez',
         sn: 'Pablo MSánchez',
         s: 'pablo-msanchez'
-      }
+      },
+      { n: "\xc3\x28", t: :person, nn: '()', sn: '()', s: '_' } # Invalid byte sequence in UTF-8
     ]
   end
 

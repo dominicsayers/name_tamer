@@ -137,6 +137,11 @@ class String
     gsub!(/\b([a-z]\.)(?=[a-z0-9]{2,})/i) { |_| "#{Regexp.last_match[1]} " } || self
   end
 
+  def ensure_safe
+    return if valid_encoding?
+    encode!('UTF-8', invalid: :replace, undef: :replace, replace: '')
+  end
+
   def substitute!(pattern, replacement)
     gsub!(pattern, replacement) || self
   end
