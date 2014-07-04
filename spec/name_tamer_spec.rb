@@ -188,6 +188,12 @@ describe NameTamer do
         nn: 'René Descartes',
         sn: 'René Descartes',
         s: 'rene-descartes'
+      },
+      { n: 'Pablo M Sánchez',
+        t: :person,
+        nn: 'Pablo MSánchez',
+        sn: 'Pablo MSánchez',
+        s: 'pablo-msanchez'
       }
     ]
   end
