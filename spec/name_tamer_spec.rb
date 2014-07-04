@@ -183,18 +183,8 @@ describe NameTamer do
         sn: 'Scout Loyalty Optimizer',
         s: 'scout-loyalty-optimizer'
       },
-      { n: 'RenÃ© Descartes',
-        t: :person,
-        nn: 'René Descartes',
-        sn: 'René Descartes',
-        s: 'rene-descartes'
-      },
-      { n: 'Pablo M Sánchez',
-        t: :person,
-        nn: 'Pablo MSánchez',
-        sn: 'Pablo MSánchez',
-        s: 'pablo-msanchez'
-      },
+      { n: 'RenÃ© Descartes', t: :person, nn: 'René Descartes', sn: 'René Descartes', s: 'rene-descartes' },
+      { n: 'Pablo M Sánchez', t: :person, nn: 'Pablo M Sánchez', sn: 'Pablo Sánchez', s: 'pablo-sanchez' },
       { n: "\xc3\x28", t: :person, nn: '()', sn: '()', s: '_' } # Invalid byte sequence in UTF-8
     ]
   end

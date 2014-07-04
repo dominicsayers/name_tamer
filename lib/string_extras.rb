@@ -130,7 +130,9 @@ class String
   end
 
   def remove_spaces_from_initials!
-    gsub!(/\b([a-z])(\.)* \b(?![a-z0-9']{2,})/i) { |_| "#{Regexp.last_match[1]}#{Regexp.last_match[2]}" } || self
+    gsub!(/\b([a-z])(\.)* \b(?![a-z0-9'\u00C0-\u00FF]{2,})/i) do |_|
+      "#{Regexp.last_match[1]}#{Regexp.last_match[2]}"
+    end || self
   end
 
   def ensure_space_after_initials!
