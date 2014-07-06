@@ -25,6 +25,16 @@ class String
     substitute!(/(?<![[:space:]])[\.\/](?![[:space:]])/, separator)
   end
 
+  # Unescape percent-encoded characters
+  # This might introduce UTF-8 invalid byte sequence
+  # so we take precautions
+  def safe_unescape!
+    string = URI.unescape(self)
+    return self if self == string
+    replace string
+    ensure_safe!
+  end
+
   # Make sure separators are not where they shouldn't be
   def fix_separators!(separator)
     return self if separator.nil? || separator.empty?
@@ -139,8 +149,7 @@ class String
     gsub!(/\b([a-z]\.)(?=[a-z0-9]{2,})/i) { |_| "#{Regexp.last_match[1]} " } || self
   end
 
-  def ensure_safe
-    return if valid_encoding?
+  def ensure_safe!
     encode!('UTF-8', invalid: :replace, undef: :replace, replace: '')
   end
 

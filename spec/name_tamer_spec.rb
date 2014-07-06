@@ -122,7 +122,7 @@ describe NameTamer do
       { n: 'AGUSTA DO ROMEIRO', t: :person, nn: 'Agusta do Romeiro', sn: 'Agusta do Romeiro', s: 'agusta-do-romeiro' },
       { n: 'CARLOS DOS SANTOS', t: :person, nn: 'Carlos dos Santos', sn: 'Carlos dos Santos', s: 'carlos-dos-santos' },
       { n: '유정 신', t: :organization, nn: '유정 신', sn: '유정 신', s: '유정-신' },
-      { n: 'xxx%52zzz', t: :organization, nn: 'xxx%52zzz', sn: 'xxx%52zzz', s: 'xxxrzzz' },
+      { n: 'xxx%52zzz', t: :organization, nn: 'xxxRzzz', sn: 'xxxRzzz', s: 'xxxrzzz' },
       { n: 'Евгений Болотнов', t: :organization, nn: 'Евгений Болотнов', sn: 'Евгений Болотнов',
         s: 'Евгений-Болотнов' },
       { n: '김태성', t: :organization, nn: '김태성', sn: '김태성', s: '김태성' },

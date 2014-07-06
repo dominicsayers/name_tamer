@@ -19,13 +19,35 @@ class NameTamer
     def [](name, args = {})
       new name, args
     end
+
+    # Make a slug from a string
+    def parameterize(string, args = {})
+      sep     = args[:sep]      || SLUG_DELIMITER
+      rfc3987 = args[:rfc3987]  || false
+      filter  = args[:filter]   || (rfc3987 ? FILTER_RFC3987 : FILTER_COMPAT)
+
+      new_string = string.dup
+
+      new_string
+        .whitespace_to!(sep)
+        .invalid_chars_to!(sep)
+        .strip_unwanted!(filter)
+        .fix_separators!(sep)
+        .approximate_latin_chars!
+
+      # Have we got anything left?
+      new_string = '_' if new_string.empty?
+
+      # downcase any latin characters
+      new_string.downcase
+    end
   end
 
   def tidy_name
     unless @tidy_name
       @tidy_name = name.dup # Start with the name we've received
 
-      ensure_safe           # Invalid byte sequence in UTF-8, for example
+      unescape              # Unescape percent-encoded characters and fix UTF-8 encoding
       tidy_spacing          # " John   Smith " -> "John Smith"
       fix_encoding_errors   # "Ren\u00c3\u00a9 Descartes" -> "Ren\u00e9 Descartes"
       consolidate_initials  # "I. B. M." -> "I.B.M."
@@ -65,12 +87,7 @@ class NameTamer
   end
 
   def slug
-    unless @slug
-      @slug = simple_name.dup         # Start with search name
-      slugify                         # "John Doe" -> "john-doe"
-    end
-
-    @slug
+    @slug ||= NameTamer.parameterize simple_name.dup # "John Doe" -> "john-doe"
   end
 
   def contact_type
@@ -112,8 +129,8 @@ class NameTamer
   # Tidy up the name we've received
   #--------------------------------------------------------
 
-  def ensure_safe
-    @tidy_name.ensure_safe
+  def unescape
+    @tidy_name.ensure_safe!.safe_unescape!
   end
 
   def tidy_spacing
@@ -273,18 +290,6 @@ class NameTamer
   end
 
   #--------------------------------------------------------
-  # Make slug from search name
-  #--------------------------------------------------------
-
-  def slugify
-    # Inflector::parameterize just gives up with non-latin characters so...
-    # @slug = @slug.parameterize # Can't use this
-
-    # Instead we'll do it ourselves
-    @slug = parameterize @slug
-  end
-
-  #--------------------------------------------------------
   # Initialization and utilities
   #--------------------------------------------------------
 
@@ -376,29 +381,6 @@ class NameTamer
       .fix_ff!
       .fix_name_modifiers!
       .upcase_initials!
-  end
-
-  def parameterize(string, args = {})
-    sep     = args[:sep]      || SLUG_DELIMITER
-    rfc3987 = args[:rfc3987]  || false
-    filter  = args[:filter]   || (rfc3987 ? FILTER_RFC3987 : FILTER_COMPAT)
-
-    # First we unescape any pct-encoded characters. These might turn into
-    # things we want to alter for the slug, like whitespace (e.g. %20)
-    new_string = URI.unescape(string)
-
-    new_string
-      .whitespace_to!(sep)
-      .invalid_chars_to!(sep)
-      .strip_unwanted!(filter)
-      .fix_separators!(sep)
-      .approximate_latin_chars!
-
-    # Have we got anything left?
-    new_string = '_' if new_string.empty?
-
-    # downcase any latin characters
-    new_string.downcase
   end
 
   #--------------------------------------------------------
