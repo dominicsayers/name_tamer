@@ -33,6 +33,7 @@ Or you can create an instance if you need several versions of the name
 ```ruby
 name_tamer = NameTamer.new 'Mr. John Q. Smith III, MD'
 name_tamer.slug # => john-smith
+name_tamer.simple_name # => John Smith
 name_tamer.nice_name # => John Q. Smith
 name_tamer.contact_type # => :person
 ```
