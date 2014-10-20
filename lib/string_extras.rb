@@ -2,83 +2,84 @@
 class String
   # Strip illegal characters out completely
   def strip_unwanted!(filter)
-    self.gsub!(filter, '')
-    self # Allows chaining
+    substitute!(filter, '')
   end
 
   def strip_or_self!
-    self.strip!
-    self # Allows chaining
+    strip! || self
   end
 
   # Change any whitespace into our separator character
   def whitespace_to!(separator)
-    self.gsub!(/[[:space:]]+/, separator)
-    self # Allows chaining
+    substitute!(/[[:space:]]+/, separator)
   end
 
   # Ensure commas have exactly one space after them
   def space_after_comma!
-    self.gsub!(/,[[:space:]]*/, ', ')
-    self # Allows chaining
+    substitute!(/,[[:space:]]*/, ', ')
   end
 
   # Change some characters embedded in words to our separator character
   # e.g. example.com -> example-com
   def invalid_chars_to!(separator)
-    self.gsub!(/(?<![[:space:]])[\.\/](?![[:space:]])/, separator)
-    self # Allows chaining
+    substitute!(/(?<![[:space:]])[\.\/](?![[:space:]])/, separator)
+  end
+
+  # Unescape percent-encoded characters
+  # This might introduce UTF-8 invalid byte sequence
+  # so we take precautions
+  def safe_unescape!
+    string = URI.unescape(self)
+    return self if self == string
+    replace string
+    ensure_safe!
   end
 
   # Make sure separators are not where they shouldn't be
   def fix_separators!(separator)
-    unless separator.nil? || separator.empty?
-      r = Regexp.escape(separator)
-      # No more than one of the separator in a row.
-      self.gsub!(/#{r}{2,}/, separator)
-      # Remove leading/trailing separator.
-      self.gsub!(/^#{r}|#{r}$/i, '')
-    end
+    return self if separator.nil? || separator.empty?
 
-    self # Allows chaining
+    r = Regexp.escape(separator)
+
+    # No more than one of the separator in a row.
+    substitute!(/#{r}{2,}/, separator)
+
+    # Remove leading/trailing separator.
+    substitute!(/^#{r}|#{r}$/i, '')
   end
 
   # Any characters that resemble latin characters might usefully be
   # transliterated into ones that are easy to type on an anglophone
   # keyboard.
   def approximate_latin_chars!
-    self.gsub!(/[^\x00-\x7f]/u) { |char| APPROXIMATIONS[char] || char }
-    self # Allows chaining
+    gsub!(/[^\x00-\x7f]/u) { |char| APPROXIMATIONS[char] || char } || self
   end
 
   # Strings that were wrongly encoded with single-byte encodings sometimes have
   # tell-tale substrings that we can put back into the correct UTF-8 character
   def fix_encoding_errors!
-    self.gsub!(BAD_ENCODING_PATTERNS) { |substring| BAD_ENCODING[substring] || substring }
-    self # Allows chaining
+    gsub!(BAD_ENCODING_PATTERNS) { |substring| BAD_ENCODING[substring] || substring } || self
   end
 
   def upcase_first_letter!
-    self.gsub!(/\b\w/) { |first| first.upcase }
-    self # Allows chaining
+    gsub!(/\b\w/) { |first| first.upcase } || self
   end
 
   def downcase_after_apostrophe!
-    self.gsub!(/\'\w\b/) { |c| c.downcase } # Lowercase 's
-    self # Allows chaining
+    gsub!(/\'\w\b/) { |c| c.downcase } || self # Lowercase 's
   end
 
   # Our list of terminal characters that indicate a non-celtic name used
   # to include o but we removed it because of MacMurdo.
   def fix_mac!
     if self =~ /\bMac[A-Za-z]{2,}[^acizj]\b/ || self =~ /\bMc/
-      self.gsub!(/\b(Ma?c)([A-Za-z]+)/) { |_| Regexp.last_match[1] + Regexp.last_match[2].capitalize }
+      gsub!(/\b(Ma?c)([A-Za-z]+)/) { |_| Regexp.last_match[1] + Regexp.last_match[2].capitalize }
 
       # Fix Mac exceptions
       %w(
         MacEdo MacEvicius MacHado MacHar MacHin MacHlin MacIas MacIulis MacKie
         MacKle MacKlin MacKmin MacKmurdo MacQuarie MacLise MacKenzie
-      ).each { |mac_name| self.gsub!(/\b#{mac_name}/, mac_name.capitalize) }
+      ).each { |mac_name| substitute!(/\b#{mac_name}/, mac_name.capitalize) }
     end
 
     self # Allows chaining
@@ -88,7 +89,7 @@ class String
   def fix_ff!
     %w(
       Fforbes Fforde Ffinch Ffrench Ffoulkes
-    ).each { |ff_name| self.gsub!(ff_name, ff_name.downcase) }
+    ).each { |ff_name| substitute!(ff_name, ff_name.downcase) }
 
     self # Allows chaining
   end
@@ -98,13 +99,13 @@ class String
   # Fixes for name modifiers followed by an apostrophe, e.g. d'Artagnan, Commedia dell'Arte
   def fix_name_modifiers!
     NAME_MODIFIERS.each do |modifier|
-      self.gsub!(/((?:[[:space:]]|^)#{modifier})([[:space:]]+|-)/) do |_|
+      gsub!(/((?:[[:space:]]|^)#{modifier})([[:space:]]+|-)/) do |_|
         "#{Regexp.last_match[1].rstrip.downcase}#{Regexp.last_match[2].tr(ASCII_SPACE, NONBREAKING_SPACE)}"
       end
     end
 
     %w(Dell D).each do |modifier|
-      self.gsub!(/(.#{modifier}')(\w)/) { |_| "#{Regexp.last_match[1].rstrip.downcase}#{Regexp.last_match[2]}" }
+      gsub!(/(.#{modifier}')(\w)/) { |_| "#{Regexp.last_match[1].rstrip.downcase}#{Regexp.last_match[2]}" }
     end
 
     self # Allows chaining
@@ -113,16 +114,14 @@ class String
   # Upcase words with no vowels, e.g JPR Williams
   # Except Ng
   def upcase_initials!
-    self.gsub!(/\b([bcdfghjklmnpqrstvwxz]+)\b/i) { |_| Regexp.last_match[1].upcase }
-    self.gsub!(/\b(NG)\b/i) { |_| Regexp.last_match[1].capitalize } # http://en.wikipedia.org/wiki/Ng
-
-    self # Allows chaining
+    gsub!(/\b([bcdfghjklmnpqrstvwxz]+)\b/i) { |_| Regexp.last_match[1].upcase }
+    gsub!(/\b(NG)\b/i) { |_| Regexp.last_match[1].capitalize } || self # http://en.wikipedia.org/wiki/Ng
   end
 
   # Fix known last names that have spaces (not hyphens!)
   def nbsp_in_compound_name!
     COMPOUND_NAMES.each do |compound_name|
-      self.gsub!(compound_name, compound_name.tr(ASCII_SPACE, NONBREAKING_SPACE))
+      substitute!(compound_name, compound_name.tr(ASCII_SPACE, NONBREAKING_SPACE))
     end
 
     self # Allows chaining
@@ -130,25 +129,32 @@ class String
 
   def nbsp_in_name_modifier!
     NAME_MODIFIERS.each do |modifier|
-      self.gsub!(/([[:space:]]#{modifier})([[:space:]])/i) { |_| "#{Regexp.last_match[1]}#{NONBREAKING_SPACE}" }
+      gsub!(/([[:space:]]#{modifier})([[:space:]])/i) { |_| "#{Regexp.last_match[1]}#{NONBREAKING_SPACE}" }
     end
 
     self # Allows chaining
   end
 
   def remove_periods_from_initials!
-    self.gsub!(/\b([a-z])\./i) { |_| Regexp.last_match[1] }
-    self # Allows chaining
+    gsub!(/\b([a-z])\./i) { |_| Regexp.last_match[1] } || self
   end
 
   def remove_spaces_from_initials!
-    self.gsub!(/\b([a-z])(\.)* \b(?![a-z0-9']{2,})/i) { |_| "#{Regexp.last_match[1]}#{Regexp.last_match[2]}" }
-    self # Allows chaining
+    gsub!(/\b([a-z])(\.)* \b(?![a-z0-9'\u00C0-\u00FF]{2,})/i) do |_|
+      "#{Regexp.last_match[1]}#{Regexp.last_match[2]}"
+    end || self
   end
 
   def ensure_space_after_initials!
-    self.gsub!(/\b([a-z]\.)(?=[a-z0-9]{2,})/i) { |_| "#{Regexp.last_match[1]} " }
-    self # Allows chaining
+    gsub!(/\b([a-z]\.)(?=[a-z0-9]{2,})/i) { |_| "#{Regexp.last_match[1]} " } || self
+  end
+
+  def ensure_safe!
+    encode!('UTF-8', invalid: :replace, undef: :replace, replace: '')
+  end
+
+  def substitute!(pattern, replacement)
+    gsub!(pattern, replacement) || self
   end
 
   NONBREAKING_SPACE = "\u00a0"
@@ -203,9 +209,9 @@ class String
   # and fix
   BAD_ENCODING = {
     'â‚¬' => '€', 'â€š' => '‚', 'Æ’' => 'ƒ', 'â€ž' => '„', 'â€¦' => '…',
-    'â€' => '†', 'â€¡' => '‡', 'Ë†' => 'ˆ', 'â€°' => '‰', 'Å ' => 'Š',
+    'â€ ' => '†', 'â€¡' => '‡', 'Ë†' => 'ˆ', 'â€°' => '‰', 'Å ' => 'Š',
     'â€¹' => '‹', 'Å’' => 'Œ', 'Å½' => 'Ž', 'â€˜' => '‘', 'â€™' => '’',
-    'â€œ' => '“', 'â€' => '”', 'â€¢' => '•', 'â€“' => '–', 'â€”' => '—',
+    'â€œ' => '“', 'â€�' => '”', 'â€¢' => '•', 'â€“' => '–', 'â€”' => '—',
     'Ëœ' => '˜', 'â„¢' => '™', 'Å¡' => 'š', 'â€º' => '›', 'Å“' => 'œ',
     'Å¾' => 'ž', 'Å¸' => 'Ÿ', 'Â ' => ' ', 'Â¡' => '¡', 'Â¢' => '¢',
     'Â£' => '£', 'Â¤' => '¤', 'Â¥' => '¥', 'Â¦' => '¦', 'Â§' => '§',

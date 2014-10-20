@@ -3,6 +3,7 @@
 ![Gem Version](http://img.shields.io/gem/v/name-tamer.svg?style=flat)&nbsp;[![Code Climate](http://img.shields.io/codeclimate/github/Xenapto/name-tamer.svg?style=flat)](https://codeclimate.com/github/Xenapto/name-tamer)&nbsp;[![Coverage Status](https://img.shields.io/coveralls/Xenapto/name-tamer.svg?style=flat)](https://coveralls.io/r/Xenapto/name-tamer?branch=master)
 [![Developer status](http://img.shields.io/badge/developer-awesome-brightgreen.svg?style=flat)](http://xenapto.com)
 ![build status](https://circleci.com/gh/Xenapto/name-tamer.png?circle-token=2293f2a1d8463a948c2a2ce4bb3bd99786958c59)
+[ ![Codeship Status for Xenapto/name-tamer](https://www.codeship.io/projects/e3453410-f32f-0131-b8b8-428432402276/status)](https://www.codeship.io/projects/27835)
 
 NameTamer: making sense of names
 
@@ -33,6 +34,7 @@ Or you can create an instance if you need several versions of the name
 ```ruby
 name_tamer = NameTamer.new 'Mr. John Q. Smith III, MD'
 name_tamer.slug # => john-smith
+name_tamer.simple_name # => John Smith
 name_tamer.nice_name # => John Q. Smith
 name_tamer.contact_type # => :person
 ```

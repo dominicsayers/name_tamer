@@ -19,15 +19,47 @@ class NameTamer
     def [](name, args = {})
       new name, args
     end
+
+    # Make a slug from a string
+    def parameterize(string, args = {})
+      sep     = args[:sep]      || SLUG_DELIMITER
+      rfc3987 = args[:rfc3987]  || false
+      filter  = args[:filter]   || (rfc3987 ? FILTER_RFC3987 : FILTER_COMPAT)
+
+      new_string = string.dup
+
+      new_string
+        .whitespace_to!(sep)
+        .invalid_chars_to!(sep)
+        .strip_unwanted!(filter)
+        .fix_separators!(sep)
+        .approximate_latin_chars!
+
+      # Have we got anything left?
+      new_string = '_' if new_string.empty?
+
+      # downcase any latin characters
+      new_string.downcase
+    end
+  end
+
+  def tidy_name
+    unless @tidy_name
+      @tidy_name = name.dup # Start with the name we've received
+
+      unescape              # Unescape percent-encoded characters and fix UTF-8 encoding
+      tidy_spacing          # " John   Smith " -> "John Smith"
+      fix_encoding_errors   # "Ren\u00c3\u00a9 Descartes" -> "Ren\u00e9 Descartes"
+      consolidate_initials  # "I. B. M." -> "I.B.M."
+    end
+
+    @tidy_name
   end
 
   def nice_name
     unless @nice_name
-      @nice_name = name.dup          # Start with the name we've received
+      @nice_name = tidy_name.dup      # Start with the tidied name
 
-      tidy_spacing                    # " John   Smith " -> "John Smith"
-      fix_encoding_errors             # "RenÃ© Descartes" -> "René Descartes"
-      consolidate_initials            # "I. B. M." -> "I.B.M."
       remove_adfixes                  # prefixes and suffixes: "Smith, John, Jr." -> "Smith, John"
       fixup_last_name_first           # "Smith, John" -> "John Smith"
       fixup_mismatched_braces         # "Ceres (AZ" -> "Ceres (AZ)"
@@ -55,12 +87,7 @@ class NameTamer
   end
 
   def slug
-    unless @slug
-      @slug = simple_name.dup         # Start with search name
-      slugify                         # "John Doe" -> "john-doe"
-    end
-
-    @slug
+    @slug ||= NameTamer.parameterize simple_name.dup # "John Doe" -> "john-doe"
   end
 
   def contact_type
@@ -102,20 +129,24 @@ class NameTamer
   # Tidy up the name we've received
   #--------------------------------------------------------
 
+  def unescape
+    @tidy_name.ensure_safe!.safe_unescape!
+  end
+
   def tidy_spacing
-    @nice_name
+    @tidy_name
       .space_after_comma!
       .strip_or_self!
       .whitespace_to!(ASCII_SPACE)
   end
 
   def fix_encoding_errors
-    @nice_name.fix_encoding_errors!
+    @tidy_name.fix_encoding_errors!
   end
 
   # Remove spaces from groups of initials
   def consolidate_initials
-    @nice_name
+    @tidy_name
       .remove_spaces_from_initials!
       .ensure_space_after_initials!
   end
@@ -177,15 +208,20 @@ class NameTamer
     if @last_name.nil?
       lowercase = @nice_name.downcase
       uppercase = @nice_name.upcase
+      fix_case = false
 
-      # Some companies like to be all lowercase so don't mess with them
-      @nice_name  = name_case(lowercase)  if @nice_name == uppercase ||
-                                           ( @nice_name == lowercase && @contact_type != :organization)
+      if @contact_type == :organization
+        fix_case = true if @nice_name == uppercase && @nice_name.length > 4
+      else
+        fix_case = true if [uppercase, lowercase].include?(@nice_name)
+      end
+
+      @nice_name  = name_case(lowercase) if fix_case
     else
+      # It's a person if we've split the name, so no organization logic here
       lowercase = @last_name.downcase
       uppercase = @last_name.upcase
-      @last_name  = name_case(lowercase) if @last_name == uppercase || @last_name == lowercase
-
+      @last_name  = name_case(lowercase) if [uppercase, lowercase].include?(@last_name)
       @nice_name  = "#{@remainder} #{@last_name}"
     end
   end
@@ -254,18 +290,6 @@ class NameTamer
   end
 
   #--------------------------------------------------------
-  # Make slug from search name
-  #--------------------------------------------------------
-
-  def slugify
-    # Inflector::parameterize just gives up with non-latin characters so...
-    # @slug = @slug.parameterize # Can't use this
-
-    # Instead we'll do it ourselves
-    @slug = parameterize @slug
-  end
-
-  #--------------------------------------------------------
   # Initialization and utilities
   #--------------------------------------------------------
 
@@ -281,6 +305,7 @@ class NameTamer
       @contact_type = ct
     end
 
+    @tidy_name    = nil
     @nice_name    = nil
     @simple_name  = nil
     @slug         = nil
@@ -356,29 +381,6 @@ class NameTamer
       .fix_ff!
       .fix_name_modifiers!
       .upcase_initials!
-  end
-
-  def parameterize(string, args = {})
-    sep     = args[:sep]      || SLUG_DELIMITER
-    rfc3987 = args[:rfc3987]  || false
-    filter  = args[:filter]   || (rfc3987 ? FILTER_RFC3987 : FILTER_COMPAT)
-
-    # First we unescape any pct-encoded characters. These might turn into
-    # things we want to alter for the slug, like whitespace (e.g. %20)
-    new_string = URI.unescape(string)
-
-    new_string
-      .whitespace_to!(sep)
-      .invalid_chars_to!(sep)
-      .strip_unwanted!(filter)
-      .fix_separators!(sep)
-      .approximate_latin_chars!
-
-    # Have we got anything left?
-    new_string = '_' if new_string.empty?
-
-    # downcase any latin characters
-    new_string.downcase
   end
 
   #--------------------------------------------------------

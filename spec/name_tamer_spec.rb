@@ -88,7 +88,7 @@ describe NameTamer do
       { n: 'MACKENZIE, Doug', t: :person, nn: 'Doug Mackenzie', sn: 'Doug Mackenzie', s: 'doug-mackenzie' },
       { n: 'Up + Down', t: :organization, nn: 'Up + Down', sn: 'Up plus Down', s: 'up-plus-down' },
       { n: 'San Francisco Ltd', t: :organization, nn: 'San Francisco', sn: 'San Francisco', s: 'san-francisco' },
-      { n: 'AT&T', t: :organization, nn: 'At&T', sn: 'At and T', s: 'at-and-t' },
+      { n: 'AT&T', t: :organization, nn: 'AT&T', sn: 'AT and T', s: 'at-and-t' },
       { n: 'SMITH, John, Jr.', t: :person, nn: 'John Smith', sn: 'John Smith', s: 'john-smith' },
       { n: 'I Heart Movies', t: :organization, nn: 'I Heart Movies', sn: 'I Heart Movies', s: 'i-heart-movies' },
       { n: 'Y Combinator', t: :organization, nn: 'Y Combinator', sn: 'Y Combinator', s: 'y-combinator' },
@@ -122,7 +122,7 @@ describe NameTamer do
       { n: 'AGUSTA DO ROMEIRO', t: :person, nn: 'Agusta do Romeiro', sn: 'Agusta do Romeiro', s: 'agusta-do-romeiro' },
       { n: 'CARLOS DOS SANTOS', t: :person, nn: 'Carlos dos Santos', sn: 'Carlos dos Santos', s: 'carlos-dos-santos' },
       { n: '유정 신', t: :organization, nn: '유정 신', sn: '유정 신', s: '유정-신' },
-      { n: 'xxx%52zzz', t: :organization, nn: 'xxx%52zzz', sn: 'xxx%52zzz', s: 'xxxrzzz' },
+      { n: 'xxx%52zzz', t: :organization, nn: 'xxxRzzz', sn: 'xxxRzzz', s: 'xxxrzzz' },
       { n: 'Евгений Болотнов', t: :organization, nn: 'Евгений Болотнов', sn: 'Евгений Болотнов',
         s: 'Евгений-Болотнов' },
       { n: '김태성', t: :organization, nn: '김태성', sn: '김태성', s: '김태성' },
@@ -167,7 +167,8 @@ describe NameTamer do
       { n: 'Jose “Pepe” García', t: :organization, nn: 'Jose “Pepe” García', sn: 'Jose Pepe García',
         s: 'jose-pepe-garcia' },
       { n: 'John Smith M.A. (Oxon)', t: :person, nn: 'John Smith', sn: 'John Smith', s: 'john-smith' },
-      { n: 'I B M', t: :organization, nn: 'Ibm', sn: 'Ibm', s: 'ibm' },
+      { n: 'IBM', t: :organization, nn: 'IBM', sn: 'IBM', s: 'ibm' },
+      { n: 'I B M', t: :organization, nn: 'IBM', sn: 'IBM', s: 'ibm' },
       { n: 'I-B-M', t: :organization, nn: 'I-B-M', sn: 'I-B-M', s: 'i-b-m' },
       { n: 'I.B.M.', t: :organization, nn: 'I.B.M.', sn: 'IBM', s: 'ibm' },
       { n: 'Unusuals — the ad industry network', t: :organization,
@@ -182,12 +183,10 @@ describe NameTamer do
         sn: 'Scout Loyalty Optimizer',
         s: 'scout-loyalty-optimizer'
       },
-      { n: 'RenÃ© Descartes',
-        t: :person,
-        nn: 'René Descartes',
-        sn: 'René Descartes',
-        s:'rene-descartes'
-      }
+      { n: 'RenÃ© Descartes', t: :person, nn: 'René Descartes', sn: 'René Descartes', s: 'rene-descartes' },
+      { n: 'John â€œJonnoâ€� Johnson', t: :person, nn: 'John “Jonno” Johnson', sn: 'John Johnson', s: 'john-johnson' },
+      { n: 'Pablo M Sánchez', t: :person, nn: 'Pablo M Sánchez', sn: 'Pablo Sánchez', s: 'pablo-sanchez' },
+      { n: "\xc3\x28", t: :person, nn: '()', sn: '()', s: '_' } # Invalid byte sequence in UTF-8
     ]
   end
 
