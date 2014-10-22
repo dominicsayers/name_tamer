@@ -207,11 +207,13 @@ class String
   # When strings are mistakenly encoded as single-byte character sets, instead
   # of UTF-8, there are some distinctive character combinations that we can spot
   # and fix
+  # Useful table here http://www.i18nqa.com/debug/utf8-debug.html
   BAD_ENCODING = {
     'â‚¬' => '€', 'â€š' => '‚', 'Æ’' => 'ƒ', 'â€ž' => '„', 'â€¦' => '…',
     'â€ ' => '†', 'â€¡' => '‡', 'Ë†' => 'ˆ', 'â€°' => '‰', 'Å ' => 'Š',
     'â€¹' => '‹', 'Å’' => 'Œ', 'Å½' => 'Ž', 'â€˜' => '‘', 'â€™' => '’',
-    'â€œ' => '“', 'â€�' => '”', 'â€¢' => '•', 'â€“' => '–', 'â€”' => '—',
+    'â€œ' => '“', 'â€' => '”', # Note the invisible Ux009D in the key
+    'â€¢' => '•', 'â€“' => '–', 'â€”' => '—',
     'Ëœ' => '˜', 'â„¢' => '™', 'Å¡' => 'š', 'â€º' => '›', 'Å“' => 'œ',
     'Å¾' => 'ž', 'Å¸' => 'Ÿ', 'Â ' => ' ', 'Â¡' => '¡', 'Â¢' => '¢',
     'Â£' => '£', 'Â¤' => '¤', 'Â¥' => '¥', 'Â¦' => '¦', 'Â§' => '§',

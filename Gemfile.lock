@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    name-tamer (0.2.1)
+    name-tamer (0.2.3)
 
 GEM
   remote: https://rubygems.org/
