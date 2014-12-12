@@ -30,6 +30,9 @@ class String
   # so we take precautions
   def safe_unescape!
     string = URI.unescape(self)
+  rescue Encoding::CompatibilityError # e.g. "\u2019%80"
+    return self
+  else
     return self if self == string
     replace string
     ensure_safe!
