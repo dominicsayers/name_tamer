@@ -396,8 +396,7 @@ class NameTamer
   ASCII_SPACE       = "\u0020"
   ADFIX_JOINERS     = "[#{ASCII_SPACE}-]"
   SLUG_DELIMITER    = '-'
-
-  ZERO_WIDTH_FILTER = /[\u200B\u200C\u200D\u2063\uFEFF]/
+  ZERO_WIDTH_FILTER = /[\u180E\u200B\u200C\u200D\u2063\uFEFF]/
 
   # Constants for parameterizing Unicode strings for IRIs
   #
