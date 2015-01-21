@@ -21,3 +21,7 @@ DotPosition:
   EnforcedStyle: leading
   # EnforcedStyle: trailing
   Enabled: true
+
+StringLiterals:
+  EnforcedStyle: single_quotes
+  Enabled: true
