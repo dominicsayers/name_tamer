@@ -15,3 +15,13 @@ Documentation:
 FileName:
   Description: 'Use snake_case for source file names.'
   Enabled: false
+
+DotPosition:
+  Description: 'Checks the position of the dot in multi-line method calls.'
+  EnforcedStyle: leading
+  # EnforcedStyle: trailing
+  Enabled: true
+
+StringLiterals:
+  EnforcedStyle: single_quotes
+  Enabled: true

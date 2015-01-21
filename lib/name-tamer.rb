@@ -48,6 +48,7 @@ class NameTamer
       @tidy_name = name.dup # Start with the name we've received
 
       unescape              # Unescape percent-encoded characters and fix UTF-8 encoding
+      remove_zero_width     # remove zero-width characters
       tidy_spacing          # " John   Smith " -> "John Smith"
       fix_encoding_errors   # "Ren\u00c3\u00a9 Descartes" -> "Ren\u00e9 Descartes"
       consolidate_initials  # "I. B. M." -> "I.B.M."
@@ -131,6 +132,10 @@ class NameTamer
 
   def unescape
     @tidy_name.ensure_safe!.safe_unescape!
+  end
+
+  def remove_zero_width
+    @tidy_name.strip_unwanted!(ZERO_WIDTH_FILTER)
   end
 
   def tidy_spacing
@@ -390,7 +395,9 @@ class NameTamer
   NONBREAKING_SPACE = "\u00a0"
   ASCII_SPACE       = "\u0020"
   ADFIX_JOINERS     = "[#{ASCII_SPACE}-]"
-  SLUG_DELIMITER    =  '-'
+  SLUG_DELIMITER    = '-'
+
+  ZERO_WIDTH_FILTER = /[\u200B\u200C\u200D\u2063\uFEFF]/
 
   # Constants for parameterizing Unicode strings for IRIs
   #
