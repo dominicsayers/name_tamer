@@ -187,7 +187,9 @@ describe NameTamer do
       { n: 'John â€œJonnoâ€ Johnson', t: :person, nn: 'John “Jonno” Johnson', sn: 'John Johnson', s: 'john-johnson' },
       { n: 'Pablo M Sánchez', t: :person, nn: 'Pablo M Sánchez', sn: 'Pablo Sánchez', s: 'pablo-sanchez' },
       { n: "\xc3\x28", t: :person, nn: '()', sn: '()', s: '_' }, # Invalid byte sequence in UTF-8
-      { n: '’%80', t: :person, nn: '’%80', sn: '’%80', s: '’80' } # Encoding::CompatibilityError
+      { n: '’%80', t: :person, nn: '’%80', sn: '’%80', s: '’80' }, # Encoding::CompatibilityError
+      { n: "John Smith\u{FEFF}\u{200B}\u{200C}\u{200D}\u{2063}", t: :person,
+        nn: 'John Smith', sn: 'John Smith', s: 'john-smith' } # Zero-width characters
     ]
   end
 
