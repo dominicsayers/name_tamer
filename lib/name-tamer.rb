@@ -300,10 +300,10 @@ class NameTamer
 
   def initialize(new_name, args = {})
     @name = new_name || ''
-    @args = args.dup
+    args_ct = args[:contact_type]
 
-    if @args[:contact_type]
-      ct = @args[:contact_type]
+    if args_ct
+      ct = args_ct.is_a?(Symbol) ? args_ct : args_ct.dup
       ct = ct.to_s unless [String, Symbol].include? ct.class
       ct.downcase! if ct.class == String
       ct = ct.to_sym
