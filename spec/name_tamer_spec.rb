@@ -189,7 +189,9 @@ describe NameTamer do
       { n: "\xc3\x28", t: :person, nn: '()', sn: '()', s: '_' }, # Invalid byte sequence in UTF-8
       { n: '’%80', t: :person, nn: '’%80', sn: '’%80', s: '’80' }, # Encoding::CompatibilityError
       { n: "John Smith\u{FEFF}\u{200B}\u{200C}\u{200D}\u{2063}", t: :person,
-        nn: 'John Smith', sn: 'John Smith', s: 'john-smith' } # Zero-width characters
+        nn: 'John Smith', sn: 'John Smith', s: 'john-smith' }, # Zero-width characters
+      { n: 'Herman Melville ,CLP', t: :person, nn:'Herman Melville', sn:'Herman Melville', s:'herman-melville'},
+      { n: 'Melville ,Herman', t: :person, nn:'Herman Melville', sn:'Herman Melville', s:'herman-melville'},
     ]
   end
 

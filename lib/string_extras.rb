@@ -15,8 +15,8 @@ class String
   end
 
   # Ensure commas have exactly one space after them
-  def space_after_comma!
-    substitute!(/,[[:space:]]*/, ', ')
+  def space_around_comma!
+    substitute!(/[[:space:]]*,[[:space:]]*/, ', ')
   end
 
   # Change some characters embedded in words to our separator character
@@ -243,4 +243,20 @@ class String
   }
 
   BAD_ENCODING_PATTERNS = /(#{BAD_ENCODING.keys.join('|')})/
+
+  # Colorize strings
+  colors = %w(black red green yellow blue magenta cyan white)
+
+  colors.each_with_index do |fg_color, i|
+    fg = 30 + i
+    define_method(fg_color) { ansi_attributes(fg) }
+
+    colors.each_with_index do |bg_color, j|
+      define_method("#{fg_color}_on_#{bg_color}") { ansi_attributes(fg, 40 + j) }
+    end
+  end
+
+  def ansi_attributes(*args)
+    "\e[#{args.join(';')}m#{self}\e[0m"
+  end
 end

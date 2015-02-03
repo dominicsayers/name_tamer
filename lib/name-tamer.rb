@@ -140,7 +140,7 @@ class NameTamer
 
   def tidy_spacing
     @tidy_name
-      .space_after_comma!
+      .space_around_comma!
       .strip_or_self!
       .whitespace_to!(ASCII_SPACE)
   end
@@ -462,7 +462,7 @@ class NameTamer
         'Chartered F.C.S.I.',
         'C.I.S.S.P.', 'T.M.I.E.T.', 'A.C.C.A.', 'C.I.T.P.', 'F.B.C.S.', 'F.C.C.A.', 'F.C.M.I.', 'F.I.E.T.', 'F.I.R.P.',
         'M.I.E.T.', 'B.Tech.',
-        'Cantab.', 'D.Phil.', 'I.T.I.L. v3', 'B.Eng.', 'C.Eng.', 'M.Jur.', 'C.F.A.', 'D.B.E.',
+        'Cantab.', 'D.Phil.', 'I.T.I.L. v3', 'B.Eng.', 'C.Eng.', 'M.Jur.', 'C.F.A.', 'D.B.E.', 'C.L.P.',
         'D.D.S.', 'D.V.M.', 'Eng.D.', 'A.C.A.', 'C.T.A.', 'E.R.P.', 'F.C.A', 'F.P.C.', 'F.R.M.', 'M.B.A.', 'M.B.E.',
         'M.E.P.', 'M.Eng.', 'M.Jur.', 'M.S.P.', 'O.B.E.', 'P.M.C.', 'P.M.P.', 'P.S.P.', 'V.M.D.', 'B.Ed.', 'B.Sc.',
         'Ed.D.', 'Hons.', 'LL.B.',
