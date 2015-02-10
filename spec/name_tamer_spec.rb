@@ -192,6 +192,7 @@ describe NameTamer do
         nn: 'John Smith', sn: 'John Smith', s: 'john-smith' }, # Zero-width characters
       { n: 'Herman Melville ,CLP', t: :person, nn:'Herman Melville', sn:'Herman Melville', s:'herman-melville'},
       { n: 'Melville ,Herman', t: :person, nn:'Herman Melville', sn:'Herman Melville', s:'herman-melville'},
+      { n: "John\x00 Smith", t: :person, nn: 'John Smith', sn: 'John Smith', s: 'john-smith'}
     ]
   end
 
