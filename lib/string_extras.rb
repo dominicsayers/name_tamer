@@ -15,8 +15,8 @@ class String
   end
 
   # Ensure commas have exactly one space after them
-  def space_after_comma!
-    substitute!(/,[[:space:]]*/, ', ')
+  def space_around_comma!
+    substitute!(/[[:space:]]*,[[:space:]]*/, ', ')
   end
 
   # Change some characters embedded in words to our separator character
@@ -107,6 +107,11 @@ class String
       end
     end
 
+    fix_apostrophe_modifiers!
+    self # Allows chaining
+  end
+
+  def fix_apostrophe_modifiers!
     %w(Dell D).each do |modifier|
       gsub!(/(.#{modifier}')(\w)/) { |_| "#{Regexp.last_match[1].rstrip.downcase}#{Regexp.last_match[2]}" }
     end
@@ -229,18 +234,35 @@ class String
     'Â¼' => '¼', 'Â½' => '½', 'Â¾' => '¾', 'Â¿' => '¿', 'Ã€' => 'À',
     'Ã�' => 'Á', 'Ã‚' => 'Â', 'Ãƒ' => 'Ã', 'Ã„' => 'Ä', 'Ã…' => 'Å',
     'Ã†' => 'Æ', 'Ã‡' => 'Ç', 'Ãˆ' => 'È', 'Ã‰' => 'É', 'ÃŠ' => 'Ê',
-    'Ã‹' => 'Ë', 'ÃŒ' => 'Ì', 'Ã�' => 'Í', 'ÃŽ' => 'Î', 'Ã�' => 'Ï',
-    'Ã�' => 'Ð', 'Ã‘' => 'Ñ', 'Ã’' => 'Ò', 'Ã“' => 'Ó', 'Ã”' => 'Ô',
+    'Ã‹' => 'Ë', 'ÃŒ' => 'Ì', "\xC3\x8D" => 'Í', 'ÃŽ' => 'Î', "\xC3\x8F" => 'Ï',
+    "\xC3\x90" => 'Ð', 'Ã‘' => 'Ñ', 'Ã’' => 'Ò', 'Ã“' => 'Ó', 'Ã”' => 'Ô',
     'Ã•' => 'Õ', 'Ã–' => 'Ö', 'Ã—' => '×', 'Ã˜' => 'Ø', 'Ã™' => 'Ù',
-    'Ãš' => 'Ú', 'Ã›' => 'Û', 'Ãœ' => 'Ü', 'Ã�' => 'Ý', 'Ãž' => 'Þ',
+    'Ãš' => 'Ú', 'Ã›' => 'Û', 'Ãœ' => 'Ü', "\xC3\x9D" => 'Ý', 'Ãž' => 'Þ',
     'ÃŸ' => 'ß', 'Ã ' => 'à', 'Ã¡' => 'á', 'Ã¢' => 'â', 'Ã£' => 'ã',
     'Ã¤' => 'ä', 'Ã¥' => 'å', 'Ã¦' => 'æ', 'Ã§' => 'ç', 'Ã¨' => 'è',
     'Ã©' => 'é', 'Ãª' => 'ê', 'Ã«' => 'ë', 'Ã¬' => 'ì', 'Ã­' => 'í',
     'Ã®' => 'î', 'Ã¯' => 'ï', 'Ã°' => 'ð', 'Ã±' => 'ñ', 'Ã²' => 'ò',
     'Ã³' => 'ó', 'Ã´' => 'ô', 'Ãµ' => 'õ', 'Ã¶' => 'ö', 'Ã·' => '÷',
     'Ã¸' => 'ø', 'Ã¹' => 'ù', 'Ãº' => 'ú', 'Ã»' => 'û', 'Ã¼' => 'ü',
-    'Ã½' => 'ý', 'Ã¾' => 'þ', 'Ã¿' => 'ÿ'
+    'Ã½' => 'ý', 'Ã¾' => 'þ', 'Ã¿' => 'ÿ',
+    "\x00" => '' # Manually added to avoid Bad Argument exception
   }
 
   BAD_ENCODING_PATTERNS = /(#{BAD_ENCODING.keys.join('|')})/
+
+  # Colorize strings
+  colors = %w(black red green yellow blue magenta cyan white)
+
+  colors.each_with_index do |fg_color, i|
+    fg = 30 + i
+    define_method(fg_color) { ansi_attributes(fg) }
+
+    colors.each_with_index do |bg_color, j|
+      define_method("#{fg_color}_on_#{bg_color}") { ansi_attributes(fg, 40 + j) }
+    end
+  end
+
+  def ansi_attributes(*args)
+    "\e[#{args.join(';')}m#{self}\e[0m"
+  end
 end

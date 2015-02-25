@@ -140,7 +140,7 @@ class NameTamer
 
   def tidy_spacing
     @tidy_name
-      .space_after_comma!
+      .space_around_comma!
       .strip_or_self!
       .whitespace_to!(ASCII_SPACE)
   end
@@ -211,24 +211,32 @@ class NameTamer
   def name_wrangle
     # Fix case if all caps or all lowercase
     if @last_name.nil?
-      lowercase = @nice_name.downcase
-      uppercase = @nice_name.upcase
-      fix_case = false
-
-      if @contact_type == :organization
-        fix_case = true if @nice_name == uppercase && @nice_name.length > 4
-      else
-        fix_case = true if [uppercase, lowercase].include?(@nice_name)
-      end
-
-      @nice_name  = name_case(lowercase) if fix_case
+      name_wrangle_single_name
     else
-      # It's a person if we've split the name, so no organization logic here
-      lowercase = @last_name.downcase
-      uppercase = @last_name.upcase
-      @last_name  = name_case(lowercase) if [uppercase, lowercase].include?(@last_name)
-      @nice_name  = "#{@remainder} #{@last_name}"
+      name_wrangle_split_name
     end
+  end
+
+  def name_wrangle_single_name
+    lowercase = @nice_name.downcase
+    uppercase = @nice_name.upcase
+    fix_case = false
+
+    if @contact_type == :organization
+      fix_case = true if @nice_name == uppercase && @nice_name.length > 4
+    else
+      fix_case = true if [uppercase, lowercase].include?(@nice_name)
+    end
+
+    @nice_name  = name_case(lowercase) if fix_case
+  end
+
+  def name_wrangle_split_name
+    # It's a person if we've split the name, so no organization logic here
+    lowercase = @last_name.downcase
+    uppercase = @last_name.upcase
+    @last_name  = name_case(lowercase) if [uppercase, lowercase].include?(@last_name)
+    @nice_name  = "#{@remainder} #{@last_name}"
   end
 
   # Conjoin compound names with non-breaking spaces
@@ -256,30 +264,38 @@ class NameTamer
   def remove_middle_names
     return unless @contact_type == :person
 
-    parts       = @simple_name.split
-    first_name  = nil
-    last_name   = nil
-
-    # Find first usable name
-    parts.each_index do |i|
-      part = parts[i]
-      next if part.gsub(FILTER_COMPAT, '').empty?
-      first_name  = part
-      parts       = parts.slice(i + 1, parts.length) # don't use "slice!"
-      break
-    end
-
-    # Find last usable name
-    parts.reverse_each do |part|
-      next if part.gsub(FILTER_COMPAT, '').empty?
-      last_name = part
-      break
-    end
+    first_name, parts = find_first_usable_name(@simple_name.split)
+    last_name, _      = find_last_usable_name(parts)
 
     return unless first_name || last_name
 
     separator     = first_name && last_name ? ' ' : ''
     @simple_name  = "#{first_name}#{separator}#{last_name}"
+  end
+
+  def find_first_usable_name(parts)
+    part = nil
+
+    parts.each_index do |i|
+      part = parts[i]
+      next if part.gsub(FILTER_COMPAT, '').empty?
+      parts = parts.slice(i + 1, parts.length) # don't use "slice!"
+      break
+    end
+
+    [part, parts]
+  end
+
+  def find_last_usable_name(parts)
+    part = nil
+
+    parts.reverse_each do |p|
+      next if p.gsub(FILTER_COMPAT, '').empty?
+      part = p
+      break
+    end
+
+    part
   end
 
   def remove_periods_from_initials
@@ -299,16 +315,8 @@ class NameTamer
   #--------------------------------------------------------
 
   def initialize(new_name, args = {})
-    @name = new_name || ''
-
-    if args[:contact_type]
-      ct = args[:contact_type]
-      ct = ct.to_s unless [String, Symbol].include? ct.class
-      ct.downcase! if ct.class == String
-      ct = ct.to_sym
-      ct = nil unless [:person, :organization].include? ct
-      @contact_type = ct
-    end
+    @name         = new_name || ''
+    @contact_type = contact_type_from args
 
     @tidy_name    = nil
     @nice_name    = nil
@@ -319,6 +327,19 @@ class NameTamer
     @remainder    = nil
 
     @adfix_found  = false
+  end
+
+  def contact_type_from(args)
+    args_ct = args[:contact_type]
+    return unless args_ct
+
+    ct = args_ct.is_a?(Symbol) ? args_ct : args_ct.dup
+    ct = ct.to_s unless [String, Symbol].include? ct.class
+    ct.downcase! if ct.class == String
+    ct = ct.to_sym
+    ct = nil unless [:person, :organization].include? ct
+
+    ct
   end
 
   # If we don't know the contact type, what's our best guess?
@@ -334,34 +355,33 @@ class NameTamer
 
   # We pass to this routine either prefixes or suffixes
   def remove_outermost_adfix(adfix_type, name_part)
-    adfixes       = ADFIX_PATTERNS[adfix_type]
+    ct, parts = find_contact_type_and_parts(ADFIX_PATTERNS[adfix_type], name_part)
+
+    return name_part unless @adfix_found
+
+    # If we've found a diagnostic adfix then set the contact type
+    self.contact_type = ct
+
+    # The remainder of the name will be in parts[0] or parts[2] depending
+    # on whether this is a prefix or a suffix.
+    # We'll also remove any trailing commas we've exposed.
+    (parts[0] + parts[2]).gsub(/\s*,\s*$/, '')
+  end
+
+  def find_contact_type_and_parts(adfixes, name_part)
     ct            = contact_type_best_effort
     parts         = name_part.partition adfixes[ct]
     @adfix_found  = !parts[1].empty?
 
+    return [ct, parts] if @contact_type || @adfix_found
+
     # If the contact type is indeterminate and we didn't find a diagnostic adfix
     # for a person then try again for an organization
-    if @contact_type.nil?
-      unless @adfix_found
-        ct            = :organization
-        parts         = name_part.partition adfixes[ct]
-        @adfix_found  = !parts[1].empty?
-      end
-    end
+    ct            = :organization
+    parts         = name_part.partition adfixes[ct]
+    @adfix_found  = !parts[1].empty?
 
-    if @adfix_found
-      # If we've found a diagnostic adfix then set the contact type
-      self.contact_type = ct
-
-      # The remainder of the name will be in parts[0] or parts[2] depending
-      # on whether this is a prefix or a suffix.
-      # We'll also remove any trailing commas we've exposed.
-      result = (parts[0] + parts[2]).gsub(/\s*,\s*$/, '')
-    else
-      result = name_part
-    end
-
-    result
+    [ct, parts]
   end
 
   # Original Version of NameCase:
@@ -396,8 +416,7 @@ class NameTamer
   ASCII_SPACE       = "\u0020"
   ADFIX_JOINERS     = "[#{ASCII_SPACE}-]"
   SLUG_DELIMITER    = '-'
-
-  ZERO_WIDTH_FILTER = /[\u200B\u200C\u200D\u2063\uFEFF]/
+  ZERO_WIDTH_FILTER = /[\u180E\u200B\u200C\u200D\u2063\uFEFF]/
 
   # Constants for parameterizing Unicode strings for IRIs
   #
@@ -462,7 +481,7 @@ class NameTamer
         'Chartered F.C.S.I.',
         'C.I.S.S.P.', 'T.M.I.E.T.', 'A.C.C.A.', 'C.I.T.P.', 'F.B.C.S.', 'F.C.C.A.', 'F.C.M.I.', 'F.I.E.T.', 'F.I.R.P.',
         'M.I.E.T.', 'B.Tech.',
-        'Cantab.', 'D.Phil.', 'I.T.I.L. v3', 'B.Eng.', 'C.Eng.', 'M.Jur.', 'C.F.A.', 'D.B.E.',
+        'Cantab.', 'D.Phil.', 'I.T.I.L. v3', 'B.Eng.', 'C.Eng.', 'M.Jur.', 'C.F.A.', 'D.B.E.', 'C.L.P.',
         'D.D.S.', 'D.V.M.', 'Eng.D.', 'A.C.A.', 'C.T.A.', 'E.R.P.', 'F.C.A', 'F.P.C.', 'F.R.M.', 'M.B.A.', 'M.B.E.',
         'M.E.P.', 'M.Eng.', 'M.Jur.', 'M.S.P.', 'O.B.E.', 'P.M.C.', 'P.M.P.', 'P.S.P.', 'V.M.D.', 'B.Ed.', 'B.Sc.',
         'Ed.D.', 'Hons.', 'LL.B.',

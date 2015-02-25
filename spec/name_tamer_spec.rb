@@ -161,7 +161,7 @@ describe NameTamer do
       { n: 'Hermann Müller', t: :person, nn: 'Hermann Müller', sn: 'Hermann Müller', s: 'hermann-muller' },
       { n: 'b-to-v Partners AG', t: :organization, nn: 'b-to-v Partners', sn: 'b-to-v Partners', s: 'b-to-v-partners' },
       { n: '*', t: :person, nn: '*', sn: '*', s: '_' },
-      { n: '* *', t: :person, nn: '* *', sn: '* *', s: '_' },
+      { n: '* *', t: :person, nn: '* *', sn: '*', s: '_' },
       { n: '* Olga *', t: :person, nn: '* Olga *', sn: 'Olga', s: 'olga' },
       { n: '* Olga Bedia García *', t: :person, nn: '* Olga Bedia García *', sn: 'Olga García', s: 'olga-garcia' },
       { n: 'Jose “Pepe” García', t: :organization, nn: 'Jose “Pepe” García', sn: 'Jose Pepe García',
@@ -189,7 +189,10 @@ describe NameTamer do
       { n: "\xc3\x28", t: :person, nn: '()', sn: '()', s: '_' }, # Invalid byte sequence in UTF-8
       { n: '’%80', t: :person, nn: '’%80', sn: '’%80', s: '’80' }, # Encoding::CompatibilityError
       { n: "John Smith\u{FEFF}\u{200B}\u{200C}\u{200D}\u{2063}", t: :person,
-        nn: 'John Smith', sn: 'John Smith', s: 'john-smith' } # Zero-width characters
+        nn: 'John Smith', sn: 'John Smith', s: 'john-smith' }, # Zero-width characters
+      { n: 'Herman Melville ,CLP', t: :person, nn: 'Herman Melville', sn: 'Herman Melville', s: 'herman-melville' },
+      { n: 'Melville ,Herman', t: :person, nn: 'Herman Melville', sn: 'Herman Melville', s: 'herman-melville' },
+      { n: "John\x00 Smith", t: :person, nn: 'John Smith', sn: 'John Smith', s: 'john-smith' }
     ]
   end
 
