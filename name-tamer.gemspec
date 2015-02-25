@@ -7,8 +7,8 @@ Gem::Specification.new do |spec|
   spec.version       = NameTamer::VERSION
   spec.authors       = ['Xenapto']
   spec.email         = ['developers@xenapto.com']
-  spec.description   = %q(Useful methods for taming names)
-  spec.summary       = %q(Example: NameTamer['Mr. John Q. Smith III, MD'].simple_name # => John Smith)
+  spec.description   = 'Useful methods for taming names'
+  spec.summary       = "Example: NameTamer['Mr. John Q. Smith III, MD'].simple_name # => John Smith"
   spec.homepage      = 'https://github.com/Xenapto/name-tamer'
   spec.license       = 'MIT'
 
@@ -23,4 +23,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'gem-release', '~> 0'
   spec.add_development_dependency 'simplecov', '~> 0.7', '>= 0.7.1' # https://github.com/colszowka/simplecov/issues/281
   spec.add_development_dependency 'coveralls', '~> 0'
+  spec.add_development_dependency 'rubocop', '~> 0'
 end
