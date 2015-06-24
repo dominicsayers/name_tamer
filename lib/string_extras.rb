@@ -22,7 +22,7 @@ class String
   # Change some characters embedded in words to our separator character
   # e.g. example.com -> example-com
   def invalid_chars_to!(separator)
-    substitute!(/(?<![[:space:]])[\.\/](?![[:space:]])/, separator)
+    substitute!(%r{(?<![[:space:]])[\.\/](?![[:space:]])}, separator)
   end
 
   # Unescape percent-encoded characters
@@ -166,15 +166,15 @@ class String
   end
 
   NONBREAKING_SPACE = "\u00a0"
-  ASCII_SPACE       = "\u0020"
+  ASCII_SPACE = "\u0020"
 
-  COMPOUND_NAMES  = [
+  COMPOUND_NAMES = [
     'Lane Fox', 'Bonham Carter', 'Pitt Rivers', 'Lloyd Webber', 'Sebag Montefiore', 'Holmes à Court', 'Holmes a Court',
     'Baron Cohen', 'Strang Steel',
     'Service Company', 'Corporation Company', 'Corporation System', 'Incorporations Limited'
   ]
 
-  NAME_MODIFIERS  = [
+  NAME_MODIFIERS = [
     'Al', 'Ap', 'Ben', 'Dell[ae]', 'D[aeiou]', 'De[lrn]', 'D[ao]s', 'El', 'La', 'L[eo]', 'V[ao]n', 'Of', 'San',
     'St[\.]?', 'Zur'
   ]

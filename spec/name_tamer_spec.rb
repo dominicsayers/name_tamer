@@ -191,48 +191,59 @@ describe NameTamer do
       { n: "John Smith\u{FEFF}\u{200B}\u{200C}\u{200D}\u{2063}", t: :person,
         nn: 'John Smith', sn: 'John Smith', s: 'john-smith' }, # Zero-width characters
       { n: 'Herman Melville ,CLP', t: :person, nn: 'Herman Melville', sn: 'Herman Melville', s: 'herman-melville' },
+      { n: 'Herman Melville, CLP®', t: :person, nn: 'Herman Melville', sn: 'Herman Melville', s: 'herman-melville' },
+      { n: 'Herman Melville, CLP™', t: :person, nn: 'Herman Melville', sn: 'Herman Melville', s: 'herman-melville' },
+      { n: 'Herman Melville, CLP®™', t: :person, nn: 'Herman Melville', sn: 'Herman Melville', s: 'herman-melville' },
+      { n: 'Herman Melville, CLP™®', t: :person, nn: 'Herman Melville', sn: 'Herman Melville', s: 'herman-melville' },
       { n: 'Melville ,Herman', t: :person, nn: 'Herman Melville', sn: 'Herman Melville', s: 'herman-melville' },
-      { n: "John\x00 Smith", t: :person, nn: 'John Smith', sn: 'John Smith', s: 'john-smith' }
+      { n: "John\x00 Smith", t: :person, nn: 'John Smith', sn: 'John Smith', s: 'john-smith' },
+      {
+        n: 'Janen Moyer-Pesso, AWMA, CDFA, LPS',
+        t: :person,
+        nn: 'Janen Moyer-Pesso',
+        sn: 'Janen Moyer-Pesso',
+        s: 'janen-moyer-pesso'
+      }
     ]
   end
 
   it 'makes a slug' do
     names.each do |name_data|
       name = name_data[:n]
-      NameTamer[name, contact_type: name_data[:t]].slug.should == name_data[:s]
+      expect(NameTamer[name, contact_type: name_data[:t]].slug).to eq(name_data[:s])
     end
   end
 
   it 'makes a nice name' do
     names.each do |name_data|
-      name      = name_data[:n]
+      name = name_data[:n]
       nice_name = NameTamer[name, contact_type: name_data[:t]].nice_name
-      nice_name.should == name_data[:nn]
+      expect(nice_name).to eq(name_data[:nn])
     end
   end
 
   it 'makes a searchable name' do
     names.each do |name_data|
       name = name_data[:n]
-      NameTamer[name, contact_type: name_data[:t]].simple_name.should == name_data[:sn]
+      expect(NameTamer[name, contact_type: name_data[:t]].simple_name).to eq(name_data[:sn])
     end
   end
 end
 
 describe 'contact type inference' do
   it 'infers that "Mr. John Smith" is a person' do
-    NameTamer['Mr. John Smith'].contact_type.should eq(:person)
+    expect(NameTamer['Mr. John Smith'].contact_type).to eq(:person)
   end
 
   it 'infers that "Di Doo Doo d.o.o." is an organization' do
-    NameTamer['Di Doo Doo d.o.o.'].contact_type.should eq(:organization)
+    expect(NameTamer['Di Doo Doo d.o.o.'].contact_type).to eq(:organization)
   end
 
   it 'infers that "DiDooDoo" is an organization' do
-    NameTamer['DiDooDoo'].contact_type.should eq(:organization)
+    expect(NameTamer['DiDooDoo'].contact_type).to eq(:organization)
   end
 
   it 'infers that "John Smith" is a person' do
-    NameTamer['John Smith'].contact_type.should eq(:person)
+    expect(NameTamer['John Smith'].contact_type).to eq(:person)
   end
 end

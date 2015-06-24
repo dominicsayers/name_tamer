@@ -67,6 +67,7 @@ S.C.R.L.,,organization,100,,8
 S.M.B.A.,Selskab med begrænset ansvar,organization,100,Denmark,8
 S.P.R.L.,société privée à responsabilité limitée,organization,100,Belgium,8
 Е.О.О.Д.,ednolichno druzhestvo s ogranichena otgovornost,organization,100,Bulgaria,8
+&. Cie.,,organization,100,,7
 and Co.,,organization,100,,7
 Comm.V.,gewone commanditaire vennootschap,organization,100,Belgium,7
 Limited,Limited,organization,100,,7
@@ -143,7 +144,7 @@ A.y.,avoin yhtiö,organization,80,Finland,4
 B.M.,Be'eravon Mugbal,organization,100,Israel,4
 b.t.,betéti társaság,organization,100,Hungary,4
 B.V.,Besloten vennootschap,organization,100,Netherlands,4
-C.A.,Compañía Anónima,organization,75,Ecuador,4
+C.A.,Compañía Anónima,organization,50,Ecuador,4
 C.V.,Commanditaire vennootschap,organization,100,Netherlands,4
 d.d.,dioničko društvo,organization,100,Bosnia & Herzegovina,4
 e.c.,egyéni cég,organization,100,Hungary,4
@@ -210,72 +211,135 @@ G/S,Gensidigt selskab,organization,100,Denmark,3
 I/S,Interessentskab,organization,100,Denmark,3
 K/S,Kommanditselskab,organization,100,Denmark,3
 P/S,Partnerselskab ,organization,100,Denmark,3
+S/A,,organization,100,,3
+Chartered F.C.S.I.,,person,100,,18
+Chartered M.C.S.I.,,person,100,,18
+I.F.R.S. Certified,,person,100,,18
+F.Inst.L.M.,,person,100,,11
 C.I.S.S.P.,,person,100,,10
+F.C.I.P.S.,,person,100,,10
+M.R.I.C.S.,,person,100,,10
+T.M.I.E.T.,Member of the Institution of Engineering and Technology,person,100,,10
+Dip. D.M.,,person,100,,9
+A.A.M.S.,,person,100,,8
+A.C.C.A.,Association of Chartered Certified Accountants,person,100,,8
+A.C.M.A.,,person,100,,8
+A.I.F.A.,,person,100,,8
+A.W.M.A.,,person,100,,8
+C.A.I.A.,,person,100,,8
+C.A.P.M.,,person,100,,8
+C.C.I.M.,,person,100,,8
+C.D.F.A.,,person,100,,8
+C.E.P.P.,,person,100,,8
+C.F.B.S.,,person,100,,8
+C.G.M.A.,,person,100,,8
+C.I.T.P.,,person,100,,8
+C.L.T.C.,,person,100,,8
+C.P.C.C.,,person,100,,8
+C.R.P.C.,,person,100,,8
+C.R.P.S.,,person,100,,8
+C.S.O.X.,,person,100,,8
+C.S.S.D.,,person,100,,8
+F.B.C.S.,,person,100,,8
+F.C.C.A.,Fellow of the Association of Chartered Certified Accountants,person,100,,8
+F.C.M.I.,Fellow of the Chartered Management Institute,person,100,United Kingdom,8
+F.C.S.I.,,person,100,,8
+F.I.E.T.,Fellow of the Institution of Engineering and Technology,person,100,,8
+F.I.R.P.,,person,100,,8
+M.I.E.T.,Member of the Institution of Engineering and Technology,person,100,,8
+M.S.F.S.,,person,100,,8
+M.Sc. D.,,person,100,,8
+O.R.S.C.,,person,100,,8
+R.I.C.P.,,person,100,,8
 B.Tech.,Bachelor of Technology,person,100,,7
+Cantab.,,person,100,,7
+Ch.F.C.,,person,100,,7
 D.Phil.,Doctor of Philosophy,person,100,,7
+I.T.I.L. v3,,person,100,,7
+M.Io.D.,,person,100,,7
+S.C.M.P,,person,100,,7
+A.C.A.,Associate of the Institute of Chartered Accountants in England and Wales,person,100,United Kingdom,6
+A.C.C.,,person,100,,6
+A.E.P.,,person,100,,6
+A.I.F.,,person,100,,6
+A.S.A.,,person,100,,6
 B.Eng.,Bachelor of Engineering,person,100,,6
+C.B.V.,,person,100,,6
+C.E.M.,,person,100,,6
+C.Eng.,,person,100,,6
 C.F.A.,,person,100,,6
+C.F.F.,,person,100,,6
+C.F.P.,,person,100,,6
+C.F.S.,,person,100,,6
+C.G.A.,,person,100,,6
+C.G.B.,,person,100,,6
+C.G.P.,,person,100,,6
+C.I.M.,,person,100,,6
 C.L.P.,,person,100,,6
+C.L.U.,,person,100,,6
+C.M.A.,,person,100,,6
+C.M.T.,,person,100,,6
+C.P.A.,,person,100,,6
+C.T.A.,Chartered Tax Adviser,person,100,,6
+C.W.S.,,person,100,,6
 D.B.E.,Dame of the British Empire,person,100,,6
 D.D.S.,Doctor of Dental Surgery,person,100,,6
+D.V.M.,Doctor of Veterinary Medecine,person,100,,6
+E.R.P.,Energy Risk Professional,person,100,,6
 Eng.D.,Doctor of Engineering,person,100,,6
+F.C.A.,Fellow of the Institute of Chartered Accountants in England and Wales,person,100,United Kingdom,6
+F.P.C.,,person,100,,6
+F.R.M.,,person,100,,6
+F.R.M.,,person,100,,6
+G.S.P.,,person,100,,6
+L.P.S.,,person,100,,6
 M.B.A.,Master of Business Administration,person,100,,6
 M.B.E.,Member of the Order of the British Empire,person,100,,6
 M.E.P.,Member of the European Parliament,person,100,,6
 M.Eng.,Master of Engineering,person,100,,6
+M.Jur.,Master of Jurisprudence,person,100,United Kingdom,6
+M.P.A.,,person,100,,6
+M.S.F.,,person,100,,6
 M.S.P.,Member of the Scottish Parliament,person,100,,6
 O.B.E.,Order of the British Empire,person,100,,6
+P.C.C.,,person,100,,6
+P.F.S.,,person,100,,6
+P.H.R.,,person,100,,6
 P.M.C.,,person,100,,6
 P.M.P.,,person,100,,6
+P.M.P.,,person,100,,6
 P.S.P.,,person,100,,6
+R.F.C.,,person,100,,6
+V.M.D.,Doctor of Veterinary Medecine,person,100,,6
 B.Ed.,Bachelor of Education,person,20,,5
 B.Sc.,Bachelor of Science,person,100,,5
 Ed.D.,Doctor of Education,person,100,,5
+Ed.M.,,person,100,,5
+Hons.,,person,100,,5
 LL.B.,Bachelor of Laws,person,100,,5
 LL.D.,Doctor of Laws,person,100,,5
+LL.M.,Master of Laws,person,100,,5
 M.Ed.,Master of Education,person,100,,5
 M.Sc.,Master of Science,person,100,,5
+Oxon.,,person,100,,5
 Ph.D.,Doctor of Philosophy,person,100,,5
 B.A.,Bachelor of Arts,person,100,,4
+C.A.,,person,50,,4
+E.A.,,person,100,,4
 Esq.,Esquire,person,100,,4
 J.D.,Juris Doctor,person,100,,4
 K.C.,King's Counsel,person,100,,4
 M.A.,Master of Arts,person,100,,4
 M.D.,Doctor of Medicine,person,100,,4
 M.P.,Member of Parliament,person,100,,4
+M.S.,,person,100,,4
 O.K.,"(unknown personal suffix, poss. Oklahoma-related)",person,20,,4
 P.A.,Physician Assistant,person,100,,4
 Q.C.,Queen's Counsel,person,100,,4
+R.D.,,person,100,,4
 III,The Third,person,100,,3
 Jr.,Junior,person,100,,3
 Sr.,Senior,person,100,,3
 II,The Second,person,100,,2
 IV,The Fourth,person,100,,2
 V,The Fifth,person,20,,1
-D.V.M.,Doctor of Veterinary Medecine,person,100,,6
-V.M.D.,Doctor of Veterinary Medecine,person,100,,6
-M.I.E.T.,Member of the Institution of Engineering and Technology,person,100,,8
-T.M.I.E.T.,Member of the Institution of Engineering and Technology,person,100,,10
-F.I.E.T.,Fellow of the Institution of Engineering and Technology,person,100,,8
-E.R.P.,Energy Risk Professional,person,100,,6
-A.C.A.,Associate of the Institute of Chartered Accountants in England and Wales,person,100,United Kingdom,6
-C.T.A.,Chartered Tax Adviser,person,100,,6
-F.C.A.,Fellow of the Institute of Chartered Accountants in England and Wales,person,100,United Kingdom,6
-M.Jur.,Master of Jurisprudence,person,100,United Kingdom,6
-F.C.M.I.,Fellow of the Chartered Management Institute,person,100,United Kingdom,8
-F.C.C.A.,Fellow of the Association of Chartered Certified Accountants,person,100,,8
-A.C.C.A.,Association of Chartered Certified Accountants,person,100,,8
-&. Cie.,,organization,100,,7
-I.T.I.L. v3,,person,100,,7
-P.M.P.,,person,100,,6
-F.I.R.P.,,person,100,,8
-C.Eng.,,person,100,,6
-S/A,,organization,100,,3
-Chartered F.C.S.I.,,person,100,,18
-F.P.C.,,person,100,,6
-F.R.M.,,person,100,,6
-Oxon.,,person,100,,5
-Cantab.,,person,100,,7
-C.I.T.P.,,person,100,,8
-F.B.C.S.,,person,100,,8
-Hons.,,person,100,5

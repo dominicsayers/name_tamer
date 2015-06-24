@@ -22,9 +22,9 @@ class NameTamer
 
     # Make a slug from a string
     def parameterize(string, args = {})
-      sep     = args[:sep]      || SLUG_DELIMITER
-      rfc3987 = args[:rfc3987]  || false
-      filter  = args[:filter]   || (rfc3987 ? FILTER_RFC3987 : FILTER_COMPAT)
+      sep = args[:sep] || SLUG_DELIMITER
+      rfc3987 = args[:rfc3987] || false
+      filter = args[:filter] || (rfc3987 ? FILTER_RFC3987 : FILTER_COMPAT)
 
       new_string = string.dup
 
@@ -47,11 +47,11 @@ class NameTamer
     unless @tidy_name
       @tidy_name = name.dup # Start with the name we've received
 
-      unescape              # Unescape percent-encoded characters and fix UTF-8 encoding
-      remove_zero_width     # remove zero-width characters
-      tidy_spacing          # " John   Smith " -> "John Smith"
-      fix_encoding_errors   # "Ren\u00c3\u00a9 Descartes" -> "Ren\u00e9 Descartes"
-      consolidate_initials  # "I. B. M." -> "I.B.M."
+      unescape # Unescape percent-encoded characters and fix UTF-8 encoding
+      remove_zero_width # remove zero-width characters
+      tidy_spacing # " John   Smith " -> "John Smith"
+      fix_encoding_errors # "Ren\u00c3\u00a9 Descartes" -> "Ren\u00e9 Descartes"
+      consolidate_initials # "I. B. M." -> "I.B.M."
     end
 
     @tidy_name
@@ -59,13 +59,13 @@ class NameTamer
 
   def nice_name
     unless @nice_name
-      @nice_name = tidy_name.dup      # Start with the tidied name
+      @nice_name = tidy_name.dup # Start with the tidied name
 
-      remove_adfixes                  # prefixes and suffixes: "Smith, John, Jr." -> "Smith, John"
-      fixup_last_name_first           # "Smith, John" -> "John Smith"
-      fixup_mismatched_braces         # "Ceres (AZ" -> "Ceres (AZ)"
-      remove_adfixes                  # prefixes and suffixes: "Mr John Smith Jr." -> "John Smith"
-      name_wrangle                    # proper name case and non-breaking spaces
+      remove_adfixes # prefixes and suffixes: "Smith, John, Jr." -> "Smith, John"
+      fixup_last_name_first # "Smith, John" -> "John Smith"
+      fixup_mismatched_braces # "Ceres (AZ" -> "Ceres (AZ)"
+      remove_adfixes # prefixes and suffixes: "Mr John Smith Jr." -> "John Smith"
+      name_wrangle # proper name case and non-breaking spaces
       use_nonbreaking_spaces_in_compound_names
     end
 
@@ -74,12 +74,12 @@ class NameTamer
 
   def simple_name
     unless @simple_name
-      @simple_name = nice_name.dup    # Start with nice name
+      @simple_name = nice_name.dup # Start with nice name
 
-      remove_initials               # "John Q. Doe" -> "John Doe"
-      remove_middle_names           # "Philip Seymour Hoffman" -> "Philip Hoffman"
-      remove_periods_from_initials  # "J.P.R. Williams" -> "JPR Williams"
-      standardize_words             # "B&Q Intl" -> "B and Q International"
+      remove_initials # "John Q. Doe" -> "John Doe"
+      remove_middle_names # "Philip Seymour Hoffman" -> "Philip Hoffman"
+      remove_periods_from_initials # "J.P.R. Williams" -> "JPR Williams"
+      standardize_words # "B&Q Intl" -> "B and Q International"
 
       @simple_name.whitespace_to!(ASCII_SPACE)
     end
@@ -191,14 +191,14 @@ class NameTamer
 
     return unless parts.count == 2
 
-    @last_name    = parts[0] # Sometimes the last name alone is all caps and we can name-case it
-    @remainder    = parts[1]
+    @last_name = parts[0] # Sometimes the last name alone is all caps and we can name-case it
+    @remainder = parts[1]
   end
 
   # Sometimes we end up with mismatched braces after adfix stripping
   # e.g. "Ceres (Ceres Holdings LLC)" -> "Ceres (Ceres Holdings"
   def fixup_mismatched_braces
-    left_brace_count  = @nice_name.count '('
+    left_brace_count = @nice_name.count '('
     right_brace_count = @nice_name.count ')'
 
     if left_brace_count > right_brace_count
@@ -228,15 +228,15 @@ class NameTamer
       fix_case = true if [uppercase, lowercase].include?(@nice_name)
     end
 
-    @nice_name  = name_case(lowercase) if fix_case
+    @nice_name = name_case(lowercase) if fix_case
   end
 
   def name_wrangle_split_name
     # It's a person if we've split the name, so no organization logic here
     lowercase = @last_name.downcase
     uppercase = @last_name.upcase
-    @last_name  = name_case(lowercase) if [uppercase, lowercase].include?(@last_name)
-    @nice_name  = "#{@remainder} #{@last_name}"
+    @last_name = name_case(lowercase) if [uppercase, lowercase].include?(@last_name)
+    @nice_name = "#{@remainder} #{@last_name}"
   end
 
   # Conjoin compound names with non-breaking spaces
@@ -265,12 +265,12 @@ class NameTamer
     return unless @contact_type == :person
 
     first_name, parts = find_first_usable_name(@simple_name.split)
-    last_name, _      = find_last_usable_name(parts)
+    last_name, = find_last_usable_name(parts)
 
     return unless first_name || last_name
 
-    separator     = first_name && last_name ? ' ' : ''
-    @simple_name  = "#{first_name}#{separator}#{last_name}"
+    separator = first_name && last_name ? ' ' : ''
+    @simple_name = "#{first_name}#{separator}#{last_name}"
   end
 
   def find_first_usable_name(parts)
@@ -303,11 +303,11 @@ class NameTamer
   end
 
   def standardize_words
-    @simple_name.gsub!(/ *& */, ' and ')                 # replace ampersand characters with ' and '
-    @simple_name.gsub!(/ *\+ */, ' plus ')               # replace plus signs with ' plus '
-    @simple_name.gsub!(/\bintl\b/i, 'International')     # replace 'intl' with 'International'
+    @simple_name.gsub!(/ *& */, ' and ') # replace ampersand characters with ' and '
+    @simple_name.gsub!(/ *\+ */, ' plus ') # replace plus signs with ' plus '
+    @simple_name.gsub!(/\bintl\b/i, 'International') # replace 'intl' with 'International'
     @simple_name.gsub!(/[־‐‑‒–—―−﹘﹣－]/, SLUG_DELIMITER) # Replace Unicode dashes with ASCII hyphen
-    @simple_name.strip_unwanted!(/["“”™℠®©℗]/)           # remove quotes and commercial decoration
+    @simple_name.strip_unwanted!(/["“”™℠®©℗]/) # remove quotes and commercial decoration
   end
 
   #--------------------------------------------------------
@@ -315,18 +315,18 @@ class NameTamer
   #--------------------------------------------------------
 
   def initialize(new_name, args = {})
-    @name         = new_name || ''
+    @name = new_name || ''
     @contact_type = contact_type_from args
 
-    @tidy_name    = nil
-    @nice_name    = nil
-    @simple_name  = nil
-    @slug         = nil
+    @tidy_name = nil
+    @nice_name = nil
+    @simple_name = nil
+    @slug = nil
 
-    @last_name    = nil
-    @remainder    = nil
+    @last_name = nil
+    @remainder = nil
 
-    @adfix_found  = false
+    @adfix_found = false
   end
 
   def contact_type_from(args)
@@ -369,17 +369,17 @@ class NameTamer
   end
 
   def find_contact_type_and_parts(adfixes, name_part)
-    ct            = contact_type_best_effort
-    parts         = name_part.partition adfixes[ct]
-    @adfix_found  = !parts[1].empty?
+    ct = contact_type_best_effort
+    parts = name_part.partition adfixes[ct]
+    @adfix_found = !parts[1].empty?
 
     return [ct, parts] if @contact_type || @adfix_found
 
     # If the contact type is indeterminate and we didn't find a diagnostic adfix
     # for a person then try again for an organization
-    ct            = :organization
-    parts         = name_part.partition adfixes[ct]
-    @adfix_found  = !parts[1].empty?
+    ct = :organization
+    parts = name_part.partition adfixes[ct]
+    @adfix_found = !parts[1].empty?
 
     [ct, parts]
   end
@@ -413,9 +413,9 @@ class NameTamer
   #--------------------------------------------------------
 
   NONBREAKING_SPACE = "\u00a0"
-  ASCII_SPACE       = "\u0020"
-  ADFIX_JOINERS     = "[#{ASCII_SPACE}-]"
-  SLUG_DELIMITER    = '-'
+  ASCII_SPACE = "\u0020"
+  ADFIX_JOINERS = "[#{ASCII_SPACE}-]"
+  SLUG_DELIMITER = '-'
   ZERO_WIDTH_FILTER = /[\u180E\u200B\u200C\u200D\u2063\uFEFF]/
 
   # Constants for parameterizing Unicode strings for IRIs
@@ -447,14 +447,14 @@ class NameTamer
   # We're using the most restrictive segment definition (isegment-nz-nc)
   # to avoid any possible problems with the IRI that it one day might
   # get placed in.
-  ALPHA           = 'A-Za-z'
-  DIGIT           = '0-9'
-  UCSCHAR         = '\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF'
-  IUNRESERVED     = "#{ALPHA}#{DIGIT}\\-\\._~#{UCSCHAR}"
-  SUBDELIMS       = '!$&\'\(\)\*+,;='
-  ISEGMENT_NZ_NC  = "#{IUNRESERVED}#{SUBDELIMS}@" # pct-encoded not needed
-  FILTER_RFC3987  = /[^#{ISEGMENT_NZ_NC}]/
-  FILTER_COMPAT   = /[^#{ALPHA}#{DIGIT}\-_#{UCSCHAR}]/
+  ALPHA = 'A-Za-z'
+  DIGIT = '0-9'
+  UCSCHAR = '\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF'
+  IUNRESERVED = "#{ALPHA}#{DIGIT}\\-\\._~#{UCSCHAR}"
+  SUBDELIMS = '!$&\'\(\)\*+,;='
+  ISEGMENT_NZ_NC = "#{IUNRESERVED}#{SUBDELIMS}@" # pct-encoded not needed
+  FILTER_RFC3987 = /[^#{ISEGMENT_NZ_NC}]/
+  FILTER_COMPAT = /[^#{ALPHA}#{DIGIT}\-_#{UCSCHAR}]/
 
   # These are the prefixes and suffixes we want to remove
   # If you add to the list, you can use spaces and dots where appropriate
@@ -478,15 +478,19 @@ class NameTamer
     },
     suffix: {
       person: [
-        'Chartered F.C.S.I.',
-        'C.I.S.S.P.', 'T.M.I.E.T.', 'A.C.C.A.', 'C.I.T.P.', 'F.B.C.S.', 'F.C.C.A.', 'F.C.M.I.', 'F.I.E.T.', 'F.I.R.P.',
-        'M.I.E.T.', 'B.Tech.',
-        'Cantab.', 'D.Phil.', 'I.T.I.L. v3', 'B.Eng.', 'C.Eng.', 'M.Jur.', 'C.F.A.', 'D.B.E.', 'C.L.P.',
-        'D.D.S.', 'D.V.M.', 'Eng.D.', 'A.C.A.', 'C.T.A.', 'E.R.P.', 'F.C.A', 'F.P.C.', 'F.R.M.', 'M.B.A.', 'M.B.E.',
-        'M.E.P.', 'M.Eng.', 'M.Jur.', 'M.S.P.', 'O.B.E.', 'P.M.C.', 'P.M.P.', 'P.S.P.', 'V.M.D.', 'B.Ed.', 'B.Sc.',
-        'Ed.D.', 'Hons.', 'LL.B.',
-        'LL.D.', 'LL.M.', 'M.Ed.', 'M.Sc.', 'Oxon.', 'Ph.D.', 'B.A.', 'Esq.', 'J.D.', 'K.C.', 'M.A.', 'M.D.', 'M.P.',
-        'O.K.', 'P.A.', 'Q.C.', 'III', 'Jr.', 'Sr.', 'II', 'IV', 'I', 'V'
+        'Chartered F.C.S.I.', 'Chartered M.C.S.I.', 'I.F.R.S. Certified', 'F.Inst.L.M.', 'C.I.S.S.P.', 'F.C.I.P.S.',
+        'M.R.I.C.S.', 'T.M.I.E.T.', 'Dip. D.M.', 'A.A.M.S.', 'A.C.C.A.', 'A.C.M.A.', 'A.I.F.A.', 'A.W.M.A.', 'C.A.I.A.',
+        'C.A.P.M.', 'C.C.I.M.', 'C.D.F.A.', 'C.E.P.P.', 'C.F.B.S.', 'C.G.M.A.', 'C.I.T.P.', 'C.L.T.C.', 'C.P.C.C.',
+        'C.R.P.C.', 'C.R.P.S.', 'C.S.O.X.', 'C.S.S.D.', 'F.B.C.S.', 'F.C.C.A.', 'F.C.M.I.', 'F.C.S.I.', 'F.I.E.T.',
+        'F.I.R.P.', 'M.I.E.T.', 'M.S.F.S.', 'M.Sc. D.', 'O.R.S.C.', 'R.I.C.P.', 'B.Tech.', 'Cantab.', 'Ch.F.C.',
+        'D.Phil.', 'I.T.I.L. v3', 'M.Io.D.', 'S.C.M.P', 'A.C.A.', 'A.C.C.', 'A.E.P.', 'A.I.F.', 'A.S.A.', 'B.Eng.',
+        'C.B.V.', 'C.E.M.', 'C.Eng.', 'C.F.A.', 'C.F.F.', 'C.F.P.', 'C.F.S.', 'C.G.A.', 'C.G.B.', 'C.G.P.', 'C.I.M.',
+        'C.L.P.', 'C.L.U.', 'C.M.A.', 'C.M.T.', 'C.P.A.', 'C.T.A.', 'C.W.S.', 'D.B.E.', 'D.D.S.', 'D.V.M.', 'E.R.P.',
+        'Eng.D.', 'F.C.A.', 'F.P.C.', 'F.R.M.', 'F.R.M.', 'G.S.P.', 'L.P.S.', 'M.B.A.', 'M.B.E.', 'M.E.P.', 'M.Eng.',
+        'M.Jur.', 'M.P.A.', 'M.S.F.', 'M.S.P.', 'O.B.E.', 'P.C.C.', 'P.F.S.', 'P.H.R.', 'P.M.C.', 'P.M.P.', 'P.M.P.',
+        'P.S.P.', 'R.F.C.', 'V.M.D.', 'B.Ed.', 'B.Sc.', 'Ed.D.', 'Ed.M.', 'Hons.', 'LL.B.', 'LL.D.', 'LL.M.', 'M.Ed.',
+        'M.Sc.', 'Oxon.', 'Ph.D.', 'B.A.', 'C.A.', 'E.A.', 'Esq.', 'J.D.', 'K.C.', 'M.A.', 'M.D.', 'M.P.', 'M.S.',
+        'O.K.', 'P.A.', 'Q.C.', 'R.D.', 'III', 'Jr.', 'Sr.', 'II', 'IV', 'V'
       ],
       organization: [
         'S. de R.L. de C.V.', 'S.A.P.I. de C.V.', 'y. Cía. S. en C.', 'Private Limited', 'S.M. Pte. Ltd.',
@@ -494,12 +498,11 @@ class NameTamer
         'S.p. z.o.o.', '(Pvt.)Ltd.', 'akc. spol.', 'Cía. Ltda.', 'E.B.V.B.A.', 'P. Limited', 'S. de R.L.', 'S.I.C.A.V.',
         'S.P.R.L.U.', 'А.Д.С.И.Ц.', '(P.) Ltd.', 'C. por A.', 'Comm.V.A.', 'Ltd. Şti.', 'Plc. Ltd.', 'Pte. Ltd.',
         'Pty. Ltd.', 'Pvt. Ltd.', 'Soc. Col.', 'A.M.B.A.', 'A.S.B.L.', 'A.V.E.E.', 'B.V.B.A.', 'B.V.I.O.', 'C.V.B.A.',
-        'C.V.O.A.', 'E.E.I.G.', 'E.I.R.L.', 'E.O.O.D.', 'E.U.R.L.', 'F.M.B.A.', 'G.m.b.H.', 'Ges.b.R.', 'I.L.L.C.',
-        'K.G.a.A.', 'L.L.L.P.', 'Ltd. Co.', 'Ltd. Co.', 'M.E.P.E.', 'n.y.r.t.', 'O.V.E.E.', 'P.E.E.C.', 'P.L.L.C.',
-        'P.L.L.C.', 'S. en C.', 'S.a.p.a.', 'S.A.R.L.', 'S.à.R.L.', 'S.A.S.U.', 'S.C.e.I.', 'S.C.O.P.', 'S.C.p.A.',
-        'S.C.R.I.', 'S.C.R.L.', 'S.M.B.A.', 'S.P.R.L.', 'Е.О.О.Д.', 'and Co.', 'Comm.V.', 'Limited', 'P. Ltd.',
-        'Part.G.', 'Sh.p.k.', '&. Co.', '&. Cie.', 'C.X.A.', 'd.n.o.', 'd.o.o.', 'E.A.D.', 'e.h.f.', 'E.P.E.', 'E.S.V.',
-        'F.C.P.',
+        'C.V.O.A.', 'E.E.I.G.', 'E.I.R.L.', 'E.O.O.D.', 'E.U.R.L.', 'F.M.B.A.', 'G.m.b.H.', 'Ges.b.R.', 'K.G.a.A.',
+        'L.L.L.P.', 'Ltd. Co.', 'Ltd. Co.', 'M.E.P.E.', 'n.y.r.t.', 'O.V.E.E.', 'P.E.E.C.', 'P.L.L.C.', 'P.L.L.C.',
+        'S. en C.', 'S.a.p.a.', 'S.A.R.L.', 'S.à.R.L.', 'S.A.S.U.', 'S.C.e.I.', 'S.C.O.P.', 'S.C.p.A.', 'S.C.R.I.',
+        'S.C.R.L.', 'S.M.B.A.', 'S.P.R.L.', 'Е.О.О.Д.', '&. Cie.', 'and Co.', 'Comm.V.', 'Limited', 'P. Ltd.',
+        'Part.G.', 'Sh.p.k.', '&. Co.', 'C.X.A.', 'd.n.o.', 'd.o.o.', 'E.A.D.', 'e.h.f.', 'E.P.E.', 'E.S.V.', 'F.C.P.',
         'F.I.E.', 'G.b.R.', 'G.I.E.', 'G.M.K.', 'G.S.K.', 'H.U.F.', 'K.D.A.', 'k.f.t.', 'k.h.t.', 'k.k.t.', 'L.L.C.',
         'L.L.P.', 'o.h.f.', 'O.H.G.', 'O.O.D.', 'O.y.j.', 'p.l.c.', 'P.S.U.', 'S.A.E.', 'S.A.S.', 'S.C.A.', 'S.C.E.',
         'S.C.S.', 'S.E.M.', 'S.E.P.', 's.e.s.', 'S.G.R.', 'S.N.C.', 'S.p.A.', 'S.P.E.', 'S.R.L.', 's.r.o.', 'Unltd.',
@@ -519,13 +522,13 @@ class NameTamer
   ADFIX_PATTERNS = {}
 
   [:prefix, :suffix].each do |adfix_type|
-    patterns  = {}
-    adfix     = ADFIXES[adfix_type]
+    patterns = {}
+    adfix = ADFIXES[adfix_type]
 
     [:person, :organization].each do |ct|
-      with_optional_spaces    = adfix[ct].map { |p| p.gsub(ASCII_SPACE, ' *') }
-      pattern_string          = with_optional_spaces.join('|').gsub('.', '\.*')
-      patterns[ct]  = /#{adfix[:before]}\(*(?:#{pattern_string})\)*#{adfix[:after]}/i
+      with_optional_spaces = adfix[ct].map { |p| p.gsub(ASCII_SPACE, ' *') }
+      pattern_string = with_optional_spaces.join('|').gsub('.', '\.*')
+      patterns[ct] = /#{adfix[:before]}\(*(?:#{pattern_string})[®™\)]*#{adfix[:after]}/i
     end
 
     ADFIX_PATTERNS[adfix_type] = patterns
