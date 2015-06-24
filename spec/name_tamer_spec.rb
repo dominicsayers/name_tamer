@@ -216,7 +216,7 @@ describe NameTamer do
 
   it 'makes a nice name' do
     names.each do |name_data|
-      name      = name_data[:n]
+      name = name_data[:n]
       nice_name = NameTamer[name, contact_type: name_data[:t]].nice_name
       expect(nice_name).to eq(name_data[:nn])
     end

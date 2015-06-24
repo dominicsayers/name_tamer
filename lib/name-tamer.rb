@@ -22,9 +22,9 @@ class NameTamer
 
     # Make a slug from a string
     def parameterize(string, args = {})
-      sep     = args[:sep] || SLUG_DELIMITER
+      sep = args[:sep] || SLUG_DELIMITER
       rfc3987 = args[:rfc3987] || false
-      filter  = args[:filter] || (rfc3987 ? FILTER_RFC3987 : FILTER_COMPAT)
+      filter = args[:filter] || (rfc3987 ? FILTER_RFC3987 : FILTER_COMPAT)
 
       new_string = string.dup
 
@@ -47,11 +47,11 @@ class NameTamer
     unless @tidy_name
       @tidy_name = name.dup # Start with the name we've received
 
-      unescape              # Unescape percent-encoded characters and fix UTF-8 encoding
-      remove_zero_width     # remove zero-width characters
-      tidy_spacing          # " John   Smith " -> "John Smith"
-      fix_encoding_errors   # "Ren\u00c3\u00a9 Descartes" -> "Ren\u00e9 Descartes"
-      consolidate_initials  # "I. B. M." -> "I.B.M."
+      unescape # Unescape percent-encoded characters and fix UTF-8 encoding
+      remove_zero_width # remove zero-width characters
+      tidy_spacing # " John   Smith " -> "John Smith"
+      fix_encoding_errors # "Ren\u00c3\u00a9 Descartes" -> "Ren\u00e9 Descartes"
+      consolidate_initials # "I. B. M." -> "I.B.M."
     end
 
     @tidy_name
@@ -59,13 +59,13 @@ class NameTamer
 
   def nice_name
     unless @nice_name
-      @nice_name = tidy_name.dup      # Start with the tidied name
+      @nice_name = tidy_name.dup # Start with the tidied name
 
-      remove_adfixes                  # prefixes and suffixes: "Smith, John, Jr." -> "Smith, John"
-      fixup_last_name_first           # "Smith, John" -> "John Smith"
-      fixup_mismatched_braces         # "Ceres (AZ" -> "Ceres (AZ)"
-      remove_adfixes                  # prefixes and suffixes: "Mr John Smith Jr." -> "John Smith"
-      name_wrangle                    # proper name case and non-breaking spaces
+      remove_adfixes # prefixes and suffixes: "Smith, John, Jr." -> "Smith, John"
+      fixup_last_name_first # "Smith, John" -> "John Smith"
+      fixup_mismatched_braces # "Ceres (AZ" -> "Ceres (AZ)"
+      remove_adfixes # prefixes and suffixes: "Mr John Smith Jr." -> "John Smith"
+      name_wrangle # proper name case and non-breaking spaces
       use_nonbreaking_spaces_in_compound_names
     end
 
@@ -74,12 +74,12 @@ class NameTamer
 
   def simple_name
     unless @simple_name
-      @simple_name = nice_name.dup    # Start with nice name
+      @simple_name = nice_name.dup # Start with nice name
 
-      remove_initials               # "John Q. Doe" -> "John Doe"
-      remove_middle_names           # "Philip Seymour Hoffman" -> "Philip Hoffman"
-      remove_periods_from_initials  # "J.P.R. Williams" -> "JPR Williams"
-      standardize_words             # "B&Q Intl" -> "B and Q International"
+      remove_initials # "John Q. Doe" -> "John Doe"
+      remove_middle_names # "Philip Seymour Hoffman" -> "Philip Hoffman"
+      remove_periods_from_initials # "J.P.R. Williams" -> "JPR Williams"
+      standardize_words # "B&Q Intl" -> "B and Q International"
 
       @simple_name.whitespace_to!(ASCII_SPACE)
     end
@@ -191,14 +191,14 @@ class NameTamer
 
     return unless parts.count == 2
 
-    @last_name    = parts[0] # Sometimes the last name alone is all caps and we can name-case it
-    @remainder    = parts[1]
+    @last_name = parts[0] # Sometimes the last name alone is all caps and we can name-case it
+    @remainder = parts[1]
   end
 
   # Sometimes we end up with mismatched braces after adfix stripping
   # e.g. "Ceres (Ceres Holdings LLC)" -> "Ceres (Ceres Holdings"
   def fixup_mismatched_braces
-    left_brace_count  = @nice_name.count '('
+    left_brace_count = @nice_name.count '('
     right_brace_count = @nice_name.count ')'
 
     if left_brace_count > right_brace_count
@@ -228,15 +228,15 @@ class NameTamer
       fix_case = true if [uppercase, lowercase].include?(@nice_name)
     end
 
-    @nice_name  = name_case(lowercase) if fix_case
+    @nice_name = name_case(lowercase) if fix_case
   end
 
   def name_wrangle_split_name
     # It's a person if we've split the name, so no organization logic here
     lowercase = @last_name.downcase
     uppercase = @last_name.upcase
-    @last_name  = name_case(lowercase) if [uppercase, lowercase].include?(@last_name)
-    @nice_name  = "#{@remainder} #{@last_name}"
+    @last_name = name_case(lowercase) if [uppercase, lowercase].include?(@last_name)
+    @nice_name = "#{@remainder} #{@last_name}"
   end
 
   # Conjoin compound names with non-breaking spaces
@@ -269,8 +269,8 @@ class NameTamer
 
     return unless first_name || last_name
 
-    separator     = first_name && last_name ? ' ' : ''
-    @simple_name  = "#{first_name}#{separator}#{last_name}"
+    separator = first_name && last_name ? ' ' : ''
+    @simple_name = "#{first_name}#{separator}#{last_name}"
   end
 
   def find_first_usable_name(parts)
@@ -303,11 +303,11 @@ class NameTamer
   end
 
   def standardize_words
-    @simple_name.gsub!(/ *& */, ' and ')                 # replace ampersand characters with ' and '
-    @simple_name.gsub!(/ *\+ */, ' plus ')               # replace plus signs with ' plus '
-    @simple_name.gsub!(/\bintl\b/i, 'International')     # replace 'intl' with 'International'
+    @simple_name.gsub!(/ *& */, ' and ') # replace ampersand characters with ' and '
+    @simple_name.gsub!(/ *\+ */, ' plus ') # replace plus signs with ' plus '
+    @simple_name.gsub!(/\bintl\b/i, 'International') # replace 'intl' with 'International'
     @simple_name.gsub!(/[־‐‑‒–—―−﹘﹣－]/, SLUG_DELIMITER) # Replace Unicode dashes with ASCII hyphen
-    @simple_name.strip_unwanted!(/["“”™℠®©℗]/)           # remove quotes and commercial decoration
+    @simple_name.strip_unwanted!(/["“”™℠®©℗]/) # remove quotes and commercial decoration
   end
 
   #--------------------------------------------------------
@@ -315,18 +315,18 @@ class NameTamer
   #--------------------------------------------------------
 
   def initialize(new_name, args = {})
-    @name         = new_name || ''
+    @name = new_name || ''
     @contact_type = contact_type_from args
 
-    @tidy_name    = nil
-    @nice_name    = nil
-    @simple_name  = nil
-    @slug         = nil
+    @tidy_name = nil
+    @nice_name = nil
+    @simple_name = nil
+    @slug = nil
 
-    @last_name    = nil
-    @remainder    = nil
+    @last_name = nil
+    @remainder = nil
 
-    @adfix_found  = false
+    @adfix_found = false
   end
 
   def contact_type_from(args)
@@ -369,17 +369,17 @@ class NameTamer
   end
 
   def find_contact_type_and_parts(adfixes, name_part)
-    ct            = contact_type_best_effort
-    parts         = name_part.partition adfixes[ct]
-    @adfix_found  = !parts[1].empty?
+    ct = contact_type_best_effort
+    parts = name_part.partition adfixes[ct]
+    @adfix_found = !parts[1].empty?
 
     return [ct, parts] if @contact_type || @adfix_found
 
     # If the contact type is indeterminate and we didn't find a diagnostic adfix
     # for a person then try again for an organization
-    ct            = :organization
-    parts         = name_part.partition adfixes[ct]
-    @adfix_found  = !parts[1].empty?
+    ct = :organization
+    parts = name_part.partition adfixes[ct]
+    @adfix_found = !parts[1].empty?
 
     [ct, parts]
   end
@@ -413,9 +413,9 @@ class NameTamer
   #--------------------------------------------------------
 
   NONBREAKING_SPACE = "\u00a0"
-  ASCII_SPACE       = "\u0020"
-  ADFIX_JOINERS     = "[#{ASCII_SPACE}-]"
-  SLUG_DELIMITER    = '-'
+  ASCII_SPACE = "\u0020"
+  ADFIX_JOINERS = "[#{ASCII_SPACE}-]"
+  SLUG_DELIMITER = '-'
   ZERO_WIDTH_FILTER = /[\u180E\u200B\u200C\u200D\u2063\uFEFF]/
 
   # Constants for parameterizing Unicode strings for IRIs
@@ -447,14 +447,14 @@ class NameTamer
   # We're using the most restrictive segment definition (isegment-nz-nc)
   # to avoid any possible problems with the IRI that it one day might
   # get placed in.
-  ALPHA           = 'A-Za-z'
-  DIGIT           = '0-9'
-  UCSCHAR         = '\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF'
-  IUNRESERVED     = "#{ALPHA}#{DIGIT}\\-\\._~#{UCSCHAR}"
-  SUBDELIMS       = '!$&\'\(\)\*+,;='
-  ISEGMENT_NZ_NC  = "#{IUNRESERVED}#{SUBDELIMS}@" # pct-encoded not needed
-  FILTER_RFC3987  = /[^#{ISEGMENT_NZ_NC}]/
-  FILTER_COMPAT   = /[^#{ALPHA}#{DIGIT}\-_#{UCSCHAR}]/
+  ALPHA = 'A-Za-z'
+  DIGIT = '0-9'
+  UCSCHAR = '\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF'
+  IUNRESERVED = "#{ALPHA}#{DIGIT}\\-\\._~#{UCSCHAR}"
+  SUBDELIMS = '!$&\'\(\)\*+,;='
+  ISEGMENT_NZ_NC = "#{IUNRESERVED}#{SUBDELIMS}@" # pct-encoded not needed
+  FILTER_RFC3987 = /[^#{ISEGMENT_NZ_NC}]/
+  FILTER_COMPAT = /[^#{ALPHA}#{DIGIT}\-_#{UCSCHAR}]/
 
   # These are the prefixes and suffixes we want to remove
   # If you add to the list, you can use spaces and dots where appropriate
@@ -522,13 +522,13 @@ class NameTamer
   ADFIX_PATTERNS = {}
 
   [:prefix, :suffix].each do |adfix_type|
-    patterns  = {}
-    adfix     = ADFIXES[adfix_type]
+    patterns = {}
+    adfix = ADFIXES[adfix_type]
 
     [:person, :organization].each do |ct|
-      with_optional_spaces    = adfix[ct].map { |p| p.gsub(ASCII_SPACE, ' *') }
-      pattern_string          = with_optional_spaces.join('|').gsub('.', '\.*')
-      patterns[ct]  = /#{adfix[:before]}\(*(?:#{pattern_string})[®™\)]*#{adfix[:after]}/i
+      with_optional_spaces = adfix[ct].map { |p| p.gsub(ASCII_SPACE, ' *') }
+      pattern_string = with_optional_spaces.join('|').gsub('.', '\.*')
+      patterns[ct] = /#{adfix[:before]}\(*(?:#{pattern_string})[®™\)]*#{adfix[:after]}/i
     end
 
     ADFIX_PATTERNS[adfix_type] = patterns
