@@ -117,8 +117,8 @@ PLATFORMS
 DEPENDENCIES
   coveralls (~> 0.8)
   gem-release (~> 0.7)
-  guard (~> 2.7)
-  guard-rspec (~> 4.3)
+  guard (~> 2.12)
+  guard-rspec (~> 4.5)
   guard-rubocop (~> 1.2)
   name-tamer!
   rake (~> 10)
