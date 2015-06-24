@@ -22,9 +22,9 @@ class NameTamer
 
     # Make a slug from a string
     def parameterize(string, args = {})
-      sep     = args[:sep]      || SLUG_DELIMITER
-      rfc3987 = args[:rfc3987]  || false
-      filter  = args[:filter]   || (rfc3987 ? FILTER_RFC3987 : FILTER_COMPAT)
+      sep     = args[:sep] || SLUG_DELIMITER
+      rfc3987 = args[:rfc3987] || false
+      filter  = args[:filter] || (rfc3987 ? FILTER_RFC3987 : FILTER_COMPAT)
 
       new_string = string.dup
 
@@ -265,7 +265,7 @@ class NameTamer
     return unless @contact_type == :person
 
     first_name, parts = find_first_usable_name(@simple_name.split)
-    last_name, _      = find_last_usable_name(parts)
+    last_name, = find_last_usable_name(parts)
 
     return unless first_name || last_name
 

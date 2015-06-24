@@ -22,7 +22,7 @@ class String
   # Change some characters embedded in words to our separator character
   # e.g. example.com -> example-com
   def invalid_chars_to!(separator)
-    substitute!(/(?<![[:space:]])[\.\/](?![[:space:]])/, separator)
+    substitute!(%r{(?<![[:space:]])[\.\/](?![[:space:]])}, separator)
   end
 
   # Unescape percent-encoded characters

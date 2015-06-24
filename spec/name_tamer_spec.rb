@@ -199,7 +199,7 @@ describe NameTamer do
   it 'makes a slug' do
     names.each do |name_data|
       name = name_data[:n]
-      NameTamer[name, contact_type: name_data[:t]].slug.should == name_data[:s]
+      expect(NameTamer[name, contact_type: name_data[:t]].slug).to eq(name_data[:s])
     end
   end
 
@@ -207,32 +207,32 @@ describe NameTamer do
     names.each do |name_data|
       name      = name_data[:n]
       nice_name = NameTamer[name, contact_type: name_data[:t]].nice_name
-      nice_name.should == name_data[:nn]
+      expect(nice_name).to eq(name_data[:nn])
     end
   end
 
   it 'makes a searchable name' do
     names.each do |name_data|
       name = name_data[:n]
-      NameTamer[name, contact_type: name_data[:t]].simple_name.should == name_data[:sn]
+      expect(NameTamer[name, contact_type: name_data[:t]].simple_name).to eq(name_data[:sn])
     end
   end
 end
 
 describe 'contact type inference' do
   it 'infers that "Mr. John Smith" is a person' do
-    NameTamer['Mr. John Smith'].contact_type.should eq(:person)
+    expect(NameTamer['Mr. John Smith'].contact_type).to eq(:person)
   end
 
   it 'infers that "Di Doo Doo d.o.o." is an organization' do
-    NameTamer['Di Doo Doo d.o.o.'].contact_type.should eq(:organization)
+    expect(NameTamer['Di Doo Doo d.o.o.'].contact_type).to eq(:organization)
   end
 
   it 'infers that "DiDooDoo" is an organization' do
-    NameTamer['DiDooDoo'].contact_type.should eq(:organization)
+    expect(NameTamer['DiDooDoo'].contact_type).to eq(:organization)
   end
 
   it 'infers that "John Smith" is a person' do
-    NameTamer['John Smith'].contact_type.should eq(:person)
+    expect(NameTamer['John Smith'].contact_type).to eq(:person)
   end
 end
