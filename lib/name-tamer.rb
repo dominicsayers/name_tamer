@@ -478,15 +478,19 @@ class NameTamer
     },
     suffix: {
       person: [
-        'Chartered F.C.S.I.',
-        'C.I.S.S.P.', 'T.M.I.E.T.', 'A.C.C.A.', 'C.I.T.P.', 'F.B.C.S.', 'F.C.C.A.', 'F.C.M.I.', 'F.I.E.T.', 'F.I.R.P.',
-        'M.I.E.T.', 'B.Tech.',
-        'Cantab.', 'D.Phil.', 'I.T.I.L. v3', 'B.Eng.', 'C.Eng.', 'M.Jur.', 'C.F.A.', 'D.B.E.', 'C.L.P.',
-        'D.D.S.', 'D.V.M.', 'Eng.D.', 'A.C.A.', 'C.T.A.', 'E.R.P.', 'F.C.A', 'F.P.C.', 'F.R.M.', 'M.B.A.', 'M.B.E.',
-        'M.E.P.', 'M.Eng.', 'M.Jur.', 'M.S.P.', 'O.B.E.', 'P.M.C.', 'P.M.P.', 'P.S.P.', 'V.M.D.', 'B.Ed.', 'B.Sc.',
-        'Ed.D.', 'Hons.', 'LL.B.',
-        'LL.D.', 'LL.M.', 'M.Ed.', 'M.Sc.', 'Oxon.', 'Ph.D.', 'B.A.', 'Esq.', 'J.D.', 'K.C.', 'M.A.', 'M.D.', 'M.P.',
-        'O.K.', 'P.A.', 'Q.C.', 'III', 'Jr.', 'Sr.', 'II', 'IV', 'I', 'V'
+        'Chartered F.C.S.I.', 'Chartered M.C.S.I.', 'I.F.R.S. Certified', 'F.Inst.L.M.', 'C.I.S.S.P.', 'F.C.I.P.S.',
+        'M.R.I.C.S.', 'T.M.I.E.T.', 'Dip. D.M.', 'A.A.M.S.', 'A.C.C.A.', 'A.C.M.A.', 'A.I.F.A.', 'A.W.M.A.', 'C.A.I.A.',
+        'C.A.P.M.', 'C.C.I.M.', 'C.D.F.A.', 'C.E.P.P.', 'C.F.B.S.', 'C.G.M.A.', 'C.I.T.P.', 'C.L.T.C.', 'C.P.C.C.',
+        'C.R.P.C.', 'C.R.P.S.', 'C.S.O.X.', 'C.S.S.D.', 'F.B.C.S.', 'F.C.C.A.', 'F.C.M.I.', 'F.C.S.I.', 'F.I.E.T.',
+        'F.I.R.P.', 'M.I.E.T.', 'M.S.F.S.', 'M.Sc. D.', 'O.R.S.C.', 'R.I.C.P.', 'B.Tech.', 'Cantab.', 'Ch.F.C.',
+        'D.Phil.', 'I.T.I.L. v3', 'M.Io.D.', 'S.C.M.P', 'A.C.A.', 'A.C.C.', 'A.E.P.', 'A.I.F.', 'A.S.A.', 'B.Eng.',
+        'C.B.V.', 'C.E.M.', 'C.Eng.', 'C.F.A.', 'C.F.F.', 'C.F.P.', 'C.F.S.', 'C.G.A.', 'C.G.B.', 'C.G.P.', 'C.I.M.',
+        'C.L.P.', 'C.L.U.', 'C.M.A.', 'C.M.T.', 'C.P.A.', 'C.T.A.', 'C.W.S.', 'D.B.E.', 'D.D.S.', 'D.V.M.', 'E.R.P.',
+        'Eng.D.', 'F.C.A.', 'F.P.C.', 'F.R.M.', 'F.R.M.', 'G.S.P.', 'L.P.S.', 'M.B.A.', 'M.B.E.', 'M.E.P.', 'M.Eng.',
+        'M.Jur.', 'M.P.A.', 'M.S.F.', 'M.S.P.', 'O.B.E.', 'P.C.C.', 'P.F.S.', 'P.H.R.', 'P.M.C.', 'P.M.P.', 'P.M.P.',
+        'P.S.P.', 'R.F.C.', 'V.M.D.', 'B.Ed.', 'B.Sc.', 'Ed.D.', 'Ed.M.', 'Hons.', 'LL.B.', 'LL.D.', 'LL.M.', 'M.Ed.',
+        'M.Sc.', 'Oxon.', 'Ph.D.', 'B.A.', 'C.A.', 'E.A.', 'Esq.', 'J.D.', 'K.C.', 'M.A.', 'M.D.', 'M.P.', 'M.S.',
+        'O.K.', 'P.A.', 'Q.C.', 'R.D.', 'III', 'Jr.', 'Sr.', 'II', 'IV', 'V'
       ],
       organization: [
         'S. de R.L. de C.V.', 'S.A.P.I. de C.V.', 'y. Cía. S. en C.', 'Private Limited', 'S.M. Pte. Ltd.',
@@ -525,7 +529,7 @@ class NameTamer
     [:person, :organization].each do |ct|
       with_optional_spaces    = adfix[ct].map { |p| p.gsub(ASCII_SPACE, ' *') }
       pattern_string          = with_optional_spaces.join('|').gsub('.', '\.*')
-      patterns[ct]  = /#{adfix[:before]}\(*(?:#{pattern_string})\)*#{adfix[:after]}/i
+      patterns[ct]  = /#{adfix[:before]}\(*(?:#{pattern_string})[®™\)]*#{adfix[:after]}/i
     end
 
     ADFIX_PATTERNS[adfix_type] = patterns

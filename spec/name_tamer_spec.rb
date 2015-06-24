@@ -191,8 +191,19 @@ describe NameTamer do
       { n: "John Smith\u{FEFF}\u{200B}\u{200C}\u{200D}\u{2063}", t: :person,
         nn: 'John Smith', sn: 'John Smith', s: 'john-smith' }, # Zero-width characters
       { n: 'Herman Melville ,CLP', t: :person, nn: 'Herman Melville', sn: 'Herman Melville', s: 'herman-melville' },
+      { n: 'Herman Melville, CLP®', t: :person, nn: 'Herman Melville', sn: 'Herman Melville', s: 'herman-melville' },
+      { n: 'Herman Melville, CLP™', t: :person, nn: 'Herman Melville', sn: 'Herman Melville', s: 'herman-melville' },
+      { n: 'Herman Melville, CLP®™', t: :person, nn: 'Herman Melville', sn: 'Herman Melville', s: 'herman-melville' },
+      { n: 'Herman Melville, CLP™®', t: :person, nn: 'Herman Melville', sn: 'Herman Melville', s: 'herman-melville' },
       { n: 'Melville ,Herman', t: :person, nn: 'Herman Melville', sn: 'Herman Melville', s: 'herman-melville' },
-      { n: "John\x00 Smith", t: :person, nn: 'John Smith', sn: 'John Smith', s: 'john-smith' }
+      { n: "John\x00 Smith", t: :person, nn: 'John Smith', sn: 'John Smith', s: 'john-smith' },
+      {
+        n: 'Janen Moyer-Pesso, AWMA, CDFA, LPS',
+        t: :person,
+        nn: 'Janen Moyer-Pesso',
+        sn: 'Janen Moyer-Pesso',
+        s: 'janen-moyer-pesso'
+      }
     ]
   end
 
