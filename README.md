@@ -1,5 +1,7 @@
 # NameTamer
 
+[![Join the chat at https://gitter.im/Xenapto/name-tamer](https://badges.gitter.im/Xenapto/name-tamer.svg)](https://gitter.im/Xenapto/name-tamer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ![Gem Version](http://img.shields.io/gem/v/name-tamer.svg?style=flat)&nbsp;[![Code Climate](http://img.shields.io/codeclimate/github/Xenapto/name-tamer.svg?style=flat)](https://codeclimate.com/github/Xenapto/name-tamer)&nbsp;[![Coverage Status](https://img.shields.io/coveralls/Xenapto/name-tamer.svg?style=flat)](https://coveralls.io/r/Xenapto/name-tamer?branch=master)
 [![Developer status](http://img.shields.io/badge/developer-awesome-brightgreen.svg?style=flat)](http://xenapto.com)
 ![build status](https://circleci.com/gh/Xenapto/name-tamer.png?circle-token=2293f2a1d8463a948c2a2ce4bb3bd99786958c59)
