@@ -1,4 +1,5 @@
 # encoding: utf-8
+require 'cgi'
 require 'string_extras'
 
 # References:
@@ -131,7 +132,7 @@ class NameTamer
   #--------------------------------------------------------
 
   def unescape
-    @tidy_name.ensure_safe!.safe_unescape!
+    @tidy_name.ensure_safe!.safe_unescape!.unescape_html!
   end
 
   def remove_zero_width

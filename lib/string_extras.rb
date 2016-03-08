@@ -38,6 +38,11 @@ class String
     ensure_safe!
   end
 
+  # Remove HTML entities
+  def unescape_html!
+    replace CGI.unescapeHTML self
+  end
+
   # Make sure separators are not where they shouldn't be
   def fix_separators!(separator)
     return self if separator.nil? || separator.empty?

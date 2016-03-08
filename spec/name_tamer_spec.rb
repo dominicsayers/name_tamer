@@ -203,7 +203,11 @@ describe NameTamer do
         nn: 'Janen Moyer-Pesso',
         sn: 'Janen Moyer-Pesso',
         s: 'janen-moyer-pesso'
-      }
+      },
+      { n: 'Dibble &amp; Grub LLP', t: :organization,
+        nn: 'Dibble & Grub',
+        sn: 'Dibble and Grub',
+        s: 'dibble-and-grub' },
     ]
   end
 
