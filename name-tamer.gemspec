@@ -17,13 +17,13 @@ Gem::Specification.new do |spec|
   spec.test_files = spec.files.grep(%r{^(test|spec|features|coverage)\/})
   spec.require_paths = ['lib']
 
-  spec.add_development_dependency 'rake', '~> 10'
-  spec.add_development_dependency 'rspec', '~> 3.3'
-  spec.add_development_dependency 'gem-release', '~> 0.7'
-  spec.add_development_dependency 'simplecov', '~> 0.10'
-  spec.add_development_dependency 'coveralls', '~> 0.8'
-  spec.add_development_dependency 'rubocop', '~> 0.32'
-  spec.add_development_dependency 'guard', '~> 2.12'
-  spec.add_development_dependency 'guard-rspec', '~> 4.5'
-  spec.add_development_dependency 'guard-rubocop', '~> 1.2'
+  spec.add_development_dependency 'rake', '~> 11'
+  spec.add_development_dependency 'rspec', '~> 3'
+  spec.add_development_dependency 'gem-release', '~> 0'
+  spec.add_development_dependency 'simplecov', '~> 0'
+  spec.add_development_dependency 'coveralls', '~> 0'
+  spec.add_development_dependency 'rubocop', '~> 0'
+  spec.add_development_dependency 'guard', '~> 2'
+  spec.add_development_dependency 'guard-rspec', '~> 4'
+  spec.add_development_dependency 'guard-rubocop', '~> 1'
 end

@@ -70,11 +70,11 @@ class String
   end
 
   def upcase_first_letter!
-    gsub!(/\b\w/) { |first| first.upcase } || self
+    gsub!(/\b\w/, &:upcase) || self
   end
 
   def downcase_after_apostrophe!
-    gsub!(/\'\w\b/) { |c| c.downcase } || self # Lowercase 's
+    gsub!(/\'\w\b/, &:downcase) || self # Lowercase 's
   end
 
   # Our list of terminal characters that indicate a non-celtic name used
@@ -170,19 +170,19 @@ class String
     gsub!(pattern, replacement) || self
   end
 
-  NONBREAKING_SPACE = "\u00a0"
-  ASCII_SPACE = "\u0020"
+  NONBREAKING_SPACE = "\u00a0".freeze
+  ASCII_SPACE = ' '.freeze
 
   COMPOUND_NAMES = [
     'Lane Fox', 'Bonham Carter', 'Pitt Rivers', 'Lloyd Webber', 'Sebag Montefiore', 'Holmes à Court', 'Holmes a Court',
     'Baron Cohen', 'Strang Steel',
     'Service Company', 'Corporation Company', 'Corporation System', 'Incorporations Limited'
-  ]
+  ].freeze
 
   NAME_MODIFIERS = [
     'Al', 'Ap', 'Ben', 'Dell[ae]', 'D[aeiou]', 'De[lrn]', 'D[ao]s', 'El', 'La', 'L[eo]', 'V[ao]n', 'Of', 'San',
     'St[\.]?', 'Zur'
-  ]
+  ].freeze
 
   # Transliterations (like the i18n defaults)
   # see https://github.com/svenfuchs/i18n/blob/master/lib/i18n/backend/transliterator.rb
@@ -215,7 +215,7 @@ class String
     'ů' => 'u', 'Ű' => 'U', 'ű' => 'u', 'Ų' => 'U', 'ų' => 'u', 'Ŵ' => 'W', 'ŵ' => 'w',
     'Ŷ' => 'Y', 'ŷ' => 'y', 'Ÿ' => 'Y', 'Ź' => 'Z', 'ź' => 'z', 'Ż' => 'Z', 'ż' => 'z',
     'Ž' => 'Z', 'ž' => 'z'
-  }
+  }.freeze
 
   # When strings are mistakenly encoded as single-byte character sets, instead
   # of UTF-8, there are some distinctive character combinations that we can spot
@@ -251,7 +251,7 @@ class String
     'Ã¸' => 'ø', 'Ã¹' => 'ù', 'Ãº' => 'ú', 'Ã»' => 'û', 'Ã¼' => 'ü',
     'Ã½' => 'ý', 'Ã¾' => 'þ', 'Ã¿' => 'ÿ',
     "\x00" => '' # Manually added to avoid Bad Argument exception
-  }
+  }.freeze
 
   BAD_ENCODING_PATTERNS = /(#{BAD_ENCODING.keys.join('|')})/
 

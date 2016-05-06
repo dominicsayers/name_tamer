@@ -225,8 +225,8 @@ class NameTamer
 
     if @contact_type == :organization
       fix_case = true if @nice_name == uppercase && @nice_name.length > 4
-    else
-      fix_case = true if [uppercase, lowercase].include?(@nice_name)
+    elsif [uppercase, lowercase].include?(@nice_name)
+      fix_case = true
     end
 
     @nice_name = name_case(lowercase) if fix_case
@@ -413,10 +413,10 @@ class NameTamer
   # Constants
   #--------------------------------------------------------
 
-  NONBREAKING_SPACE = "\u00a0"
-  ASCII_SPACE = "\u0020"
-  ADFIX_JOINERS = "[#{ASCII_SPACE}-]"
-  SLUG_DELIMITER = '-'
+  NONBREAKING_SPACE = "\u00a0".freeze
+  ASCII_SPACE = ' '.freeze
+  ADFIX_JOINERS = "[#{ASCII_SPACE}-]".freeze
+  SLUG_DELIMITER = '-'.freeze
   ZERO_WIDTH_FILTER = /[\u180E\u200B\u200C\u200D\u2063\uFEFF]/
 
   # Constants for parameterizing Unicode strings for IRIs
@@ -448,12 +448,12 @@ class NameTamer
   # We're using the most restrictive segment definition (isegment-nz-nc)
   # to avoid any possible problems with the IRI that it one day might
   # get placed in.
-  ALPHA = 'A-Za-z'
-  DIGIT = '0-9'
-  UCSCHAR = '\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF'
-  IUNRESERVED = "#{ALPHA}#{DIGIT}\\-\\._~#{UCSCHAR}"
-  SUBDELIMS = '!$&\'\(\)\*+,;='
-  ISEGMENT_NZ_NC = "#{IUNRESERVED}#{SUBDELIMS}@" # pct-encoded not needed
+  ALPHA = 'A-Za-z'.freeze
+  DIGIT = '0-9'.freeze
+  UCSCHAR = '\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF'.freeze
+  IUNRESERVED = "#{ALPHA}#{DIGIT}\\-\\._~#{UCSCHAR}".freeze
+  SUBDELIMS = '!$&\'\(\)\*+,;='.freeze
+  ISEGMENT_NZ_NC = "#{IUNRESERVED}#{SUBDELIMS}@".freeze # pct-encoded not needed
   FILTER_RFC3987 = /[^#{ISEGMENT_NZ_NC}]/
   FILTER_COMPAT = /[^#{ALPHA}#{DIGIT}\-_#{UCSCHAR}]/
 
@@ -518,9 +518,9 @@ class NameTamer
       ],
       before: ADFIX_JOINERS, after: '\\z'
     }
-  }
+  }.freeze
 
-  ADFIX_PATTERNS = {}
+  ADFIX_PATTERNS = {}.freeze
 
   [:prefix, :suffix].each do |adfix_type|
     patterns = {}

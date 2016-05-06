@@ -207,7 +207,7 @@ describe NameTamer do
       { n: 'Dibble &amp; Grub LLP', t: :organization,
         nn: 'Dibble & Grub',
         sn: 'Dibble and Grub',
-        s: 'dibble-and-grub' },
+        s: 'dibble-and-grub' }
     ]
   end
 
