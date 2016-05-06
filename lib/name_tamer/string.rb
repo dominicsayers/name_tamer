@@ -1,5 +1,11 @@
 # encoding: utf-8
 class String
+  unless respond_to? :presence
+    def presence
+      self unless empty?
+    end
+  end
+
   # Strip illegal characters out completely
   def strip_unwanted!(filter)
     substitute!(filter, '')

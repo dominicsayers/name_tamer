@@ -60,6 +60,10 @@ module NameTamer
       @slug ||= NameTamer.parameterize simple_name.dup # "John Doe" -> "john-doe"
     end
 
+    def array
+      @array ||= slug.split(SLUG_DELIMITER)
+    end
+
     def contact_type
       nice_name # make sure we've done the bit which infers contact_type
       contact_type_best_effort
