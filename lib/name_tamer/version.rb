@@ -1,3 +1,3 @@
-class NameTamer
+module NameTamer
   VERSION = '0.5.0'.freeze
 end
