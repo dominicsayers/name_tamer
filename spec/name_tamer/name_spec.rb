@@ -2,7 +2,7 @@
 require 'spec_helper'
 require 'name-tamer'
 
-describe NameTamer do
+describe NameTamer::Name do
   let(:names) do
     [
       { n: 'John Smith', t: :person, nn: 'John Smith', sn: 'John Smith', s: 'john-smith' },
@@ -203,7 +203,11 @@ describe NameTamer do
         nn: 'Janen Moyer-Pesso',
         sn: 'Janen Moyer-Pesso',
         s: 'janen-moyer-pesso'
-      }
+      },
+      { n: 'Dibble &amp; Grub LLP', t: :organization,
+        nn: 'Dibble & Grub',
+        sn: 'Dibble and Grub',
+        s: 'dibble-and-grub' }
     ]
   end
 

@@ -46,7 +46,7 @@ task :check_existing do
     'LL.D.', 'LL.M.', 'M.Ed.', 'M.Sc.', 'Oxon.', 'Ph.D.', 'B.A.', 'Esq.', 'J.D.', 'K.C.', 'M.A.', 'M.D.', 'M.P.',
     'O.K.', 'P.A.', 'Q.C.', 'III', 'Jr.', 'Sr.', 'II', 'IV', 'V'
   ].each do |suffix|
-    fail suffix unless NameTamer::ADFIXES[:suffix][:person].include? suffix
+    raise suffix unless NameTamer::ADFIXES[:suffix][:person].include? suffix
   end
 
   [
@@ -71,6 +71,6 @@ task :check_existing do
     'S.L.', 'S.P.', 'S.s.', 'T.K.', 'T.Ü.', 'U.Ü.', 'Y.K.', 'А.Д.', 'І.П.', 'К.Д.', 'ПУП.', 'С.Д.', 'בע"מ', '任意組合',
     '匿名組合', '合同会社', '合名会社', '合資会社', '有限会社', '有限公司', '株式会社', 'A/S', 'G/S', 'I/S', 'K/S', 'P/S', 'S/A'
   ].each do |suffix|
-    fail suffix unless NameTamer::ADFIXES[:suffix][:organization].include? suffix
+    raise suffix unless NameTamer::ADFIXES[:suffix][:organization].include? suffix
   end
 end
