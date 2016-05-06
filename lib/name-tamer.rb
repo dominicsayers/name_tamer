@@ -520,9 +520,7 @@ class NameTamer
     }
   }.freeze
 
-  ADFIX_PATTERNS = {}.freeze
-
-  [:prefix, :suffix].each do |adfix_type|
+  ADFIX_PATTERNS = [:prefix, :suffix].map do |adfix_type|
     patterns = {}
     adfix = ADFIXES[adfix_type]
 
@@ -532,6 +530,6 @@ class NameTamer
       patterns[ct] = /#{adfix[:before]}\(*(?:#{pattern_string})[®™\)]*#{adfix[:after]}/i
     end
 
-    ADFIX_PATTERNS[adfix_type] = patterns
-  end
+    [adfix_type, patterns]
+  end.to_h
 end
