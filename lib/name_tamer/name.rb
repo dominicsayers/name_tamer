@@ -381,4 +381,10 @@ module NameTamer
         .upcase_initials!
     end
   end
+
+  # Useful method for iterating through the words in the name
+  def each_word(&block)
+    @words ||= slug.split(SLUG_DELIMITER)
+    @words.each(&block)
+  end
 end
