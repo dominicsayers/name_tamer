@@ -1,9 +1,9 @@
 # NameTamer
 
-![Gem Version](http://img.shields.io/gem/v/name-tamer.svg?style=flat)&nbsp;[![Code Climate](http://img.shields.io/codeclimate/github/Xenapto/name-tamer.svg?style=flat)](https://codeclimate.com/github/Xenapto/name-tamer)&nbsp;[![Coverage Status](https://img.shields.io/coveralls/Xenapto/name-tamer.svg?style=flat)](https://coveralls.io/r/Xenapto/name-tamer?branch=master)
-[![Developer status](http://img.shields.io/badge/developer-awesome-brightgreen.svg?style=flat)](http://xenapto.com)
-![build status](https://circleci.com/gh/Xenapto/name-tamer.png?circle-token=2293f2a1d8463a948c2a2ce4bb3bd99786958c59)
-[![Dependency Status](https://dependencyci.com/github/Xenapto/name-tamer/badge)](https://dependencyci.com/github/Xenapto/name-tamer) [![Join the chat at https://gitter.im/Xenapto/name-tamer](https://badges.gitter.im/Xenapto/name-tamer.svg)](https://gitter.im/Xenapto/name-tamer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+![Gem Version](http://img.shields.io/gem/v/name-tamer.svg?style=flat)&nbsp;[![Code Climate](http://img.shields.io/codeclimate/github/dominicsayers/name-tamer.svg?style=flat)](https://codeclimate.com/github/Xenapto/name-tamer)&nbsp;[![Coverage Status](https://img.shields.io/coveralls/dominicsayers/name-tamer.svg?style=flat)](https://coveralls.io/r/Xenapto/name-tamer?branch=master)
+[![Developer status](http://img.shields.io/badge/developer-awesome-brightgreen.svg?style=flat)](https://www.dominicsayers.com)
+![build status](https://circleci.com/gh/dominicsayers/name-tamer.png?circle-token=2293f2a1d8463a948c2a2ce4bb3bd99786958c59)
+[![Dependency Status](https://dependencyci.com/github/dominicsayers/name-tamer/badge)](https://dependencyci.com/github/Xenapto/name-tamer) [![Join the chat at https://gitter.im/Xenapto/name-tamer](https://badges.gitter.im/dominicsayers/name-tamer.svg)](https://gitter.im/dominicsayers/name-tamer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 NameTamer: making sense of names
 
@@ -54,7 +54,9 @@ If there are any other common two-word family names that I've missed then please
 
 Please read all the following articles before contributing:
 
-* [Personal names around the world](http://www.w3.org/International/questions/qa-personal-names)
+* [Personal names around the world](https://www.w3.org/International/questions/qa-personal-names)
+* [Falsehoods Programmers Believe About Names](https://www.kalzumeus.com/2010/06/17/falsehoods-programmers-believe-about-names/)
+* [Last Name First](http://www.solidether.net/article/last-name-first/)
 * [Namae (名前)](https://github.com/berkmancenter/namae)
 * [Matts Name Parser](https://github.com/mericson/people)
 * [Types of business entity](http://en.wikipedia.org/wiki/Types_of_business_entity)
