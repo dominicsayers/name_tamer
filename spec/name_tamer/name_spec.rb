@@ -1,6 +1,6 @@
 # encoding: utf-8
 require 'spec_helper'
-require 'name-tamer'
+require 'name_tamer'
 
 describe NameTamer::Name do
   let(:names) do
