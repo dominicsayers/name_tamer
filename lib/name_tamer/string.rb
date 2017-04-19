@@ -170,7 +170,7 @@ class String
   end
 
   def ensure_safe!
-    encode!('UTF-8', invalid: :replace, undef: :replace, replace: '')
+    encode!('UTF-8', invalid: :replace, undef: :replace, replace: '') # Doesn't fully work in Ruby 2.0
   end
 
   def substitute!(pattern, replacement)

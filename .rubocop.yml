@@ -6,7 +6,6 @@ AllCops:
     - 'tmp/**/*'
     - '**/*.rake'
 
-
 Metrics/BlockLength:
   CountComments: false  # count full line comments?
   Exclude:
