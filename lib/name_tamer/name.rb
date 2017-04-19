@@ -79,6 +79,12 @@ module NameTamer
       @contact_type = ct_as_sym
     end
 
+    # Useful method for iterating through the words in the name
+    def each_word(&block)
+      @words ||= slug.split(SLUG_DELIMITER)
+      @words.each(&block)
+    end
+
     # These lines aren't used and aren't covered by specs
     #   def name=(new_name)
     #     initialize new_name, :contact_type => @contact_type
@@ -380,11 +386,5 @@ module NameTamer
         .fix_name_modifiers!
         .upcase_initials!
     end
-  end
-
-  # Useful method for iterating through the words in the name
-  def each_word(&block)
-    @words ||= slug.split(SLUG_DELIMITER)
-    @words.each(&block)
   end
 end

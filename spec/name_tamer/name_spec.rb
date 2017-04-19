@@ -78,4 +78,18 @@ describe 'contact type inference' do
   it 'infers that "John Smith" is a person' do
     expect(NameTamer['John Smith'].contact_type).to eq(:person)
   end
+
+  it 'announces a change in contact type' do
+    nt = NameTamer::Name.new 'John Smith', contact_type: :person
+    nt.contact_type = :organization
+    expect(nt.contact_type).to eq(:organization)
+  end
+end
+
+describe 'iteration' do
+  it 'iterates through the significant words of a name' do
+    words = []
+    NameTamer['John Smith'].each_word { |w| words << w }
+    expect(words).to include('john', 'smith')
+  end
 end
