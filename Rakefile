@@ -10,3 +10,5 @@ begin
 rescue LoadError
   puts 'rspec is not available'
 end
+
+Dir.glob('doc/*.rake').each { |r| load r}
