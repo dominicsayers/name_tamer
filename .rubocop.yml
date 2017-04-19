@@ -51,3 +51,14 @@ ClassLength:
 
 ExtraSpacing:
   Enabled: true
+
+Style/PercentLiteralDelimiters:
+  # Hound and CodeClimate are currently using an old version of Rubocop with
+  # different defaults, so we set them explicitly here.
+  PreferredDelimiters:
+    default: ()
+    '%i': '[]'
+    '%I': '[]'
+    '%r': '{}'
+    '%w': '[]'
+    '%W': '[]'
