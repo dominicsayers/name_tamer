@@ -1,6 +1,4 @@
 # encoding: utf-8
-require 'spec_helper'
-require 'name-tamer'
 
 describe NameTamer::Text do
   context '#segments' do

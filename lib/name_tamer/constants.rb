@@ -50,13 +50,13 @@ module NameTamer
   ADFIXES = {
     prefix: {
       person: [
-        'Baron', 'Baroness', 'Capt.', 'Captain', 'Col.', 'Colonel', 'Dame',
-        'Doctor', 'Dr.', 'Judge', 'Justice', 'Lady', 'Lieut.', 'Lieutenant',
-        'Lord', 'Madame', 'Major', 'Master', 'Matron', 'Messrs.', 'Mgr.',
-        'Miss', 'Mister', 'Mlle.', 'Mme.', 'Mons.', 'Mr.', 'Mr. & Mrs.',
-        'Mr. and Mrs.', 'Mrs.', 'Msgr.', 'Ms.', 'Prof.', 'Professor', 'Rev.',
-        'Reverend', 'Sir', 'Sister', 'The Hon.', 'The Lady.', 'The Lord',
-        'The Rt. Hon.'
+        'Baroness', 'Capt.', 'Captain', 'Col.', 'Colonel', 'Dame', 'Doctor',
+        'Dr.', 'Judge', 'Justice', 'Lady', 'Lieut.', 'Lieutenant', 'Lord',
+        'Madame', 'Major', 'Master', 'Matron', 'Messrs.', 'Mgr.', 'Miss',
+        'Mister', 'Mlle.', 'Mme.', 'Mons.', 'Mr.', 'Mr. & Mrs.', 'Mr. and Mrs.',
+        'Mrs.', 'Ms.', 'Msgr.', 'Prof.', 'Professor', 'Rev.', 'Reverend', 'Sir',
+        'Sister', 'The Hon.', 'The Lady.', 'The Lord', 'The Rt. Hon.', 'Doktor',
+        'Herr', 'Frau'
       ],
       organization: [
         'Fa.', 'P.T.', 'P.T. Tbk.', 'U.D.'
@@ -106,16 +106,16 @@ module NameTamer
     }
   }.freeze
 
-  ADFIX_PATTERNS = [:prefix, :suffix].map do |adfix_type|
+  ADFIX_PATTERNS = Hash[%i[prefix suffix].map do |adfix_type|
     patterns = {}
     adfix = ADFIXES[adfix_type]
 
-    [:person, :organization].each do |ct|
+    %i[person organization].each do |ct|
       with_optional_spaces = adfix[ct].map { |p| p.gsub(ASCII_SPACE, ' *') }
       pattern_string = with_optional_spaces.join('|').gsub('.', '\.*')
       patterns[ct] = /#{adfix[:before]}\(*(?:#{pattern_string})[®™\)]*#{adfix[:after]}/i
     end
 
     [adfix_type, patterns]
-  end.to_h
+  end]
 end

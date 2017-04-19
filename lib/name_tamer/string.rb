@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 class String
   unless respond_to? :presence
     def presence
@@ -90,10 +91,10 @@ class String
       gsub!(/\b(Ma?c)([A-Za-z]+)/) { |_| Regexp.last_match[1] + Regexp.last_match[2].capitalize }
 
       # Fix Mac exceptions
-      %w(
+      %w[
         MacEdo MacEvicius MacHado MacHar MacHin MacHlin MacIas MacIulis MacKie
         MacKle MacKlin MacKmin MacKmurdo MacQuarie MacLise MacKenzie
-      ).each { |mac_name| substitute!(/\b#{mac_name}/, mac_name.capitalize) }
+      ].each { |mac_name| substitute!(/\b#{mac_name}/, mac_name.capitalize) }
     end
 
     self # Allows chaining
@@ -101,9 +102,9 @@ class String
 
   # Fix ff wierdybonks
   def fix_ff!
-    %w(
+    %w[
       Fforbes Fforde Ffinch Ffrench Ffoulkes
-    ).each { |ff_name| substitute!(ff_name, ff_name.downcase) }
+    ].each { |ff_name| substitute!(ff_name, ff_name.downcase) }
 
     self # Allows chaining
   end
@@ -123,7 +124,7 @@ class String
   end
 
   def fix_apostrophe_modifiers!
-    %w(Dell D).each do |modifier|
+    %w[Dell D].each do |modifier|
       gsub!(/(.#{modifier}')(\w)/) { |_| "#{Regexp.last_match[1].rstrip.downcase}#{Regexp.last_match[2]}" }
     end
 
@@ -169,7 +170,7 @@ class String
   end
 
   def ensure_safe!
-    encode!('UTF-8', invalid: :replace, undef: :replace, replace: '')
+    encode!('UTF-8', invalid: :replace, undef: :replace, replace: '') # Doesn't fully work in Ruby 2.0
   end
 
   def substitute!(pattern, replacement)
@@ -181,7 +182,7 @@ class String
 
   COMPOUND_NAMES = [
     'Lane Fox', 'Bonham Carter', 'Pitt Rivers', 'Lloyd Webber', 'Sebag Montefiore', 'Holmes à Court', 'Holmes a Court',
-    'Baron Cohen', 'Strang Steel',
+    'Baron Cohen', 'Strang Steel', 'Wingfield Digby',
     'Service Company', 'Corporation Company', 'Corporation System', 'Incorporations Limited'
   ].freeze
 
@@ -262,7 +263,7 @@ class String
   BAD_ENCODING_PATTERNS = /(#{BAD_ENCODING.keys.join('|')})/
 
   # Colorize strings
-  colors = %w(black red green yellow blue magenta cyan white)
+  colors = %w[black red green yellow blue magenta cyan white]
 
   colors.each_with_index do |fg_color, i|
     fg = 30 + i

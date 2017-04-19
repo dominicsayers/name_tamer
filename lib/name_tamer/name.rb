@@ -79,6 +79,12 @@ module NameTamer
       @contact_type = ct_as_sym
     end
 
+    # Useful method for iterating through the words in the name
+    def each_word(&block)
+      @words ||= slug.split(SLUG_DELIMITER)
+      @words.each(&block)
+    end
+
     # These lines aren't used and aren't covered by specs
     #   def name=(new_name)
     #     initialize new_name, :contact_type => @contact_type
@@ -310,7 +316,7 @@ module NameTamer
       ct = ct.to_s unless [String, Symbol].include? ct.class
       ct.downcase! if ct.class == String
       ct = ct.to_sym
-      ct = nil unless [:person, :organization].include? ct
+      ct = nil unless %i[person organization].include? ct
 
       ct
     end
