@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 require 'cgi'
 require 'name_tamer/string'
 require 'name_tamer/array'

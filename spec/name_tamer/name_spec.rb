@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 require 'spec_helper'
 require 'name_tamer'
 
@@ -174,8 +175,7 @@ describe NameTamer::Name do
       { n: 'Unusuals — the ad industry network', t: :organization,
         nn: 'Unusuals — the ad industry network',
         sn: 'Unusuals - the ad industry network',
-        s: 'unusuals-the-ad-industry-network'
-      },
+        s: 'unusuals-the-ad-industry-network' },
       {
         n: 'Scout® Loyalty Optimizer',
         t: :organization,

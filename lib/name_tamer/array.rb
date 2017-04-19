@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 class Array
   def neighbours
     last_index = length - 1

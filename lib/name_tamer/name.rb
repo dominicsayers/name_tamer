@@ -310,7 +310,7 @@ module NameTamer
       ct = ct.to_s unless [String, Symbol].include? ct.class
       ct.downcase! if ct.class == String
       ct = ct.to_sym
-      ct = nil unless [:person, :organization].include? ct
+      ct = nil unless %i[person organization].include? ct
 
       ct
     end

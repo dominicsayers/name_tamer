@@ -1,9 +1,16 @@
 ---
 AllCops:
-  TargetRubyVersion: 1.9
+  TargetRubyVersion: 2.0
   DisplayCopNames: true
   Exclude:
     - 'tmp/**/*'
+    - '**/*.rake'
+
+
+Metrics/BlockLength:
+  CountComments: false  # count full line comments?
+  Exclude:
+    - '**/*_spec.rb'
 
 LineLength:
   Description: 'Limit lines to 120 characters.'
