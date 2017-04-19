@@ -1,8 +1,5 @@
 # encoding: utf-8
 
-require 'spec_helper'
-require 'name_tamer'
-
 describe NameTamer::Text do
   context '#segments' do
     it 'splits a string into segments at appropriate boundaries' do
