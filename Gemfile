@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
-
-# Specify your gem's dependencies in foreplay.gemspec
 gemspec
+ruby RUBY_VERSION
 
 group :development do
   gem 'bundler'
@@ -9,10 +8,10 @@ group :development do
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-rubocop'
-  gem 'rubocop'
 end
 
 group :test do
+  gem 'codeclimate-test-reporter'
   gem 'coveralls'
   gem 'fuubar'
   gem 'rspec'
