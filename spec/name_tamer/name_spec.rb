@@ -37,7 +37,7 @@ describe NameTamer::Name do
     it 'makes a slug' do
       names.each do |name_data|
         name = name_data[:n]
-        expect(NameTamer[name, contact_type: name_data[:t]].slug).to eq(name_data[:s])
+        expect(NameTamer[name, contact_type: name_data[:t]].slug).to eq(name_data[:s].downcase)
       end
     end
 
