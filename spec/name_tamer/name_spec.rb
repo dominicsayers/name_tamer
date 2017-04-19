@@ -35,7 +35,7 @@ describe NameTamer::Name do
     let(:names) { YAML.load_file(File.join('spec', 'support', 'names.yml')) }
 
     it 'loads the examples correctly' do
-      expect(names.length).to eq(151) # Number of examples
+      expect(names.length).to eq(152) # Number of examples
     end
 
     it 'makes a slug' do

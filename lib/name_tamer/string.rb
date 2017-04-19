@@ -182,7 +182,7 @@ class String
 
   COMPOUND_NAMES = [
     'Lane Fox', 'Bonham Carter', 'Pitt Rivers', 'Lloyd Webber', 'Sebag Montefiore', 'Holmes à Court', 'Holmes a Court',
-    'Baron Cohen', 'Strang Steel',
+    'Baron Cohen', 'Strang Steel', 'Wingfield Digby',
     'Service Company', 'Corporation Company', 'Corporation System', 'Incorporations Limited'
   ].freeze
 
