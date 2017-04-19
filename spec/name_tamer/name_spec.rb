@@ -34,6 +34,10 @@ describe NameTamer::Name do
   context 'all ruby versions' do
     let(:names) { YAML.load_file(File.join('spec', 'support', 'names.yml')) }
 
+    it 'loads the examples correctly' do
+      expect(names.length).to eq(150) # Number of examples
+    end
+
     it 'makes a slug' do
       names.each do |name_data|
         name = name_data[:n]
