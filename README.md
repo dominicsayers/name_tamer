@@ -1,9 +1,9 @@
 # NameTamer
 
-![Gem Version](http://img.shields.io/gem/v/name-tamer.svg?style=flat)&nbsp;[![Code Climate](http://img.shields.io/codeclimate/github/dominicsayers/name-tamer.svg?style=flat)](https://codeclimate.com/github/Xenapto/name-tamer)&nbsp;[![Coverage Status](https://img.shields.io/coveralls/dominicsayers/name-tamer.svg?style=flat)](https://coveralls.io/r/Xenapto/name-tamer?branch=master)
+![Gem Version](http://img.shields.io/gem/v/name_tamer.svg?style=flat)&nbsp;[![Code Climate](http://img.shields.io/codeclimate/github/dominicsayers/name_tamer.svg?style=flat)](https://codeclimate.com/github/dominicsayers/name_tamer)&nbsp;[![Coverage Status](https://img.shields.io/coveralls/dominicsayers/name_tamer.svg?style=flat)](https://coveralls.io/r/dominicsayers/name_tamer?branch=master)
 [![Developer status](http://img.shields.io/badge/developer-awesome-brightgreen.svg?style=flat)](https://www.dominicsayers.com)
-![build status](https://circleci.com/gh/dominicsayers/name-tamer.png?circle-token=2293f2a1d8463a948c2a2ce4bb3bd99786958c59)
-[![Dependency Status](https://dependencyci.com/github/dominicsayers/name-tamer/badge)](https://dependencyci.com/github/Xenapto/name-tamer) [![Join the chat at https://gitter.im/Xenapto/name-tamer](https://badges.gitter.im/dominicsayers/name-tamer.svg)](https://gitter.im/dominicsayers/name-tamer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+![build status](https://circleci.com/gh/dominicsayers/name_tamer.png?circle-token=2293f2a1d8463a948c2a2ce4bb3bd99786958c59)
+[![Dependency Status](https://dependencyci.com/github/dominicsayers/name_tamer/badge)](https://dependencyci.com/github/dominicsayers/name_tamer) [![Join the chat at https://gitter.im/dominicsayers/name_tamer](https://badges.gitter.im/dominicsayers/name_tamer.svg)](https://gitter.im/dominicsayers/name_tamer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 NameTamer: making sense of names
 
@@ -11,7 +11,7 @@ NameTamer: making sense of names
 
 Add this line to your application's Gemfile:
 
-    gem 'name-tamer'
+    gem 'name_tamer'
 
 And then execute:
 
@@ -19,7 +19,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install name-tamer
+    $ gem install name_tamer
 
 ## Usage
 
@@ -48,9 +48,9 @@ name_tamer.simple_name # => Di Doo Doo
 
 ## Contributing
 
-There must be lots of name suffixes and prefixes that I haven't catered for, so please get in touch if `name-tamer` doesn't recognise one that you've found.
+There must be lots of name suffixes and prefixes that I haven't catered for, so please get in touch if `name_tamer` doesn't recognise one that you've found.
 
-If there are any other common two-word family names that I've missed then please let me know. `name-tamer` tries to make sure Helena Bonham Carter gets slugified to `helena-bonham-carter` and not `helena-carter`, but I'm sure there are loads of two-word family names I don't know about.
+If there are any other common two-word family names that I've missed then please let me know. `name_tamer` tries to make sure Helena Bonham Carter gets slugified to `helena-bonham-carter` and not `helena-carter`, but I'm sure there are loads of two-word family names I don't know about.
 
 Please read all the following articles before contributing:
 
