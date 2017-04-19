@@ -1,9 +1,12 @@
-# NameTamer
+## NameTamer
 
-![Gem Version](http://img.shields.io/gem/v/name_tamer.svg?style=flat)&nbsp;[![Code Climate](http://img.shields.io/codeclimate/github/dominicsayers/name_tamer.svg?style=flat)](https://codeclimate.com/github/dominicsayers/name_tamer)&nbsp;[![Coverage Status](https://img.shields.io/coveralls/dominicsayers/name_tamer.svg?style=flat)](https://coveralls.io/r/dominicsayers/name_tamer?branch=master)
-[![Developer status](http://img.shields.io/badge/developer-awesome-brightgreen.svg?style=flat)](https://www.dominicsayers.com)
-![build status](https://circleci.com/gh/dominicsayers/name_tamer.png?circle-token=2293f2a1d8463a948c2a2ce4bb3bd99786958c59)
-[![Dependency Status](https://dependencyci.com/github/dominicsayers/name_tamer/badge)](https://dependencyci.com/github/dominicsayers/name_tamer) [![Join the chat at https://gitter.im/dominicsayers/name_tamer](https://badges.gitter.im/dominicsayers/name_tamer.svg)](https://gitter.im/dominicsayers/name_tamer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Gem version](https://badge.fury.io/rb/name_tamer.svg)](https://rubygems.org/gems/name_tamer)
+[![Gem downloads](https://img.shields.io/gem/dt/name_tamer.svg)](https://rubygems.org/gems/name_tamer)
+[![Build Status](https://travis-ci.org/dominicsayers/name_tamer.svg?branch=master)](https://travis-ci.org/dominicsayers/name_tamer)
+[![Code Climate](https://codeclimate.com/github/dominicsayers/name_tamer/badges/gpa.svg)](https://codeclimate.com/github/dominicsayers/name_tamer)
+[![Test Coverage](https://codeclimate.com/github/dominicsayers/name_tamer/badges/coverage.svg)](https://codeclimate.com/github/dominicsayers/name_tamer/coverage)
+[![Dependency Status](https://gemnasium.com/badges/github.com/dominicsayers/name_tamer.svg)](https://gemnasium.com/github.com/dominicsayers/name_tamer)
+[![Security](https://hakiri.io/github/dominicsayers/name_tamer/master.svg)](https://hakiri.io/github/dominicsayers/name_tamer/master)
 
 NameTamer: making sense of names
 
