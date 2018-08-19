@@ -1,0 +1,2 @@
+#!/bin/sh
+bundle exec irb -r rubygems -I lib -r name_tamer.rb
