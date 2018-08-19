@@ -3,6 +3,7 @@ AllCops:
   TargetRubyVersion: 2.0
   DisplayCopNames: true
   Exclude:
+    - bin/**/*
     - 'tmp/**/*'
     - '**/*.rake'
 
