@@ -36,10 +36,7 @@ class String
   # This might introduce UTF-8 invalid byte sequence
   # so we take precautions
   def safe_unescape!
-    string = URI.unescape(self)
-  rescue Encoding::CompatibilityError # e.g. "\u2019%80"
-    self
-  else
+    string = CGI.unescape(gsub('+', '%2B'))
     return self if self == string
     replace string
     ensure_safe!
