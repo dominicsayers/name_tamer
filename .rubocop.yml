@@ -1,63 +1,61 @@
 ---
 AllCops:
-  TargetRubyVersion: 2.0
   DisplayCopNames: true
+  DisplayStyleGuide: true
   Exclude:
-    - 'tmp/**/*'
+    - bin/**/*
+    - tmp/**/*
     - '**/*.rake'
+
+Layout/DotPosition:
+  EnforcedStyle: leading
+  Enabled: true
+
+Layout/ExtraSpacing:
+  Enabled: true
 
 Metrics/BlockLength:
   CountComments: false  # count full line comments?
   Exclude:
     - '**/*_spec.rb'
 
-LineLength:
-  Description: 'Limit lines to 120 characters.'
+Metrics/ClassLength:
+  CountComments: false  # count full line comments?
+  Exclude:
+    - lib/name_tamer/name.rb
+    - lib/name_tamer/string.rb
+
+Metrics/CyclomaticComplexity:
+  Max: 8
+
+Metrics/LineLength:
   Max: 120
   Enabled: true
 
-MethodLength:
-  Description: 'Avoid methods longer than 10 lines of code.'
+Metrics/MethodLength:
   Max: 23
   Enabled: true
 
-Documentation:
-  Description: 'Document classes and non-namespace modules.'
+Metrics/ModuleLength:
+  CountComments: false  # count full line comments?
+  Exclude:
+    - lib/name_tamer/constants.rb
+
+Naming/FileName:
   Enabled: false
 
-FileName:
-  Description: 'Use snake_case for source file names.'
+Style/Documentation:
   Enabled: false
 
-DotPosition:
-  Description: 'Checks the position of the dot in multi-line method calls.'
-  EnforcedStyle: leading
-  # EnforcedStyle: trailing
+Style/MutableConstant:
   Enabled: true
 
-StringLiterals:
+Style/StringLiterals:
   EnforcedStyle: single_quotes
   Enabled: true
 
-CyclomaticComplexity:
-  Description: 'Avoid complex methods.'
-  Max: 8
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
 
-ClassLength:
-  Description: 'Avoid classes longer than 100 lines of code.'
-  CountComments: false  # count full line comments?
-  Max: 334
-
-ExtraSpacing:
-  Enabled: true
-
-Style/PercentLiteralDelimiters:
-  # Hound and CodeClimate are currently using an old version of Rubocop with
-  # different defaults, so we set them explicitly here.
-  PreferredDelimiters:
-    default: ()
-    '%i': '[]'
-    '%I': '[]'
-    '%r': '{}'
-    '%w': '[]'
-    '%W': '[]'
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma

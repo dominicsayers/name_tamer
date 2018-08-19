@@ -1,4 +1,6 @@
-lib = File.expand_path('../lib', __FILE__)
+# frozen_string_literal: true
+
+lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'name_tamer/version'
 
@@ -12,8 +14,7 @@ Gem::Specification.new do |spec|
   spec.homepage = 'https://github.com/dominicsayers/name_tamer'
   spec.license = 'MIT'
 
-  spec.files = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
-  spec.executables = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  spec.files = `git ls-files`.split($INPUT_RECORD_SEPARATOR).reject { |file| file =~ %r{^(bin|spec)/} }
   spec.test_files = spec.files.grep(%r{^(test|spec|features|coverage)/})
   spec.require_paths = ['lib']
 end

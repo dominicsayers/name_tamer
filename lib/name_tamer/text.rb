@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module NameTamer
   class Text
     # All the potential slugs from the string
@@ -21,7 +23,7 @@ module NameTamer
         .strip_unwanted!(filter)
         .fix_separators!(separator)
         .approximate_latin_chars!
-        .presence || '_'
+        .presence || +'_'
       ).downcase
     end
 
@@ -39,7 +41,7 @@ module NameTamer
     end
 
     def separator
-      @seperator ||= args[:sep] || SLUG_DELIMITER
+      @separator ||= args[:sep] || SLUG_DELIMITER
     end
 
     def rfc3987
