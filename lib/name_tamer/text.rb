@@ -23,7 +23,7 @@ module NameTamer
         .strip_unwanted!(filter)
         .fix_separators!(separator)
         .approximate_latin_chars!
-        .presence || '_'
+        .presence || +'_'
       ).downcase
     end
 

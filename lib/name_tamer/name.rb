@@ -217,7 +217,7 @@ module NameTamer
       lowercase = @last_name.downcase
       uppercase = @last_name.upcase
       @last_name = name_case(lowercase) if [uppercase, lowercase].include?(@last_name)
-      @nice_name = "#{@remainder} #{@last_name}"
+      @nice_name = +"#{@remainder} #{@last_name}"
     end
 
     # Conjoin compound names with non-breaking spaces
@@ -251,7 +251,7 @@ module NameTamer
       return unless first_name || last_name
 
       separator = first_name && last_name ? ' ' : ''
-      @simple_name = "#{first_name}#{separator}#{last_name}"
+      @simple_name = +"#{first_name}#{separator}#{last_name}"
     end
 
     def find_first_usable_name(parts)
