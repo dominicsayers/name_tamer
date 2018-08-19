@@ -21,7 +21,9 @@ Metrics/BlockLength:
 
 Metrics/ClassLength:
   CountComments: false  # count full line comments?
-  Max: 334
+  Exclude:
+    - lib/name_tamer/name.rb
+    - lib/name_tamer/string.rb
 
 Metrics/CyclomaticComplexity:
   Max: 8
@@ -33,6 +35,11 @@ Metrics/LineLength:
 Metrics/MethodLength:
   Max: 23
   Enabled: true
+
+Metrics/ModuleLength:
+  CountComments: false  # count full line comments?
+  Exclude:
+    - lib/name_tamer/constants.rb
 
 Naming/FileName:
   Enabled: false
@@ -46,3 +53,9 @@ Style/MutableConstant:
 Style/StringLiterals:
   EnforcedStyle: single_quotes
   Enabled: true
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
