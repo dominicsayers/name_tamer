@@ -21,6 +21,7 @@ config/secrets.yml
 .ruby-version
 .ruby-gemset
 Gemfile.lock
+.byebug_history
 
 # unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
 .rvmrc
