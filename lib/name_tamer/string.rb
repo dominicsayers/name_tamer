@@ -189,6 +189,7 @@ class String
     'Pitt Rivers',
     'Sebag Montefiore',
     'Strang Steel',
+    'Wedgwood Benn',
     'Wingfield Digby',
     # Sometimes companies appear as people
     'Corporation Company',
