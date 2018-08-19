@@ -1,64 +1,48 @@
 ---
 AllCops:
-  TargetRubyVersion: 2.3
   DisplayCopNames: true
+  DisplayStyleGuide: true
   Exclude:
     - bin/**/*
-    - 'tmp/**/*'
+    - tmp/**/*
     - '**/*.rake'
+
+Layout/DotPosition:
+  EnforcedStyle: leading
+  Enabled: true
+
+Layout/ExtraSpacing:
+  Enabled: true
 
 Metrics/BlockLength:
   CountComments: false  # count full line comments?
   Exclude:
     - '**/*_spec.rb'
 
-LineLength:
-  Description: 'Limit lines to 120 characters.'
-  Max: 120
-  Enabled: true
-
-MethodLength:
-  Description: 'Avoid methods longer than 10 lines of code.'
-  Max: 23
-  Enabled: true
-
-Documentation:
-  Description: 'Document classes and non-namespace modules.'
-  Enabled: false
-
-FileName:
-  Description: 'Use snake_case for source file names.'
-  Enabled: false
-
-DotPosition:
-  Description: 'Checks the position of the dot in multi-line method calls.'
-  EnforcedStyle: leading
-  # EnforcedStyle: trailing
-  Enabled: true
-
-StringLiterals:
-  EnforcedStyle: single_quotes
-  Enabled: true
-
-CyclomaticComplexity:
-  Description: 'Avoid complex methods.'
-  Max: 8
-
-ClassLength:
-  Description: 'Avoid classes longer than 100 lines of code.'
+Metrics/ClassLength:
   CountComments: false  # count full line comments?
   Max: 334
 
-ExtraSpacing:
+Metrics/CyclomaticComplexity:
+  Max: 8
+
+Metrics/LineLength:
+  Max: 120
   Enabled: true
 
-Style/PercentLiteralDelimiters:
-  # Hound and CodeClimate are currently using an old version of Rubocop with
-  # different defaults, so we set them explicitly here.
-  PreferredDelimiters:
-    default: ()
-    '%i': '[]'
-    '%I': '[]'
-    '%r': '{}'
-    '%w': '[]'
-    '%W': '[]'
+Metrics/MethodLength:
+  Max: 23
+  Enabled: true
+
+Naming/FileName:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/MutableConstant:
+  Enabled: true
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+  Enabled: true
