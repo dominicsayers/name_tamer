@@ -676,9 +676,9 @@
   :s: pablo-sanchez
 - :n: "’%80"
   :t: :person
-  :nn: "’%80"
-  :sn: "’%80"
-  :s: "’80"
+  :nn: "’"
+  :sn: "’"
+  :s: "’"
 - :n: "John Smith\uFEFF​‌‍⁣"
   :t: :person
   :nn: John Smith
