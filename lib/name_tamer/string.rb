@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 class String
   unless respond_to? :presence
@@ -38,7 +38,7 @@ class String
   def safe_unescape!
     string = URI.unescape(self)
   rescue Encoding::CompatibilityError # e.g. "\u2019%80"
-    return self
+    self
   else
     return self if self == string
     replace string
@@ -177,8 +177,8 @@ class String
     gsub!(pattern, replacement) || self
   end
 
-  NONBREAKING_SPACE = "\u00a0".freeze
-  ASCII_SPACE = ' '.freeze
+  NONBREAKING_SPACE = "\u00a0"
+  ASCII_SPACE = ' '
 
   COMPOUND_NAMES = [
     'Lane Fox', 'Bonham Carter', 'Pitt Rivers', 'Lloyd Webber', 'Sebag Montefiore', 'Holmes à Court', 'Holmes a Court',

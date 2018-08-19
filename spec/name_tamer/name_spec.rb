@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 describe NameTamer::Name do
   context 'invalid byte sequence in UTF-8' do

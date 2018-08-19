@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module NameTamer
-  NONBREAKING_SPACE = "\u00a0".freeze
-  ASCII_SPACE = ' '.freeze
-  ADFIX_JOINERS = "[#{ASCII_SPACE}-]".freeze
-  SLUG_DELIMITER = '-'.freeze
+  NONBREAKING_SPACE = "\u00a0"
+  ASCII_SPACE = ' '
+  ADFIX_JOINERS = "[#{ASCII_SPACE}-]"
+  SLUG_DELIMITER = '-'
   ZERO_WIDTH_FILTER = /[\u180E\u200B\u200C\u200D\u2063\uFEFF]/
 
   # Constants for parameterizing Unicode strings for IRIs
@@ -34,12 +36,12 @@ module NameTamer
   # We're using the most restrictive segment definition (isegment-nz-nc)
   # to avoid any possible problems with the IRI that it one day might
   # get placed in.
-  ALPHA = 'A-Za-z'.freeze
-  DIGIT = '0-9'.freeze
-  UCSCHAR = '\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF'.freeze
-  IUNRESERVED = "#{ALPHA}#{DIGIT}\\-\\._~#{UCSCHAR}".freeze
-  SUBDELIMS = '!$&\'\(\)\*+,;='.freeze
-  ISEGMENT_NZ_NC = "#{IUNRESERVED}#{SUBDELIMS}@".freeze # pct-encoded not needed
+  ALPHA = 'A-Za-z'
+  DIGIT = '0-9'
+  UCSCHAR = '\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF'
+  IUNRESERVED = "#{ALPHA}#{DIGIT}\\-\\._~#{UCSCHAR}"
+  SUBDELIMS = '!$&\'\(\)\*+,;='
+  ISEGMENT_NZ_NC = "#{IUNRESERVED}#{SUBDELIMS}@" # pct-encoded not needed
   FILTER_RFC3987 = /[^#{ISEGMENT_NZ_NC}]/
   FILTER_COMPAT = /[^#{ALPHA}#{DIGIT}\-_#{UCSCHAR}]/
 

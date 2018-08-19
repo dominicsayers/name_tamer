@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module NameTamer
   class Text
     # All the potential slugs from the string
