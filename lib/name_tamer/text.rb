@@ -41,7 +41,7 @@ module NameTamer
     end
 
     def separator
-      @seperator ||= args[:sep] || SLUG_DELIMITER
+      @separator ||= args[:sep] || SLUG_DELIMITER
     end
 
     def rfc3987
