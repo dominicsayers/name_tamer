@@ -459,16 +459,16 @@ module NameTamer
     },
   }.freeze
 
-  ADFIX_PATTERNS = Hash[%i[prefix suffix].map do |adfix_type|
+  ADFIX_PATTERNS = %i[prefix suffix].map do |adfix_type|
     patterns = {}
     adfix = ADFIXES[adfix_type]
 
     %i[person organization].each do |ct|
       with_optional_spaces = adfix[ct].map { |p| p.gsub(ASCII_SPACE, ' *') }
       pattern_string = with_optional_spaces.join('|').gsub('.', '\.*')
-      patterns[ct] = /#{adfix[:before]}\(*(?:#{pattern_string})[®™\)]*#{adfix[:after]}/i
+      patterns[ct] = /#{adfix[:before]}\(*(?:#{pattern_string})[®™)]*#{adfix[:after]}/i
     end
 
     [adfix_type, patterns]
-  end]
+  end.to_h
 end

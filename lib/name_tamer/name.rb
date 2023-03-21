@@ -260,6 +260,7 @@ module NameTamer
       parts.each_index do |i|
         part = parts[i]
         next if part.gsub(FILTER_COMPAT, '').empty?
+
         parts = parts.slice(i + 1, parts.length) # don't use "slice!"
         break
       end
@@ -272,6 +273,7 @@ module NameTamer
 
       parts.reverse_each do |p|
         next if p.gsub(FILTER_COMPAT, '').empty?
+
         part = p
         break
       end
@@ -316,7 +318,7 @@ module NameTamer
 
       ct = args_ct.is_a?(Symbol) ? args_ct : args_ct.dup
       ct = ct.to_s unless [String, Symbol].include? ct.class
-      ct.downcase! if ct.class == String
+      ct.downcase! if ct.instance_of?(String)
       ct = ct.to_sym
       ct = nil unless %i[person organization].include? ct
 

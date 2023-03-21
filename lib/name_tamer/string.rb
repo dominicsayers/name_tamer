@@ -30,7 +30,7 @@ class String
   # Change some characters embedded in words to our separator character
   # e.g. example.com -> example-com
   def invalid_chars_to!(separator)
-    substitute!(%r{(?<![[:space:]])[\.\/](?![[:space:]])}, separator)
+    substitute!(%r{(?<![[:space:]])[./](?![[:space:]])}, separator)
   end
 
   # Unescape percent-encoded characters
@@ -39,6 +39,7 @@ class String
   def safe_unescape!
     string = CGI.unescape(gsub('+', '%2B'))
     return self if self == string
+
     replace string
     ensure_safe!
   end
@@ -79,7 +80,7 @@ class String
   end
 
   def downcase_after_apostrophe!
-    gsub!(/\'\w\b/, &:downcase) || self # Lowercase 's
+    gsub!(/'\w\b/, &:downcase) || self # Lowercase 's
   end
 
   # Our list of terminal characters that indicate a non-celtic name used
@@ -540,7 +541,7 @@ class String
     'Æ’' => 'ƒ',
     'Ëœ' => '˜',
     'Ë†' => 'ˆ',
-    "\x00" => '' # Manually added to avoid Bad Argument exception
+    "\x00" => '', # Manually added to avoid Bad Argument exception
   }.freeze
 
   BAD_ENCODING_PATTERNS = /(#{BAD_ENCODING.keys.join('|')})/

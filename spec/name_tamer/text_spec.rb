@@ -3,8 +3,8 @@
 describe NameTamer::Text do
   context '#segments' do
     it 'splits a string into segments at appropriate boundaries' do
-      string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '\
-               'Nullam venenatis? Risus eu: auctor feugiat; libero nisl congue '\
+      string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' \
+               'Nullam venenatis? Risus eu: auctor feugiat; libero nisl congue ' \
                'arcu - eget molestie metus / erat eu diam'
 
       text = NameTamer::Text.new string
