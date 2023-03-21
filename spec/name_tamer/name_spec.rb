@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe NameTamer::Name do
-  context 'invalid byte sequence in UTF-8' do
+  context 'when there is an invalid byte sequence in UTF-8' do
     let(:name_data) { { n: "\xc3\x28", t: :person, nn: '()', sn: '()', s: '_' } } # Invalid byte sequence in UTF-8
 
     if Gem::Version.new(RUBY_VERSION) <= Gem::Version.new('2')
@@ -31,7 +31,7 @@ describe NameTamer::Name do
     end
   end
 
-  context 'all ruby versions' do
+  context 'with all ruby versions' do
     let(:names) { YAML.load_file(File.join('spec', 'support', 'names.yml')) }
 
     it 'loads the examples correctly' do
