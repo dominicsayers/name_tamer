@@ -2,14 +2,14 @@
 
 describe NameTamer::Text do
   describe '#segments' do
-    it 'splits a string into segments at appropriate boundaries' do
-      string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' \
-               'Nullam venenatis? Risus eu: auctor feugiat; libero nisl congue ' \
-               'arcu - eget molestie metus / erat eu diam'
+    let(:string) do
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' \
+        'Nullam venenatis? Risus eu: auctor feugiat; libero nisl congue ' \
+        'arcu - eget molestie metus / erat eu diam'
+    end
 
-      text = described_class.new string
-
-      expect(text.segments).to include(
+    let(:expected_segments) do
+      [
         'Lorem ipsum dolor sit amet',
         'consectetur adipiscing elit',
         'Nullam venenatis',
@@ -17,8 +17,14 @@ describe NameTamer::Text do
         'auctor feugiat',
         'libero nisl congue arcu',
         'eget molestie metus',
-        'erat eu diam'
-      )
+        'erat eu diam',
+      ]
+    end
+
+    it 'splits a string into segments at appropriate boundaries' do
+      text = described_class.new string
+
+      expect(text.segments).to include(*expected_segments)
     end
   end
 
