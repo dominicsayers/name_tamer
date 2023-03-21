@@ -7,7 +7,7 @@ describe NameTamer::Text do
                'Nullam venenatis? Risus eu: auctor feugiat; libero nisl congue ' \
                'arcu - eget molestie metus / erat eu diam'
 
-      text = NameTamer::Text.new string
+      text = described_class.new string
 
       expect(text.segments).to include(
         'Lorem ipsum dolor sit amet',
@@ -25,7 +25,7 @@ describe NameTamer::Text do
   describe '#slugs' do
     it 'compiles all the potential slugs into an array' do
       string = 'Lorem Ipsum Limited, lorem ipsum dolor. Dolor Mr Sit Amet.'
-      text = NameTamer::Text.new string
+      text = described_class.new string
       slugs = text.slugs
 
       expect(slugs).to include(
