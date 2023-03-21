@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe NameTamer::Text do
-  context '#segments' do
+  describe '#segments' do
     it 'splits a string into segments at appropriate boundaries' do
       string = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' \
                'Nullam venenatis? Risus eu: auctor feugiat; libero nisl congue ' \
@@ -22,7 +22,7 @@ describe NameTamer::Text do
     end
   end
 
-  context '#slugs' do
+  describe '#slugs' do
     it 'compiles all the potential slugs into an array' do
       string = 'Lorem Ipsum Limited, lorem ipsum dolor. Dolor Mr Sit Amet.'
       text = NameTamer::Text.new string
