@@ -16,6 +16,10 @@ Layout/DotPosition:
 Layout/ExtraSpacing:
   Enabled: true
 
+Layout/LineLength:
+  Max: 120
+  Enabled: true
+
 Metrics/BlockLength:
   CountComments: false  # count full line comments?
   Exclude:
@@ -29,10 +33,6 @@ Metrics/ClassLength:
 
 Metrics/CyclomaticComplexity:
   Max: 8
-
-Metrics/LineLength:
-  Max: 120
-  Enabled: true
 
 Metrics/MethodLength:
   Max: 23
