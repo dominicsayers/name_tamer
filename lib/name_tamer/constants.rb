@@ -459,7 +459,7 @@ module NameTamer
     },
   }.freeze
 
-  ADFIX_PATTERNS = %i[prefix suffix].map do |adfix_type|
+  ADFIX_PATTERNS = %i[prefix suffix].to_h do |adfix_type|
     patterns = {}
     adfix = ADFIXES[adfix_type]
 
@@ -470,5 +470,5 @@ module NameTamer
     end
 
     [adfix_type, patterns]
-  end.to_h
+  end
 end
