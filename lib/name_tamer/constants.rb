@@ -5,7 +5,7 @@ module NameTamer
   ASCII_SPACE = ' '
   ADFIX_JOINERS = "[#{ASCII_SPACE}-]"
   SLUG_DELIMITER = '-'
-  ZERO_WIDTH_FILTER = /[\u180E\u200B\u200C\u200D\u2063\uFEFF]/
+  ZERO_WIDTH_FILTER = /[\u180E\u200B\u200C\u200D\u2063\uFEFF]/.freeze
 
   # Constants for parameterizing Unicode strings for IRIs
   #
@@ -42,8 +42,8 @@ module NameTamer
   IUNRESERVED = "#{ALPHA}#{DIGIT}\\-\\._~#{UCSCHAR}"
   SUBDELIMS = '!$&\'\(\)\*+,;='
   ISEGMENT_NZ_NC = "#{IUNRESERVED}#{SUBDELIMS}@" # pct-encoded not needed
-  FILTER_RFC3987 = /[^#{ISEGMENT_NZ_NC}]/
-  FILTER_COMPAT = /[^#{ALPHA}#{DIGIT}\-_#{UCSCHAR}]/
+  FILTER_RFC3987 = /[^#{ISEGMENT_NZ_NC}]/.freeze
+  FILTER_COMPAT = /[^#{ALPHA}#{DIGIT}\-_#{UCSCHAR}]/.freeze
 
   # These are the prefixes and suffixes we want to remove
   # If you add to the list, you can use spaces and dots where appropriate
