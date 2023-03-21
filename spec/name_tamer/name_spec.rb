@@ -79,7 +79,7 @@ describe NameTamer::Name do
     end
 
     it 'announces a change in contact type' do
-      nt = NameTamer::Name.new 'John Smith', contact_type: :person
+      nt = described_class.new 'John Smith', contact_type: :person
       nt.contact_type = :organization
       expect(nt.contact_type).to eq(:organization)
     end
