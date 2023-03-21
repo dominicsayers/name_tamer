@@ -23,17 +23,19 @@ describe NameTamer::Text do
   end
 
   describe '#slugs' do
-    it 'compiles all the potential slugs into an array' do
-      string = 'Lorem Ipsum Limited, lorem ipsum dolor. Dolor Mr Sit Amet.'
-      text = described_class.new string
-      slugs = text.slugs
+    let(:string) { 'Lorem Ipsum Limited, lorem ipsum dolor. Dolor Mr Sit Amet.' }
+    let(:text) { described_class.new string }
+    let(:slugs) { text.slugs }
 
+    it 'compiles all the potential slugs into an array' do
       expect(slugs).to include(
         'lorem', 'lorem-ipsum', 'ipsum', 'lorem-ipsum-dolor', 'ipsum-dolor',
         'dolor', 'dolor-mr', 'dolor-mr-sit', 'dolor-mr-sit-amet', 'mr',
         'mr-sit', 'mr-sit-amet', 'sit', 'sit-amet', 'amet'
       )
+    end
 
+    it 'has the expected number of slugs' do
       expect(slugs.length).to eq 15
     end
   end
