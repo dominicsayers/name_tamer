@@ -185,7 +185,7 @@ module NameTamer
       if left_brace_count > right_brace_count
         @nice_name += ')'
       elsif left_brace_count < right_brace_count
-        @nice_name = '(' + @nice_name
+        @nice_name = "(#{@nice_name}".dup
       end
     end
 
