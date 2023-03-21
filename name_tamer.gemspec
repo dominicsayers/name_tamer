@@ -15,6 +15,6 @@ Gem::Specification.new do |spec|
   spec.license = 'MIT'
 
   spec.files = `git ls-files`.split($INPUT_RECORD_SEPARATOR).reject { |file| file =~ %r{^(bin|spec)/} }
-  spec.test_files = spec.files.grep(%r{^(test|spec|features|coverage)/})
   spec.require_paths = ['lib']
+  spec.metadata['rubygems_mfa_required'] = 'true'
 end

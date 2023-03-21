@@ -10,7 +10,7 @@ module NameTamer
 
     # Split the string into segments (e.g. sentences)
     def segments
-      string.split(%r{(?:[\.\?,:;!]|[[:space:]][/-])[[:space:]]})
+      string.split(%r{(?:[.?,:;!]|[[:space:]][/-])[[:space:]]})
     end
 
     # The string as a slug
