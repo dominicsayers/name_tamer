@@ -544,7 +544,7 @@ class String
     "\x00" => '', # Manually added to avoid Bad Argument exception
   }.freeze
 
-  BAD_ENCODING_PATTERNS = /(#{BAD_ENCODING.keys.join('|')})/
+  BAD_ENCODING_PATTERNS = /(#{BAD_ENCODING.keys.join('|')})/.freeze
 
   # Colorize strings
   colors = %w[black red green yellow blue magenta cyan white]
