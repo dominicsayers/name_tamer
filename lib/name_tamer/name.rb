@@ -81,24 +81,6 @@ module NameTamer
       @words.each(&block)
     end
 
-    # These lines aren't used and aren't covered by specs
-    #   def name=(new_name)
-    #     initialize new_name, :contact_type => @contact_type
-    #   end
-    #
-    #   def to_hash
-    #     {
-    #       name:         name,
-    #       nice_name:    nice_name,
-    #       simple_name:  simple_name,
-    #       slug:         slug,
-    #       contact_type: contact_type,
-    #       last_name:    last_name,
-    #       remainder:    remainder,
-    #       adfix_found:  adfix_found
-    #     }
-    #   end
-
     private
 
     #--------------------------------------------------------
