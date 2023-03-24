@@ -14,7 +14,8 @@ Gem::Specification.new do |spec|
   spec.homepage = 'https://github.com/dominicsayers/name_tamer'
   spec.license = 'MIT'
 
-  spec.files = `git ls-files`.split($INPUT_RECORD_SEPARATOR).reject { |file| file =~ %r{^(bin|spec)/} }
-  spec.test_files = spec.files.grep(%r{^(test|spec|features|coverage)/})
+  spec.files = `git ls-files`.split($INPUT_RECORD_SEPARATOR).grep_v(%r{^(bin|spec)/})
   spec.require_paths = ['lib']
+  spec.metadata['rubygems_mfa_required'] = 'true'
+  spec.required_ruby_version = '>= 2.7.0'
 end

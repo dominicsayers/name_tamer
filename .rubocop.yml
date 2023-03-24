@@ -1,5 +1,7 @@
 ---
 AllCops:
+  NewCops: enable
+  TargetRubyVersion: 2.7
   DisplayCopNames: true
   DisplayStyleGuide: true
   Exclude:
@@ -12,6 +14,10 @@ Layout/DotPosition:
   Enabled: true
 
 Layout/ExtraSpacing:
+  Enabled: true
+
+Layout/LineLength:
+  Max: 120
   Enabled: true
 
 Metrics/BlockLength:
@@ -27,10 +33,6 @@ Metrics/ClassLength:
 
 Metrics/CyclomaticComplexity:
   Max: 8
-
-Metrics/LineLength:
-  Max: 120
-  Enabled: true
 
 Metrics/MethodLength:
   Max: 23
@@ -59,3 +61,5 @@ Style/TrailingCommaInArrayLiteral:
 
 Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: comma
+
+require: rubocop-rspec
