@@ -72,13 +72,7 @@ module NameTamer
     end
 
     def contact_type=(new_contact_type)
-      ct_as_sym = new_contact_type.to_sym
-
-      unless @contact_type.nil? || @contact_type == ct_as_sym
-        puts "Changing contact type of #{@name} from #{@contact_type} to #{new_contact_type}"
-      end
-
-      @contact_type = ct_as_sym
+      @contact_type = new_contact_type.to_sym
     end
 
     # Useful method for iterating through the words in the name
