@@ -32,10 +32,10 @@ describe NameTamer::Name do
   end
 
   context 'with all ruby versions' do
-    let(:names) { YAML.load_file(File.join('spec', 'support', 'names.yml')) }
+    let(:names) { YAML.load_file(File.join('spec', 'support', 'names.yml'), permitted_classes: [Symbol]) }
 
     it 'loads the examples correctly' do
-      expect(names.length).to eq(152) # Number of examples
+      expect(names.length).to eq(151) # Number of examples
     end
 
     it 'makes a slug' do
@@ -76,6 +76,10 @@ describe NameTamer::Name do
 
     it 'infers that "John Smith" is a person' do
       expect(NameTamer['John Smith'].contact_type).to eq(:person)
+    end
+
+    it 'ignores a nonsense contact type' do
+      expect(NameTamer['John Smith', contact_type: Kernel].slug).to eq('john-smith')
     end
 
     it 'announces a change in contact type' do
