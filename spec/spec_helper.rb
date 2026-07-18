@@ -2,10 +2,11 @@
 
 unless ENV['NO_SIMPLECOV']
   require 'simplecov'
-  require 'coveralls'
 
-  SimpleCov.start { add_filter '/spec/' }
-  Coveralls.wear! if ENV['COVERALLS_REPO_TOKEN']
+  SimpleCov.start do
+    enable_coverage :branch
+    add_filter '/spec/'
+  end
 end
 
 require 'name_tamer'
