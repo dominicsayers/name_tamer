@@ -71,15 +71,13 @@ module NameTamer
       # Improved in several areas, also now adds non-breaking spaces for
       # compound names like "van der Pump"
       def name_case(lowercase)
-        n = lowercase.dup # We assume the name is passed already downcased
-
-        n
-          .upcase_first_letter!
-          .downcase_after_apostrophe!
-          .fix_mac!
-          .fix_ff!
-          .fix_name_modifiers!
-          .upcase_initials!
+        # We assume the name is passed already downcased
+        n = Strings.upcase_first_letter(lowercase)
+        n = Strings.downcase_after_apostrophe(n)
+        n = Strings.fix_mac(n)
+        n = Strings.fix_ff(n)
+        n = Strings.fix_name_modifiers(n)
+        Strings.upcase_initials(n)
       end
     end
   end

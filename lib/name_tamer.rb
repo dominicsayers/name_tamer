@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 require 'cgi'
-require 'name_tamer/string'
-require 'name_tamer/array'
+require 'name_tamer/strings'
 require 'name_tamer/constants'
 
 module NameTamer

@@ -15,23 +15,29 @@ module NameTamer
 
     # The string as a slug
     def parameterize
-      @parameterize ||= (
-        string
-        .dup
-        .whitespace_to!(separator)
-        .invalid_chars_to!(separator)
-        .strip_unwanted!(filter)
-        .fix_separators!(separator)
-        .approximate_latin_chars!
-        .presence || +'_'
-      ).downcase
+      @parameterize ||= begin
+        slug = Strings.whitespace_to(string, separator)
+        slug = Strings.invalid_chars_to(slug, separator)
+        slug = Strings.strip_unwanted(slug, filter)
+        slug = Strings.fix_separators(slug, separator)
+        slug = Strings.approximate_latin_chars(slug)
+
+        (Strings.presence(slug) || '_').downcase
+      end
     end
 
     def neighbours
-      @neighbours ||= NameTamer[string].array.neighbours.map { |a| a.join('-') }
+      @neighbours ||= contiguous_slices(NameTamer[string].array).map { |words| words.join('-') }
     end
 
     private
+
+    # All the contiguous sub-arrays of an array,
+    # e.g. [1, 2] -> [[1], [1, 2], [2]]
+    def contiguous_slices(array)
+      last_index = array.length - 1
+      0.upto(last_index).flat_map { |i| i.upto(last_index).map { |j| array[i..j] } }
+    end
 
     attr_reader :string, :args
 

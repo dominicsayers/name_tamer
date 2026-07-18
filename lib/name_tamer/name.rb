@@ -56,7 +56,7 @@ module NameTamer
         remove_periods_from_initials # "J.P.R. Williams" -> "JPR Williams"
         standardize_words # "B&Q Intl" -> "B and Q International"
 
-        @simple_name.whitespace_to!(ASCII_SPACE)
+        @simple_name = Strings.whitespace_to(@simple_name, ASCII_SPACE)
       end
 
       @simple_name
