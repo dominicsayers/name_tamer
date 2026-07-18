@@ -23,7 +23,7 @@ module NameTamer
         return unless first_name || last_name
 
         separator = first_name && last_name ? ' ' : ''
-        @simple_name = +"#{first_name}#{separator}#{last_name}"
+        @simple_name = "#{first_name}#{separator}#{last_name}"
       end
 
       def find_first_usable_name(parts)

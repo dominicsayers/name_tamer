@@ -77,7 +77,7 @@ module NameTamer
         if left_brace_count > right_brace_count
           @nice_name += ')'
         elsif left_brace_count < right_brace_count
-          @nice_name = "(#{@nice_name}".dup
+          @nice_name = "(#{@nice_name}"
         end
       end
 
@@ -109,7 +109,7 @@ module NameTamer
         lowercase = @last_name.downcase
         uppercase = @last_name.upcase
         @last_name = name_case(lowercase) if [uppercase, lowercase].include?(@last_name)
-        @nice_name = +"#{@remainder} #{@last_name}"
+        @nice_name = "#{@remainder} #{@last_name}"
       end
 
       # Conjoin compound names with non-breaking spaces

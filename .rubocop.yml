@@ -1,7 +1,10 @@
 ---
+plugins:
+  - rubocop-rspec
+
 AllCops:
   NewCops: enable
-  TargetRubyVersion: 2.7
+  TargetRubyVersion: 3.3
   DisplayCopNames: true
   DisplayStyleGuide: true
   Exclude:
@@ -61,5 +64,3 @@ Style/TrailingCommaInArrayLiteral:
 
 Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: comma
-
-require: rubocop-rspec
