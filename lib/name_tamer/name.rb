@@ -80,9 +80,9 @@ module NameTamer
     end
 
     # Useful method for iterating through the words in the name
-    def each_word(&block)
+    def each_word(&)
       @words ||= slug.split(SLUG_DELIMITER)
-      @words.each(&block)
+      @words.each(&)
     end
 
     private

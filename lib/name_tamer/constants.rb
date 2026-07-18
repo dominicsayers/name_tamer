@@ -3,9 +3,9 @@
 module NameTamer
   NONBREAKING_SPACE = "\u00a0"
   ASCII_SPACE = ' '
-  ADFIX_JOINERS = "[#{ASCII_SPACE}-]"
+  ADFIX_JOINERS = "[#{ASCII_SPACE}-]".freeze
   SLUG_DELIMITER = '-'
-  ZERO_WIDTH_FILTER = /[\u180E\u200B\u200C\u200D\u2063\uFEFF]/.freeze
+  ZERO_WIDTH_FILTER = /[\u180E\u200B\u200C\u200D\u2063\uFEFF]/
 
   # Constants for parameterizing Unicode strings for IRIs
   #
@@ -39,11 +39,11 @@ module NameTamer
   ALPHA = 'A-Za-z'
   DIGIT = '0-9'
   UCSCHAR = '\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF'
-  IUNRESERVED = "#{ALPHA}#{DIGIT}\\-\\._~#{UCSCHAR}"
+  IUNRESERVED = "#{ALPHA}#{DIGIT}\\-\\._~#{UCSCHAR}".freeze
   SUBDELIMS = '!$&\'\(\)\*+,;='
-  ISEGMENT_NZ_NC = "#{IUNRESERVED}#{SUBDELIMS}@" # pct-encoded not needed
-  FILTER_RFC3987 = /[^#{ISEGMENT_NZ_NC}]/.freeze
-  FILTER_COMPAT = /[^#{ALPHA}#{DIGIT}\-_#{UCSCHAR}]/.freeze
+  ISEGMENT_NZ_NC = "#{IUNRESERVED}#{SUBDELIMS}@".freeze # pct-encoded not needed
+  FILTER_RFC3987 = /[^#{ISEGMENT_NZ_NC}]/
+  FILTER_COMPAT = /[^#{ALPHA}#{DIGIT}\-_#{UCSCHAR}]/
 
   # These are the prefixes and suffixes we want to remove
   # If you add to the list, you can use spaces and dots where appropriate

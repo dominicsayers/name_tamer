@@ -139,5 +139,5 @@ class String # rubocop:disable Metrics/ClassLength
     "\x00" => '', # Manually added to avoid Bad Argument exception
   }.freeze
 
-  BAD_ENCODING_PATTERNS = /(#{BAD_ENCODING.keys.join('|')})/.freeze
+  BAD_ENCODING_PATTERNS = /(#{BAD_ENCODING.keys.join('|')})/
 end
