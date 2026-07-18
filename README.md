@@ -2,10 +2,6 @@
 
 [![Gem version](https://badge.fury.io/rb/name_tamer.svg)](https://rubygems.org/gems/name_tamer)
 [![Gem downloads](https://img.shields.io/gem/dt/name_tamer.svg)](https://rubygems.org/gems/name_tamer)
-[![Build Status](https://travis-ci.org/dominicsayers/name_tamer.svg?branch=master)](https://travis-ci.org/dominicsayers/name_tamer)
-[![Code Climate](https://codeclimate.com/github/dominicsayers/name_tamer/badges/gpa.svg)](https://codeclimate.com/github/dominicsayers/name_tamer)
-[![Test Coverage](https://codeclimate.com/github/dominicsayers/name_tamer/badges/coverage.svg)](https://codeclimate.com/github/dominicsayers/name_tamer/coverage)
-[![Security](https://hakiri.io/github/dominicsayers/name_tamer/master.svg)](https://hakiri.io/github/dominicsayers/name_tamer/master)
 
 NameTamer: making sense of names
 
