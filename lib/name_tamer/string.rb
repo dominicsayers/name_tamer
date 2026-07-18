@@ -3,7 +3,6 @@
 require_relative 'string/approximations'
 require_relative 'string/bad_encoding'
 require_relative 'string/capitalization'
-require_relative 'string/colors'
 require_relative 'string/compound_names'
 require_relative 'string/name_modifiers'
 require_relative 'string/spacing'
