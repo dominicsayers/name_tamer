@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-lib = File.expand_path('lib', __dir__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'name_tamer/version'
+require_relative 'lib/name_tamer/version'
 
 Gem::Specification.new do |spec|
   spec.name = 'name_tamer'
@@ -14,8 +12,15 @@ Gem::Specification.new do |spec|
   spec.homepage = 'https://github.com/dominicsayers/name_tamer'
   spec.license = 'MIT'
 
-  spec.files = `git ls-files`.split($INPUT_RECORD_SEPARATOR).grep_v(%r{^(bin|spec)/})
+  spec.metadata = {
+    'homepage_uri' => 'https://github.com/dominicsayers/name_tamer',
+    'source_code_uri' => 'https://github.com/dominicsayers/name_tamer',
+    'changelog_uri' => 'https://github.com/dominicsayers/name_tamer/blob/main/CHANGELOG.md',
+    'bug_tracker_uri' => 'https://github.com/dominicsayers/name_tamer/issues',
+    'rubygems_mfa_required' => 'true'
+  }
+
+  spec.files = Dir['lib/**/*', 'LICENSE', 'README.md', 'CHANGELOG.md']
   spec.require_paths = ['lib']
-  spec.metadata['rubygems_mfa_required'] = 'true'
   spec.required_ruby_version = '>= 3.3'
 end
