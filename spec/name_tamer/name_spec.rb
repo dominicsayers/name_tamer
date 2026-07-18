@@ -79,6 +79,12 @@ describe NameTamer::Name do
     end
   end
 
+  describe 'multi-word adfixes' do
+    it 'strips a multi-word suffix in one piece' do
+      expect(NameTamer['John Smith, Chartered F.C.S.I.'].nice_name).to eq('John Smith')
+    end
+  end
+
   describe 'memoization' do
     let(:name) { described_class.new 'Mr. John Q. Smith III, MD' }
 
