@@ -10,7 +10,10 @@ require_relative 'string/spacing'
 require_relative 'string/utilities'
 
 class String
+  # :nocov: the guard cannot take its other arm within one process;
+  # the whole patch moves into the NameTamer namespace (issue #40)
   unless respond_to? :presence
+    # :nocov:
     def presence
       self unless empty?
     end

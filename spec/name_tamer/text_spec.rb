@@ -28,6 +28,16 @@ describe NameTamer::Text do
     end
   end
 
+  describe '#parameterize' do
+    it 'uses the RFC 3987 filter when asked' do
+      expect(described_class.new('John Smith', rfc3987: true).parameterize).to eq('john-smith')
+    end
+
+    it 'uses the compatibility filter by default' do
+      expect(described_class.new('John Smith').parameterize).to eq('john-smith')
+    end
+  end
+
   describe '#slugs' do
     let(:string) { 'Lorem Ipsum Limited, lorem ipsum dolor. Dolor Mr Sit Amet.' }
     let(:text) { described_class.new string }
