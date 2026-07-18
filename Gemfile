@@ -23,5 +23,5 @@ group :test do
   gem 'fuubar'
   gem 'rspec'
   gem 'rspec_junit_formatter'
-  gem 'simplecov', '~> 0.13'
+  gem 'simplecov', '~> 1.0'
 end
