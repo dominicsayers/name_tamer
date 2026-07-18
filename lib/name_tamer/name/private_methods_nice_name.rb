@@ -4,29 +4,24 @@ module NameTamer
   class Name
     module PrivateMethodsNiceName
       def unescape
-        @tidy_name.ensure_safe!.safe_unescape!.unescape_html!
+        @tidy_name = Strings.unescape_html(Strings.safe_unescape(Strings.ensure_safe(@tidy_name)))
       end
 
       def remove_zero_width
-        @tidy_name.strip_unwanted!(ZERO_WIDTH_FILTER)
+        @tidy_name = Strings.strip_unwanted(@tidy_name, ZERO_WIDTH_FILTER)
       end
 
       def tidy_spacing
-        @tidy_name
-          .space_around_comma!
-          .strip_or_self!
-          .whitespace_to!(ASCII_SPACE)
+        @tidy_name = Strings.whitespace_to(Strings.space_around_comma(@tidy_name).strip, ASCII_SPACE)
       end
 
       def fix_encoding_errors
-        @tidy_name.fix_encoding_errors!
+        @tidy_name = Strings.fix_encoding_errors(@tidy_name)
       end
 
       # Remove spaces from groups of initials
       def consolidate_initials
-        @tidy_name
-          .remove_spaces_from_initials!
-          .ensure_space_after_initials!
+        @tidy_name = Strings.ensure_space_after_initials(Strings.remove_spaces_from_initials(@tidy_name))
       end
 
       # An adfix is either a prefix or a suffix
@@ -114,9 +109,7 @@ module NameTamer
 
       # Conjoin compound names with non-breaking spaces
       def use_nonbreaking_spaces_in_compound_names
-        @nice_name
-          .nbsp_in_compound_name!
-          .nbsp_in_name_modifier!
+        @nice_name = Strings.nbsp_in_name_modifier(Strings.nbsp_in_compound_name(@nice_name))
       end
     end
   end

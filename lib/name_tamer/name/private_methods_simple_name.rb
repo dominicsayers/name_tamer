@@ -54,15 +54,17 @@ module NameTamer
       end
 
       def remove_periods_from_initials
-        @simple_name.remove_periods_from_initials!
+        @simple_name = Strings.remove_periods_from_initials(@simple_name)
       end
 
       def standardize_words
-        @simple_name.gsub!(/ *& */, ' and ') # replace ampersand characters with ' and '
-        @simple_name.gsub!(/ *\+ */, ' plus ') # replace plus signs with ' plus '
-        @simple_name.gsub!(/\bintl\b/i, 'International') # replace 'intl' with 'International'
-        @simple_name.gsub!(/[־‐‑‒–—―−﹘﹣－]/, SLUG_DELIMITER) # Replace Unicode dashes with ASCII hyphen
-        @simple_name.strip_unwanted!(/["“”™℠®©℗]/) # remove quotes and commercial decoration
+        words = @simple_name
+                .gsub(/ *& */, ' and ') # replace ampersand characters with ' and '
+                .gsub(/ *\+ */, ' plus ') # replace plus signs with ' plus '
+                .gsub(/\bintl\b/i, 'International') # replace 'intl' with 'International'
+                .gsub(/[־‐‑‒–—―−﹘﹣－]/, SLUG_DELIMITER) # Replace Unicode dashes with ASCII hyphen
+
+        @simple_name = Strings.strip_unwanted(words, /["“”™℠®©℗]/) # remove quotes and commercial decoration
       end
     end
   end

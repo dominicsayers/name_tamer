@@ -28,12 +28,6 @@ Metrics/BlockLength:
   Exclude:
     - '**/*_spec.rb'
 
-Metrics/ClassLength:
-  CountComments: false  # count full line comments?
-  Exclude:
-    - lib/name_tamer/name.rb
-    - lib/name_tamer/string.rb
-
 Metrics/CyclomaticComplexity:
   Max: 8
 
@@ -43,8 +37,9 @@ Metrics/MethodLength:
 
 Metrics/ModuleLength:
   CountComments: false  # count full line comments?
-  Exclude:
-    - lib/name_tamer/constants.rb
+  CountAsOne:
+    - array
+    - hash
 
 Naming/FileName:
   Enabled: false
