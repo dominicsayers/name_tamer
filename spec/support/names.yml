@@ -574,11 +574,6 @@
   :nn: John Smith
   :sn: John Smith
   :s: john-smith
-- :n: John Smith
-  :t: !ruby/module 'Kernel'
-  :nn: John Smith
-  :sn: John Smith
-  :s: john-smith
 - :n: Ms Jane Smith
   :t: :person
   :nn: Jane Smith
