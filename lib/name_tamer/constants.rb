@@ -51,7 +51,7 @@ module NameTamer
   # during processing, e.g. "y Cia." should be "y. Cia."
 
   private_class_method def self.get_constants_from(filename)
-    File.read(Pathname.new(__dir__).join('constants', filename)).split
+    File.readlines(Pathname.new(__dir__).join('constants', filename), chomp: true).reject(&:empty?)
   end
 
   ADFIXES = {
@@ -72,11 +72,13 @@ module NameTamer
     },
   }.freeze
 
+  CONTACT_TYPES = %i[person organization].freeze
+
   ADFIX_PATTERNS = %i[prefix suffix].to_h do |adfix_type|
     patterns = {}
     adfix = ADFIXES[adfix_type]
 
-    %i[person organization].each do |ct|
+    CONTACT_TYPES.each do |ct|
       with_optional_spaces = adfix[ct].map { |p| p.gsub(ASCII_SPACE, ' *') }
       pattern_string = with_optional_spaces.join('|').gsub('.', '\.*')
       patterns[ct] = /#{adfix[:before]}\(*(?:#{pattern_string})[®™)]*#{adfix[:after]}/i
