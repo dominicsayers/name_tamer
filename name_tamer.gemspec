@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
     'source_code_uri' => 'https://github.com/dominicsayers/name_tamer',
     'changelog_uri' => 'https://github.com/dominicsayers/name_tamer/blob/main/CHANGELOG.md',
     'bug_tracker_uri' => 'https://github.com/dominicsayers/name_tamer/issues',
-    'rubygems_mfa_required' => 'true'
+    'rubygems_mfa_required' => 'true',
   }
 
   spec.files = Dir['lib/**/*', 'LICENSE', 'README.md', 'CHANGELOG.md']
