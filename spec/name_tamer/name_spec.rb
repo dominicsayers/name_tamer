@@ -79,6 +79,28 @@ describe NameTamer::Name do
     end
   end
 
+  describe 'memoization' do
+    let(:name) { described_class.new 'Mr. John Q. Smith III, MD' }
+
+    it 'memoizes the tidied name' do
+      expect(name.tidy_name).to be(name.tidy_name)
+    end
+
+    it 'memoizes the nice name' do
+      expect(name.nice_name).to be(name.nice_name)
+    end
+
+    it 'memoizes the simple name' do
+      expect(name.simple_name).to be(name.simple_name)
+    end
+  end
+
+  describe 'names with no usable parts' do
+    it 'returns an empty simple name for an empty personal name' do
+      expect(described_class.new('', contact_type: :person).simple_name).to eq('')
+    end
+  end
+
   describe 'iteration' do
     it 'iterates through the significant words of a name' do
       words = []
