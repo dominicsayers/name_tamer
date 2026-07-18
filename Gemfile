@@ -5,9 +5,6 @@ gemspec
 
 group :development, :test do
   gem 'debug'
-  gem 'guard'
-  gem 'guard-rspec'
-  gem 'guard-rubocop'
   gem 'rubocop-performance'
   gem 'rubocop-rake'
   gem 'rubocop-rspec'
@@ -20,8 +17,6 @@ group :development do
 end
 
 group :test do
-  gem 'fuubar'
   gem 'rspec'
-  gem 'rspec_junit_formatter'
   gem 'simplecov', '~> 1.0'
 end
