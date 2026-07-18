@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 lib = File.expand_path('../lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
@@ -27,12 +29,13 @@ task :adfixes do
     end
   end
 
-  puts "'" + pp.join("', '") + "'"
-  puts "'" + po.join("', '") + "'"
-  puts "'" + sp.join("', '") + "'"
-  puts "'" + so.join("', '") + "'"
+  puts "'#{pp.join("', '")}'"
+  puts "'#{po.join("', '")}'"
+  puts "'#{sp.join("', '")}'"
+  puts "'#{so.join("', '")}'"
 end
 
+desc 'Check the known adfixes still parse'
 task :check_existing do
   [
     'Chartered F.C.S.I.',

@@ -8,11 +8,15 @@ group :development, :test do
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-rubocop'
+  gem 'rubocop-performance'
+  gem 'rubocop-rake'
   gem 'rubocop-rspec'
 end
 
 group :development do
   gem 'bundler'
+  gem 'csv' # used by doc/maintenance.rake; no longer a default gem in Ruby 3.4
+  gem 'rake'
 end
 
 group :test do
