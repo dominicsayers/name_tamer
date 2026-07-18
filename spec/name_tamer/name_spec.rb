@@ -83,15 +83,18 @@ describe NameTamer::Name do
     let(:name) { described_class.new 'Mr. John Q. Smith III, MD' }
 
     it 'memoizes the tidied name' do
-      expect(name.tidy_name).to be(name.tidy_name)
+      first_result = name.tidy_name
+      expect(name.tidy_name).to be(first_result)
     end
 
     it 'memoizes the nice name' do
-      expect(name.nice_name).to be(name.nice_name)
+      first_result = name.nice_name
+      expect(name.nice_name).to be(first_result)
     end
 
     it 'memoizes the simple name' do
-      expect(name.simple_name).to be(name.simple_name)
+      first_result = name.simple_name
+      expect(name.simple_name).to be(first_result)
     end
   end
 
