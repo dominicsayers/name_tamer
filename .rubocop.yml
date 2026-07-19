@@ -12,6 +12,7 @@ AllCops:
   Exclude:
     - bin/**/*
     - tmp/**/*
+    - vendor/**/*
 
 Layout/DotPosition:
   EnforcedStyle: leading
