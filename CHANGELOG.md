@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2026-07-20
+
+### Fixed
+
+- The mangled-Á entry in the bad-encoding table is written with an escape
+  sequence, so source scanners no longer flag the file as corrupted.
+
+### Changed
+
+- The `NameTamer::Strings` modules use `extend self` instead of
+  `module_function`; no public API change.
+  
 ## [1.0.0] - 2026-07-18
 
 ### Changed
