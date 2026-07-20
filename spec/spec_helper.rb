@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-unless ENV['NO_SIMPLECOV']
-  require 'simplecov'
+require 'simplecov'
 
+unless ENV['NO_SIMPLECOV']
   SimpleCov.start do
     enable_coverage :branch
     add_filter '/spec/'

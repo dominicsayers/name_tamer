@@ -2,7 +2,7 @@
 
 module NameTamer
   module Strings
-    module_function
+    extend self
 
     def upcase_first_letter(string)
       string.gsub(/\b\w/, &:upcase)
