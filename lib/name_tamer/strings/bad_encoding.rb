@@ -129,7 +129,7 @@ module NameTamer
       'Ã›' => 'Û',
       'Ã€' => 'À',
       'Ã™' => 'Ù',
-      'Ã�' => 'Á',
+      "Ã\uFFFD" => 'Á', # second byte of mangled Á decodes to U+FFFD REPLACEMENT CHARACTER
       'Å ' => 'Š',
       'Å¡' => 'š',
       'Å¸' => 'Ÿ',

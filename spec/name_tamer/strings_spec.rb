@@ -59,5 +59,9 @@ describe NameTamer::Strings do
     it 'repairs tell-tale double-encoded UTF-8 sequences' do
       expect(described_class.fix_encoding_errors('RenÃ© Descartes')).to eq('René Descartes')
     end
+
+    it 'repairs a mangled Á whose second byte was lost to the replacement character' do
+      expect(described_class.fix_encoding_errors("Ã\uFFFDlvarez")).to eq('Álvarez')
+    end
   end
 end
