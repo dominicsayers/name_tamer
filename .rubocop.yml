@@ -52,6 +52,9 @@ Naming/FileName:
 Style/Documentation:
   Enabled: false
 
+Style/ModuleFunction:
+  EnforcedStyle: extend_self
+
 Style/MutableConstant:
   Enabled: true
 

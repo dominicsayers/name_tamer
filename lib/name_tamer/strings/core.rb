@@ -4,7 +4,7 @@ module NameTamer
   # Pure string transformations used throughout the gem. Every method
   # takes a string and returns a new string; arguments are never mutated.
   module Strings
-    module_function
+    extend self
 
     def presence(string)
       string unless string.empty?

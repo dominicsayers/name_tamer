@@ -6,7 +6,7 @@
 # Useful table here http://www.i18nqa.com/debug/utf8-debug.html
 module NameTamer
   module Strings
-    module_function
+    extend self
 
     # Strings that were wrongly encoded with single-byte encodings sometimes
     # have tell-tale substrings that we can put back into the correct UTF-8

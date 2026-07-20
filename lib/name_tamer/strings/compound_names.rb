@@ -2,7 +2,7 @@
 
 module NameTamer
   module Strings
-    module_function
+    extend self
 
     # Fix known last names that have spaces (not hyphens!)
     def nbsp_in_compound_name(string)

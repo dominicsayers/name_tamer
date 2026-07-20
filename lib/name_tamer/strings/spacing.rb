@@ -2,7 +2,7 @@
 
 module NameTamer
   module Strings
-    module_function
+    extend self
 
     # Ensure commas have exactly one space after them
     def space_around_comma(string)

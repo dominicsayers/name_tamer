@@ -4,7 +4,7 @@
 # see https://github.com/svenfuchs/i18n/blob/master/lib/i18n/backend/transliterator.rb
 module NameTamer
   module Strings
-    module_function
+    extend self
 
     # Any characters that resemble latin characters might usefully be
     # transliterated into ones that are easy to type on an anglophone

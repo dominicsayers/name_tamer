@@ -2,7 +2,7 @@
 
 module NameTamer
   module Strings
-    module_function
+    extend self
 
     # Fixes for name modifiers followed by space
     # Also replaces spaces with non-breaking spaces
