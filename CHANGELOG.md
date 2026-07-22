@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2026-07-22
+
+### Added
+
+- Contributor documentation covering setup, testing, linting, adfix
+  maintenance, releases and changelog conventions.
+- SonarQube Cloud project binding for SonarLint connected mode.
+
+### Changed
+
+- The repository's maintenance tasks and prefix/suffix data files moved from
+  `doc/` to `docs/`.
+- SonarQube analysis now imports SimpleCov 1.0 coverage reports after they are
+  normalised to absolute paths.
+- GitHub Actions release, test and analysis workflows now use updated Ruby,
+  checkout, artifact upload, Ruby setup and SonarQube scan actions.
+- The release workflow uses Ruby 4.0.6, while the test matrix continues to
+  cover Ruby 3.3, 3.4 and 4.0.
+- Gem metadata and the lockfile now identify the released library as version
+  `1.0.1`.
+- Generated planning documents under `docs/plans` are excluded from version
+  control.
+
 ## [1.0.1] - 2026-07-20
 
 ### Fixed
