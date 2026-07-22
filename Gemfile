@@ -12,7 +12,7 @@ end
 
 group :development do
   gem 'bundler'
-  gem 'csv' # used by doc/maintenance.rake; no longer a default gem in Ruby 3.4
+  gem 'csv' # used by docs/maintenance.rake; no longer a default gem in Ruby 3.4
   gem 'rake'
 end
 
