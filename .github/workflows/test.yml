@@ -8,6 +8,25 @@ permissions:
   contents: read
 
 jobs:
+  changelog:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v6.0.2
+        with:
+          fetch-depth: 0
+      - name: Require a changelog update for library changes
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          if git diff --quiet "$BASE_SHA"...HEAD -- lib/; then
+            exit 0
+          fi
+          if git diff --quiet "$BASE_SHA"...HEAD -- CHANGELOG.md; then
+            echo "::error file=CHANGELOG.md::Pull requests changing lib/ must update the Unreleased section in CHANGELOG.md."
+            exit 1
+          fi
+
   rubocop:
     runs-on: ubuntu-latest
     steps:

@@ -59,10 +59,11 @@ Every pull request runs the CI workflow in
 suite on Ruby 3.3, 3.4 and 4.0, and a SonarQube analysis. CI must be green
 before a PR can be merged.
 
-If your change affects users, add an entry to the *Unreleased* section of
+Every change under `lib/` must add an entry to the *Unreleased* section of
 [CHANGELOG.md](CHANGELOG.md) (create the section if it doesn't exist). The
-changelog follows the [Keep a Changelog](https://keepachangelog.com/)
-format.
+pull-request checks enforce this rule. For changes outside `lib/`, add an entry
+when they affect users. The changelog follows the
+[Keep a Changelog](https://keepachangelog.com/) format.
 
 ## Adding prefixes and suffixes
 
