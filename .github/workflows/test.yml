@@ -50,6 +50,14 @@ jobs:
           ruby-version: '4.0.6'
           bundler-cache: true
       - run: bundle exec rspec
+      # Until SonarQube supports SimpleCov 1.0, we need to adapt the report to be compatible with SonarQube.
+      # A fix has been proposed in https://github.com/SonarSource/sonar-ruby/pull/160
+      - name: Adapt SimpleCov report for SonarQube
+        run: |
+          jq --arg root "$PWD" \
+            'del(."$schema") | .coverage |= with_entries(.key = ($root + "/" + .key))' \
+            coverage/coverage.json > coverage/coverage.tmp
+          mv coverage/coverage.tmp coverage/coverage.json
       - run: bundle exec rubocop --format json --out rubocop.json || true
       - uses: SonarSource/sonarqube-scan-action@22918119ff8e1ca75a623e15c8296b6ea4fbe28f # v8.2.1
         env:
