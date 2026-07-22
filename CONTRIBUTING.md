@@ -76,7 +76,7 @@ data files in `lib/name_tamer/constants/`, one entry per line:
 
 To add one, insert it into the appropriate file (keeping the file's
 ordering) and add a spec demonstrating that a name using it is parsed
-correctly. The `doc/` directory contains reference CSVs and maintenance
+correctly. The `docs/` directory contains reference CSVs and maintenance
 rake tasks (`rake adfixes`, `rake check_existing`) used to curate these
 lists.
 
